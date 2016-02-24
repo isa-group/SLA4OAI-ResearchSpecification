@@ -133,6 +133,29 @@ Current SLA for this user is calculated and responded.
 
 The calculation method is out of the scope for this spec and is let open for implementators.
 
+### Response Message Format
+The response message follows the structure:
+
+| Field Name | Type          | Description  |
+| :--------- | :------------:| :------------|
+| accept               | `boolean`| **Required** Indicates if the service is authorize for execution or denied.  |
+| serviceProperties    | `ServiceProperties Object` | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota or Rate limit info can be used to inform the client. |
+| serviceConfiguration | `Object` | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
+| requestedMetrics     | `Object` | **Optional** Provides extra information to measure specific (custom) metrics during the service execution. This extensibility point allow to add custom domain metrics to be gather after the service is executed. |
+
+### ServiceProperties Object
+| Field Name | Type          | Description  |
+| :--------- | :------------:| :------------|
+| quotaResource| `string`| **Optional** Name of the resource protected with quota.  |
+| quotaLimit   | `integer`| **Optional** Max of quota for the given resource.  |
+| quotaUsed    | `integer` | **Optional** Current used quota. |
+| rateLimitResource| `string`| **Optional** Name of the resource protected with a rate limit policy.  |
+| rateLimit        | `integer`| **Optional** Limit to rate-limit for the given resource.  |
+| rateLimitUsed    | `integer` | **Optional** Current used rate-limit. |
+| rateLimitTimePeriodSec | `integer` | **Optional** Period of time where the rate-limit is measured (in seconds). |
+| awaitBeforeRetrySec    | `integer` | **Optional** Await time in seconds to await before retrying after a rate limit violation. |
+
+
 ### Positive Response:
 If the access to the service is granted, a possitive response is sent.
 
@@ -164,6 +187,7 @@ Content-Type: application/json
 }
 ```
 
+
 ### Negative Response:
 If the access to the service is not granted, a negative response is sent with an optional information describing 
 the reason for the SLA violation.
@@ -175,10 +199,13 @@ Content-Type: application/json
 {
     "accept": false,
     "reason": "Quota limit exceed.",
-    "quotaLimit": 100,
-    "quotaUsed": 100,
-    "quotaTimePeriodSec": 60,
-    "awaitBeforeRetrySec": 451   //Operation not allowed in the following 451 secs
+    "serviceProperties": {
+        "quotaResource": "problem",
+        "quotaLimit": 100,
+        "quotaUsed": 100,
+        "quotaTimePeriodSec": 60,
+        "awaitBeforeRetrySec": 451   //Operation not allowed in the following 451 secs        
+    }
 }
 ```
  
