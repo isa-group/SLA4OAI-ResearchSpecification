@@ -41,7 +41,49 @@ implementation details open for implementors of this standard.
 
 Finally, some samples and a reference implementation is provided to help implementers to comply with **sla0**.
 
-## 3.1 Check SLA
+## 3. Conventions used
+
+### 3.1 Authentication
+The service could be authenticated using one of the following choices:
+
+1. HTTP Basic Authentication using a pair of `keyId:secretId` credentials shared by the service and the client 
+passed via the HTTP `Authorization` header. (MUST)
+
+    Sample:
+    ```
+    Authorization Basic Ym9zZ236Ym9zY28=
+    ```
+2. HTTP Bearer Authentication for OAuth 2.0 (COULD)
+
+    Sample:
+    ```
+    Authorization Bearer BOm9zZ236Ym9zY92emUhN7m9z3146Ym9zY59
+```
+
+3. Certificates or any other authentication supported by the implementations (COULD)
+4. No authentication at all (recommended only for dev or non-production environments). (COULD)
+
+### 3.2 Message Encoding
+JSON is used as the primary representation for messages (MUST). Therefore in the sample the following HTTP headers are required:
+
+```
+Content-Type: application/json
+Accept: application/json
+```
+### 3.3 Dates and Datetime representation
+Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standarize its encoding.
+
+- Sample date: `2016-05-01` represents the first of May of 2016. 
+- Sample datetime: `2016-04-30T23:59:59.999Z` representing one millisecond due for the 1st of May of 2016 on Zulu/UTC (Z) zone time.
+
+
+## 4. Service Endpoints
+**sla0** exposes two endpoints to be described here:
+
+- POST `/slaCheck` to check for current SLA state.
+- POST `/slaMetrics` to report runtime metrics to the datastore.
+
+## 4.1 Check SLA
 The Check SLA endpoint allows to verify the current state of the SLA for a given service and operation in context: 
 (for a given user, or role, organization, time of the date, etc.).
 
@@ -72,31 +114,6 @@ Authorization Basic Ym9zZ236Ym9zY28=
 
 The service exposes a **POST** operation over the route `/slaCheck`.
 
-### Authentication
-The service could be authenticated using one of the following choices:
-
-1. HTTP Basic Authentication using a pair of `keyId:secretId` credentials shared by the service and the client 
-passed via the HTTP `Authorization` header. (MUST)
-
-    Sample:
-    ```
-    Authorization Basic Ym9zZ236Ym9zY28=
-    ```
-2. HTTP Bearer Authentication for OAuth 2.0 (COULD)
-
-    Sample:
-    ```
-    Authorization Bearer BOm9zZ236Ym9zY92emUhN7m9z3146Ym9zY59
-```
-3. Certificates or any other authentication supported by the implementations (COULD)
-4. No authentication at all (recommended only for dev or non-production environments). (COULD)
-
-### Encoding
-JSON is used as the primary representation for messages (MUST). Therefore in the sample the following HTTP headers are required:
-```
-Content-Type: application/json
-Accept: application/json
-```
 
 ### Request Message
 The payload in the body of the request can contains the following fields:
@@ -126,12 +143,12 @@ The server can use any properties sent in the payload. It will require the ones 
 it will ignore any other not known (MUST).
 
  
-### Calculation:
+### Calculation
 Based on request host (caller) information, service will be identified. 
-Based on user-id provided, role, tenant, organization, and agremment current plan will be recovered. 
+Based on user-id provided, role, tenant, organization, and agreement current plan will be recovered. 
 Current SLA for this user is calculated and responded.
 
-The calculation method is out of the scope for this spec and is let open for implementators.
+The calculation method is out of the scope for this spec and is let open for implementors.
 
 ### Response Message Format
 The response message follows the structure:
@@ -157,7 +174,7 @@ The response message follows the structure:
 
 
 ### Positive Response:
-If the access to the service is granted, a possitive response is sent.
+If the access to the service is granted, a positive response is sent.
 
 Sample response:
 
@@ -188,7 +205,7 @@ Content-Type: application/json
 ```
 
 
-### Negative Response:
+### Negative Response
 If the access to the service is not granted, a negative response is sent with an optional information describing 
 the reason for the SLA violation.
 
@@ -230,7 +247,7 @@ Content-Type: application/json
 
 ```
 
-### Invalid credentials:
+### Invalid credentials
 If invalid credentials are provided, a 401 error will be raised.
 
 ``` 
@@ -245,10 +262,16 @@ Content-Type: application/json
 ```
 
 
-## 3.2 Metrics Report
+## 4.2 Metrics Service
+At any moment, or more often, after a service finish its execution, a service can collect a set of basic metrics 
+and send them to a data store for aggregation and later consumption.
 
-POST /slaMetrics	 
-Sends one or more measures to an SLA Metric Store Service. Measures can be buffered and send in blocks to fine-tune the production system for real-time metrics versus performance.
+The Metrics Service exposes an endpoint for gathering the metrics collected from different nodes.
+
+The API supports buffering. Therefore, metrics can be grouped in batches or sent one by one to fine-tune performance versus real-time SLA tracking.
+
+The service exposes a **POST** operation over the route `/slaMetrics`.
+
 
 Service Authentication: Authentication Basic: appId:apiKey pair
 
@@ -308,7 +331,7 @@ Content-Type: application/json
 
 
 
-## 4. References
+## 5. References
 
 1. JSON
 2. HTTP Basic Authentication
