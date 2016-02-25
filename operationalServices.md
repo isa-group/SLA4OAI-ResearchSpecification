@@ -263,8 +263,7 @@ Content-Type: application/json
 
 
 ## 4.2 Metrics Service
-At any moment, or more often, after a service finish its execution, a service can collect a set of basic metrics 
-and send them to a data store for aggregation and later consumption.
+At any moment, a service can collect a set of basic metrics and send them to a data store for aggregation and later consumption.
 
 The Metrics Service exposes an endpoint for gathering the metrics collected from different nodes.
 
@@ -272,54 +271,64 @@ The API supports buffering. Therefore, metrics can be grouped in batches or sent
 
 The service exposes a **POST** operation over the route `/slaMetrics`.
 
+### Sample Invocation:
+The following sample shows a metrics store request using the service. An array of batch measures identifying each 
+of the events, measures per event and source instance information provided.
 
-Service Authentication: Authentication Basic: appId:apiKey pair
-
-Sample request:  Array of batch measures identifying the events and measures per event and source instance information provided (only once).
-
+```
 POST /slaMetrics
 Authentication Basic 20325asW.uNh6yHjMU
 Content-Type: application/json
 
 {
-  "src" : {
-     "host" : "node1234",
-     "env" : "qa",
-     "cluster" : "cl1.acme.com"
-  },
-  "measures"
-scope: "/papamocas/qa/n1"
-metrics:[{
-    	"service": "/birds/get", 	
-//(Optional: Complete request)
-    	
-"t": "2016-01-12T12:57:37.345Z",
-    	"ellapsedMs": 350,
-    	"cpu": 20.5,
-    	"result": "200",
-    	"userId": "13456789aadfc"
-	}{
-    //Extra measures (batch blocks. Block-size tuneable for performance vs real time information)
-	}]
+    "source" : {
+        "host" : "node1234",
+        "env" : "qa",
+        "cluster" : "cl1.acme.com",
+        "scope" : "/papamocas/qa/n1"
+    },
+    "metrics" : [{
+        // measure 1
+        "service": "/birds/get", 	
+        "t": "2016-01-12T12:57:37.345Z",
+        "ellapsedMs": 350,
+        "result": "200",
+        "userId": "13456789aadfc",
+        //(Optional: Complete request)
+        "cpu": 20.5
+    }{
+        //measure 2
+        //...
+    }{
+        //Measure N
+        //Extra measures (batch blocks allowed. Block-size tuneable for performance vs real time information)
+    }]
 }
+```
 
-Response:
-Format:  application/json
-Positive response:
+### Accepted payload response
+
+
+```
 201 Created
+```
 
-Format:  application/json
-Negative response:
+
+### Invalid payload response
+
+```
 412 Created
 Content-Type: application/json
 
 {
-	error: 412,
-	reason: "Invalid message format."
-    	}
+    error: 412,
+    reason: "Invalid message format."
+}
+```
 
-Format:  application/json
-Negative response:
+### Unauthorized response
+
+```
 401 Unauthorized
 Content-Type: application/json
 
@@ -327,14 +336,13 @@ Content-Type: application/json
 	error: 401,
 	reason: "Unauthorized. Invalid/missing credentials."
 }
-
-
+```
 
 
 ## 5. References
 
-1. JSON
-2. HTTP Basic Authentication
-3. HTTP Bearer Authentication
-4. Datetime encoding [ISO 8601](http://www.iso.org/iso/catalogue_detail?csnumber=40874)
+1. [JSON](http://www.json.org)
+2. HTTP Basic Authentication. [RFC 2617](https://tools.ietf.org/html/rfc2617)
+3. HTTP Bearer Authentication. [RFC 6750](https://tools.ietf.org/html/rfc6750)
+4. Datetime encoding. [ISO 8601](http://www.iso.org/iso/catalogue_detail?csnumber=40874)
 
