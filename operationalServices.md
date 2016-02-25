@@ -1,10 +1,16 @@
 # sla0: Operational Services Proposal for SLA Checking and Metrics report
 
-### Version 0.1
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" 
 in this document are to be interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
 The **sla0** specification is licensed under [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+
+## Revision History
+
+|Version  | Date         | Notes            |
+|:--------|:-------------|:-----------------|
+| 0.1     | 2016-02-25   | Initial version. |
+
 
 ## 1. Introduction
 This proposal presents an open and standard proposal for simple SLA checking and metrics reporting.

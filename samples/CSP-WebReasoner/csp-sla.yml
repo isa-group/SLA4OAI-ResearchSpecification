@@ -1,0 +1,71 @@
+sla: 1.0
+infrastructure:
+    manager: http://manager.sla4oai.governify.io/v1/
+    checker: http://checker.sla4oai.governify.io/v1/
+    monitor: http://monitor.sla4oai.governify.io/v1/
+provider: 
+    name: ISAGroup
+pricing:
+    cost : 0
+    currency : euro
+    billing: monthly
+metrics:
+    problemSize:
+        type: int64
+        description: "Number of contraints"  
+    $ref: 'http://sla4oai.governify.io/metrics/commonMetrics.yml#metrics'
+availability: R/09:00:00Z/15:00:00Z
+plans:
+    free:
+        configuration:
+            reasoner: slowReasoner
+            maxOptimizationTime: 100	
+        limits:
+            /problems:
+                post:
+                    requests:
+                        - max: 5
+                        period: minutely
+                        - max: 100
+                        period: daily
+                    resourceInstances:
+                        - max: 200
+                    problemSize:
+                        - max: 100
+                get:
+                    requests:
+                        - max: 1
+                        period: secondly
+        guarantees:
+            - objective: "avgResponseTimeMS < 1000"
+                period: daily
+                window: dynamic
+
+    pro:
+        pricing:
+            cost : 100
+        availability: R/09:00:00Z/21:00:00Z
+        configuration:
+            reasoner: fastReasoner
+        limits:
+            /problems:
+                post:
+                    problemSize:
+                        - max: 100
+                            unit: constraints
+                            type: quota
+                            scope: account
+                    requests:
+                        - max: 200
+                            period: hourly
+                        - max: 20
+                            period: daily
+                            scope: account
+
+        guarantees:
+            -  objective: 'avgResponseTimeMs < 500'
+                period: daily
+                window: dynamic
+            -  objective: 'uptimePercentage > 95'
+                period: monthly
+                window: static
