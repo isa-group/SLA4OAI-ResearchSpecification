@@ -61,7 +61,7 @@ passed via the HTTP `Authorization` header. (MUST)
     Sample:
     ```
     Authorization Bearer BOm9zZ236Ym9zY92emUhN7m9z3146Ym9zY59
-```
+    ```
 
 3. Certificates or any other authentication supported by the implementations (COULD)
 4. No authentication at all (recommended only for dev or non-production environments). (COULD)
@@ -99,6 +99,9 @@ In the essence, the service will respond true or false to notify the provider if
 
 ### Sample Invocation:
 
+We could invoke this API using **POST** or **GET**:
+
+### **POST** Sample Invocation
 ```
 POST /slaCheck
 Content-Type: application/json
@@ -116,11 +119,22 @@ Authorization Basic Ym9zZ236Ym9zY28=
 }
 ```
 
-The service exposes a **POST** operation over the route `/slaCheck`.
+### **GET** Sample Invocation
+```
+GET /slaCheck
+    ?aggreement=papamoscas/v1
+    &scope=serviceSla908923
+    &userId=u7862neui3
+    &operation=/bird/get
+    &ts=2016-01-12T12:57:37.345Z
+    &organizationId=acme.com
+    &env=production
+
+```
 
 
 ### Request Message
-The payload in the body of the request can contains the following fields:
+The payload in the body (for POST) or query parameters (for GET) can contains the following fields:
 
 #### Compulsory fields:
 
