@@ -1,8 +1,9 @@
-sla: 1.0
+sla: '1.0'
+api: ./cps-service.yml
 infrastructure:
     manager: http://manager.sla4oai.governify.io/v1/
     checker: http://checker.sla4oai.governify.io/v1/
-    monitor: http://monitor.sla4oai.governify.io/v1/
+    store: http://monitor.sla4oai.governify.io/v1/
 provider: 
     name: ISAGroup
 pricing:

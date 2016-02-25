@@ -1,9 +1,9 @@
-
 swagger: '2.0'
 info:
     title: CSPWeb Reasoner
     description: Solver for CSP Problems
     version: "1.0.0"
+    x-sla: ./csp-sla.yml
 host: CSPWebReasoner.service.governify.io
 schemes:
     - https
