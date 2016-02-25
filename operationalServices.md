@@ -4,7 +4,7 @@
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" 
 in this document are to be interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
-The **SLA4OAI** specification is licensed under [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+The **sla0** specification is licensed under [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 ## 1. Introduction
 This proposal presents an open and standard proposal for simple SLA checking and metrics reporting.
@@ -20,7 +20,10 @@ In this way, using this proposed operational standard called **sla0**:
 SLAs in different technologies.
 2. different clients of the API, microservices (or any service instrumented by an SLA) can be tracked from a 
 third-party service in an standard way if compliant with **sla0**.
-   
+ 
+This **sla0** API is introduced to provide an operational model for SLA checking and metrics reporting for 
+[SLA4API](SLA4OAI-spec.md) specification.
+  
 ## 2. Context
 ![Figure 1](sla0.svg "Figure 1. Architecture")
 
@@ -341,8 +344,10 @@ Content-Type: application/json
 
 ## 5. References
 
-1. [JSON](http://www.json.org)
-2. HTTP Basic Authentication. [RFC 2617](https://tools.ietf.org/html/rfc2617)
-3. HTTP Bearer Authentication. [RFC 6750](https://tools.ietf.org/html/rfc6750)
-4. Datetime encoding. [ISO 8601](http://www.iso.org/iso/catalogue_detail?csnumber=40874)
-
+1. Key words for use in RFCs to Indicate Requirement Levels. [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
+2. [JSON](http://www.json.org)
+3. HTTP Basic Authentication. [RFC 2617](https://tools.ietf.org/html/rfc2617)
+4. HTTP Bearer Authentication. [RFC 6750](https://tools.ietf.org/html/rfc6750)
+5. Datetime encoding. [ISO 8601](http://www.iso.org/iso/catalogue_detail?csnumber=40874)
+6. HTTP Status Codes [RFC 7231](http://tools.ietf.org/html/rfc7231#section-6)
+7. [IANA HTTP Status Code Registry](http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml)
