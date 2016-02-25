@@ -183,6 +183,8 @@ The response message follows the structure:
 | serviceProperties    | `ServiceProperties Object` | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota or Rate limit info can be used to inform the client. |
 | serviceConfiguration | `Object` | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
 | requestedMetrics     | `Object` | **Optional** Provides extra information to measure specific (custom) metrics during the service execution. This extensibility point allow to add custom domain metrics to be gather after the service is executed. |
+| error                | `integer`| **Optional** An error type code number if error. |
+| reason               | `string` | **Optional** A description for the error in case of error.  |
 
 ### ServiceProperties Object
 | Field Name | Type          | Description  |
@@ -306,29 +308,76 @@ Content-Type: application/json
         "host" : "node1234",
         "env" : "qa",
         "cluster" : "cl1.acme.com",
-        "scope" : "/papamocas/qa/n1"
     },
     "metrics" : [{
         // measure 1
-        "service": "/birds/get", 	
+        "operation": "/birds/get", 	
         "t": "2016-01-12T12:57:37.345Z",
         "ellapsedMs": 350,
         "result": "200",
         "userId": "13456789aadfc",
-        //(Optional: Complete request)
-        "cpu": 20.5
+        "scope" : "/papamocas/qa/n1",
+        //(Optional: Complete request, headers, etc.)
+        "x-cpu": 20.5,
+        "x-memory-used-mb": 16.7,
+        "x-correlation-id": "abc5bZr-459832mdwq8chn0mtgn9012"
     }{
         //measure 2
         //...
     }{
         //Measure N
-        //Extra measures (batch blocks allowed. Block-size tuneable for performance vs real time information)
+        //Extra measures (batch blocks allowed. Block-size tuneable for performance vs real-time information)
     }]
 }
 ```
 
-### Accepted payload response
+### Request Message Format
+The payload in the body accepts the following fields:
 
+#### Compulsory fields:
+
+| Field Name | Type          | Description  |
+| :--------- | :------------:| :------------|
+| sender     | `SenderObject`   | **Required** An object describing the source of the metrics.  |
+| metrics    | `[MetricsObject]` | **Required** Array of metrics. At least, it must contain one item. |
+
+#### SenderObject definition:
+Sender describes the information related to the source of events and metrics. It is described only once in the payload to avoid 
+unnecessary repetition.
+
+| Field Name | Type          | Description  |
+| :--------- | :------------:| :------------|
+| host       | `string`      | **Required** The name of the physical node reporting the data. |
+| env        | `string`      | **Optional** The environment label for this deployment.  |
+| cluster    | `string`      | **Optional** Cluster name to aggregate services.  |
+
+
+#### MetricsObject definition:
+Each metrics structure collects a set of metrics for a service in a given point of time.
+
+| Field Name | Type          | Description  |
+| :--------- | :------------:| :------------|
+| operation  | `string`      | **Required** The name of the logical operation the metrics reported belong to. |
+| t          | `datetime`    | **Required** Timestamp in ISO 8601 format when the event occur.  |
+| ellapsedMS | `integer`     | **Optional** Ellapsed time the operation took to complete (measured in milliseconds).  |
+| result     | `string`      | **Optional** Exit code of the result of the operation.  |
+| userId     | `string`      | **Optional** User identifier for the operation (not provided if the event was not as a response for a user request).  |
+| scope      | `string`      | **Optional** Scope: used to aggregate SLA metrics on logical containers.  |
+
+**Extension metrics:**
+Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is 
+to use the prefix `x-` to avoid collisions with future versions of this standard.
+
+
+#### Response format:
+Response proposed is very concise to indicate acceptation of the payoad. It only provide information in case of error. 
+
+| Field Name | Type          | Description  |
+| :--------- | :------------:| :------------|
+| error      | `integer`     | **Optional** An error type code number. |
+| reason     | `string`      | **Optional** A description for the error.  |
+
+### Accepted payload response
 
 ```
 201 Created
