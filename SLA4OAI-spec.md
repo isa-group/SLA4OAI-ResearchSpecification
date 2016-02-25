@@ -77,7 +77,7 @@ Describes the general information of the pricing of the API.
 | :------------- | :------------:| :------------|
 | cost           | `number`      | **Required** Cost associated to this service. |
 | currency       | `string`      | **Required** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. |
-| billingCicle   | `string`      | **Required** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end of the quarter. -  `yearly` Billing at end of the year. |
+| billingCycle   | `string`      | **Required** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end of the quarter. -  `yearly` Billing at end of the year. |
 ----------------------
 
 ### MetricsObject

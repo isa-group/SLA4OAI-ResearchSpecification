@@ -9,7 +9,7 @@ provider:
 pricing:
     cost : 0
     currency : euro
-    billing: monthly
+    billingCycle: monthly
 metrics:
     problemSize:
         type: int64
