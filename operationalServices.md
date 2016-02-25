@@ -83,8 +83,9 @@ Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standari
 ## 4. Service Endpoints
 **sla0** exposes two endpoints to be described here:
 
-- POST `/slaCheck` to check for current SLA state.
-- POST `/slaMetrics` to report runtime metrics to the datastore.
+- POST `/slaCheck` to check for current SLA state. (MUST)
+- GET `/slaCheck` to check for current SLA state. (COULD)
+- POST `/slaMetrics` to report runtime metrics to the datastore. (MUST)
 
 ## 4.1 Check SLA
 The Check SLA endpoint allows to verify the current state of the SLA for a given service and operation in context: 
@@ -189,8 +190,7 @@ Content-Type: application/json
     "accept": true,
     "serviceProperties": {
         "quotaLimit": 100,
-        "quotaUsed": 80,
-        "quotaTimePeriodSec": 60,  //60 secs
+        "quotaUsed": 80
     },
     "serviceConfiguration": {
         "codingAlgorithm" : "FAST",
@@ -202,7 +202,7 @@ Content-Type: application/json
         "responseSize":0, //0 -> avoid it
         "responseTime":1 // domain-independent (pre-implemented)
         "optimizacionTime":1, 
-        "ProblemSize":1, //domain-specific (plugin necessary)
+        "problemSize":1, //domain-specific (plugin necessary)
     }
 }
 ```
@@ -222,9 +222,7 @@ Content-Type: application/json
     "serviceProperties": {
         "quotaResource": "problem",
         "quotaLimit": 100,
-        "quotaUsed": 100,
-        "quotaTimePeriodSec": 60,
-        "awaitBeforeRetrySec": 451   //Operation not allowed in the following 451 secs        
+        "quotaUsed": 100
     }
 }
 ```
@@ -232,8 +230,8 @@ Content-Type: application/json
 Based on the response ``accept`` field value the service will then allow the service execution or 
 will deny it using a standard `403 Forbidden` HTTP Error.
 
-If denegation reason is quota enforcement, then the recommendation is to use `429 Too Many Requests` HTTP Error plus 
-adding Quota information and reason as metadata into the client response to notify clients the denegation
+If denegation reason is rate limit enforcement, then the recommendation is to use `429 Too Many Requests` HTTP Error plus 
+adding rate limit information and reason as metadata into the client response to notify clients the denegation
 of service.
 
 ### Invalid Messages:
@@ -284,7 +282,7 @@ Authentication Basic 20325asW.uNh6yHjMU
 Content-Type: application/json
 
 {
-    "source" : {
+    "sender" : {
         "host" : "node1234",
         "env" : "qa",
         "cluster" : "cl1.acme.com",
