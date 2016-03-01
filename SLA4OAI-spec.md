@@ -80,7 +80,7 @@ The SLA document must conform to the following constraints.
 | plans          | `PlansObject`          | **Required** A set of plans to define different SLA per plan. |
 ----------------------
 
-### InfrastructureObject
+#### 3.2.1 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
 
 | Field Name     | Type          | Description  |
@@ -90,45 +90,67 @@ The infrastructure object describes the operational tooling to use in the servic
 | store          | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
 ----------------------
 
-### ProviderObject
+#### 3.2.2 ProviderObject
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
 | name           | `string`      | **Required** Name of the provider of the service. |
 ----------------------
 
-### PricingObject
+#### 3.2.3 PricingObject
 Describes the general information of the pricing of the API.
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
-| cost           | `number`      | **Required** Cost associated to this service. |
-| currency       | `string`      | **Required** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. |
-| billingCycle   | `string`      | **Required** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. |
+| cost           | `number`      | **Optional** Cost associated to this service. Defaults to `0` if unspecified. |
+| currency       | `string`      | **Optional** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. Defaults to `USD` if unspecified. |
+| billingCycle   | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
 ----------------------
 
-### MetricsObject
+#### 3.2.4 MetricsObject
 Contains definitions of metrics with name, types and descriptions.
 
 References can be used to reuse definitions of pre-existing metrics.
 
 *TBD*
 
-### PlansObject
+#### 3.2.5 PlansObject
 Contains a list of plans describing different Level of Service and prices.
+
+| Field Pattern  | Type          | Description  |
+| :------------- | :------------:| :------------|
+| {planName}     | `PlanObject`  | Describes a usage plan for the API with its associate costs, availability and warranties. |
+----------------------
+
+#### 3.2.6 PlanObject
+Describes a plan in full.
+
+| Field Name     | Type            | Description  |
+| :------------- | :--------------:| :------------|
+| configuration  | `Object`        | **Optional** Configuration parameters for the service tailored for the plan. |
+| availability   | `string`        | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
+| pricing        | `PricingObject` | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
+| limits         | `LimitsObject`  | **Optional** Defines the limits for the service on the current plan. |
+| guarantees     | `[GuaranteeObject]` | **Optional** Array of warranties in the current plan. |
+----------------------
+
+#### 3.2.7 LimitsObject
+*TBD*
+
+#### 3.2.8 GuaranteeObject
 
 *TBD*
 
 ## 4. Expressions 
 *TBD* Supported expressions and BNF
-## 4.1  Supported expression
+### 4.1  Supported expressions
 *TBD* Describe: Operators, data-types supported and predefined identifiers (and semantics)
-## 4.2  Expression BNF
+### 4.2  Expression BNF
 Grammar for expressions.
 
 -----------------
 *TODO*
 
-## x. References
+## 5. References
 
 1. Key words for use in RFCs to Indicate Requirement Levels. [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 2. [JSON](http://www.json.org)
