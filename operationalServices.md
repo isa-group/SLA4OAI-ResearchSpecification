@@ -31,7 +31,7 @@ This **sla0** API is introduced to provide an operational model for SLA checking
 [SLA4API](SLA4OAI-spec.md) specification.
   
 ## 2. Context
-![Figure 1](sla0.svg "Figure 1. Architecture")
+![Figure 1](images/sla0.svg "Figure 1. Architecture")
 
 Figure 1. illustrates the proposed architecture to instrument a service using **sla0** approach.
 
