@@ -20,6 +20,17 @@ an optional profile for the definition of SLA (Service Level Agreements) on the 
 This SLA definition in a neutral vendor flavour will allow to foster innovation in the area where APIs expose and documents its SLA, 
 API Management tools can import and measure such key metrics and composed SLAs for composed services aggregated way in a standard way.
 
+### 1.1 Contents
+
+A. This specification describes the format for defining SLAs ove APIs in a neutral technology way.
+
+B. The **sla0** [spec](./operationalServices.md) provides a runtime standard API for measure and SLA enforcement defined in (A). 
+
+C. Reference implementations are provided to show (A) and (B) in a real examples:
+   1. Server side implementations: [sla-service-mock](https://sla-service-mock.herokuapp.com/), governify/v6
+   2. Client side implementations: plugins for generated [Hivepod](https://www.hivepod.io) backends. 
+
+
 ## 2. Samples
 
 ### 2.1 CSP WebReasoner
@@ -40,7 +51,22 @@ A **SLA4API** document is build as an extension to a given OpenAPI document. Thi
 part of the services exposed in the API.
 A full SLA definition is a JSON or a YAML document composed of the following structure.
 
-### SLA Document Format
+### 3.1 Reference from an OpenAPI document
+To declare a given API exposes an SLA, the OpenAPI description is extended with an optional attribute 
+`x-sla` inside the `info` object. The value contains an URI pointing tho the document describing the SLA. 
+
+**Example:**
+```
+swagger: '2.0'
+info:
+    title: CSPWeb Reasoner
+    description: Solver for CSP Problems
+    version: "1.0.0"
+    x-sla: ./csp-sla.yml
+```
+
+### 3.2 SLA Document Format
+The SLA document must conform to the following constraints. 
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
@@ -77,13 +103,13 @@ Describes the general information of the pricing of the API.
 | :------------- | :------------:| :------------|
 | cost           | `number`      | **Required** Cost associated to this service. |
 | currency       | `string`      | **Required** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. |
-| billingCycle   | `string`      | **Required** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end of the quarter. -  `yearly` Billing at end of the year. |
+| billingCycle   | `string`      | **Required** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. |
 ----------------------
 
 ### MetricsObject
 Contains definitions of metrics with name, types and descriptions.
 
-References can be used to reuse definitions of preexisting metrics.
+References can be used to reuse definitions of pre-existing metrics.
 
 *TBD*
 
@@ -91,6 +117,13 @@ References can be used to reuse definitions of preexisting metrics.
 Contains a list of plans describing different Level of Service and prices.
 
 *TBD*
+
+## 4. Expressions 
+*TBD* Supported expressions and BNF
+## 4.1  Supported expression
+*TBD* Describe: Operators, data-types supported and predefined identifiers (and semantics)
+## 4.2  Expression BNF
+Grammar for expressions.
 
 -----------------
 *TODO*
