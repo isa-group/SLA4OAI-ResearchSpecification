@@ -62,6 +62,7 @@ passed via the HTTP `Authorization` header. (MUST)
     ```
     Authorization Basic Ym9zZ236Ym9zY28=
     ```
+
 2. HTTP Bearer Authentication for OAuth 2.0 (COULD)
 
     Sample:
