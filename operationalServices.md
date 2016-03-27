@@ -91,7 +91,6 @@ Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standari
 **sla0** exposes two endpoints to be described here:
 
 - POST `/slaCheck` to check for current SLA state. (MUST)
-- GET `/slaCheck` to check for current SLA state. (COULD)
 - POST `/slaMetrics` to report runtime metrics to the datastore. (MUST)
 
 ## 4.1 Check SLA
@@ -105,10 +104,6 @@ In the essence, the service will respond true or false to notify the provider if
 
 
 ### Sample Invocation:
-
-We could invoke this API using **POST** or **GET**:
-
-### **POST** Sample Invocation
 ```
 POST /slaCheck
 Content-Type: application/json
@@ -126,22 +121,8 @@ Authorization Basic Ym9zZ236Ym9zY28=
 }
 ```
 
-### **GET** Sample Invocation
-```
-GET /slaCheck
-    ?aggreement=papamoscas/v1
-    &scope=serviceSla908923
-    &userId=u7862neui3
-    &operation=/bird/get
-    &ts=2016-01-12T12:57:37.345Z
-    &organizationId=acme.com
-    &env=production
-
-```
-
-
 ### Request Message
-The payload in the body (for POST) or query parameters (for GET) can contains the following fields:
+The payload in the body can contains the following fields:
 
 #### Compulsory fields:
 
