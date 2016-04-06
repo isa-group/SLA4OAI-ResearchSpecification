@@ -32,8 +32,7 @@ paths:
                 default:
                     description: Error
                     schema:
-                       $ref: '#/definitions/errorModel'
-                       
+                       $ref: '#/definitions/errorModel'                      
     /problems/{id}:
         get:
             description: Get a problem optimization result

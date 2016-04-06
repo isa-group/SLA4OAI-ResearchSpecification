@@ -1,0 +1,13 @@
+requests: 
+  type: "int64"
+  description: "Number of requests"
+resourceInstances:
+  type: "int64"
+  description: "Number of resources stored"
+avgResponseTimeMs:
+  type: "double"
+  unit: "ms"
+  description: "Average response time in miliseconds"
+uptimePercentage:
+  type: "double"
+  description: "Uptime percentage over a period of time"
