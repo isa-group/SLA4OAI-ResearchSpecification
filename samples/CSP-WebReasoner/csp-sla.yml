@@ -1,75 +1,79 @@
-sla: '1.0'
-infrastructure:
+infrastructure: 
   supervisor: "http://supervisor.sla4oai.governify.io/v1/"
   monitor: "http://monitor.sla4oai.governify.io/v1/"
   registry: "http://registry.sla4oai.governify.io/v1/"
-  #designer: ...
-  #dashboard: ...
-  #portal: ...
-  #...
 provider: "ISAGroup"
-pricing:
-  cost : 0
-  currency : "euro"
+pricing: 
+  cost: 0
+  currency: "euro"
   billing: "monthly"
-metrics:
-  problemSize:
+metrics: 
+  problemSize: 
     type: "int64"
     description: "Number of constraints"
-  $ref: "./metrics.yml"  
+  $ref: "./metrics.yml"
 availability: "R/09:00:00Z/15:00:00Z"
-plans:
-  free:
-    configuration:
+plans: 
+  free: 
+    configuration: 
       reasoner: "slowReasoner"
       maxOptimizationTime: 100
-    quotas:
+    quotas: 
+      /problems: 
+        post: 
+          requests: 
+            - max: 5
+              period: "minutely"
+            - max: 100
+              period: "daily"
+          resourceInstances: 
+            - max: 200
+          problemSize: 
+            - max: 100
+        get: 
+          requests: 
+            - max: 20
+              period: "hourly"
+    rates:
       /problems:
         post:
-          requests:
-            - max: 5
-              period: minutely
-              scope: tenant
-            - max: 100
-              period: daily
-          resourceInstances:
-            - max: 200
-          problemSize:
-            - max: 100
-        get:
           requests:
             - max: 1
-              period: secondly
-    guarantees:
-      /problems:
-        post:
-          - objective: avgResponseTimeMs < 1000
-            period: daily
+              period: "secondly"		  
+    guarantees: 
+      /problems: 
+        post: 
+          - objective: "avgResponseTimeMs < 1000"
+            period: "daily"
             window: "dynamic"
-  pro:
-    pricing:
-      cost : 100      
-    configuration:
-      reasoner: "fastReasoner"
-    availability: "R/09:00:00Z/21:00:00Z"
-    quotas:
-      /problems:
-        post:
-          problemSize:
+  pro: 
+    pricing: 
+      cost: 100
+      configuration: 
+        reasoner: "fastReasoner"
+      availability: "R/09:00:00Z/21:00:00Z"
+    quotas: 
+      /problems: 
+        post: 
+          problemSize: 
             - max: 100
               scope: "account"
-          requests:
+          requests: 
             - max: 20
-              period: hourly
+              period: "hourly"
             - max: 20
-              period: daily
-    guarantees:
-      /problems:
-        post:
-          - objective: avgResponseTimeMs < 500
-            period: daily
+              period: "daily"
+    guarantees: 
+      /problems: 
+        post: 
+          - objective: "avgResponseTimeMs < 500"
+            period: "daily"
             window: "dynamic"
-          - objective: uptimePercentage > 95
-            qualifyCondition: plan == 'pro'
-            period: monthly
-            window: "static"
+      global: 
+        - objective: "uptimePercentage > 95"
+          period: "monthly"
+          window: "static"
+  guarantees:
+    - objective: "uptimePercentage > 90"
+      period: "monthly"
+      window: "static"
