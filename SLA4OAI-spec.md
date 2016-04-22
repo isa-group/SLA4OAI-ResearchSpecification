@@ -153,6 +153,14 @@ infrastructure:
 | name           | `string`      | **Required** Name of the provider of the service. |
 ----------------------
 
+**Example:**
+
+```
+provider: "ISAGroup"
+ 
+```
+
+
 #### 4.2.3 PricingObject
 Describes the general information of the pricing of the API.
 
@@ -160,8 +168,23 @@ Describes the general information of the pricing of the API.
 | :------------- | :------------:| :------------|
 | cost           | `number`      | **Optional** Cost associated to this service. Defaults to `0` if unspecified. |
 | currency       | `string`      | **Optional** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. Defaults to `USD` if unspecified. |
-| billingCycle   | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
+| billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
 ----------------------
+
+**Example:**
+
+```
+pricing: 
+  cost: 0
+  currency: "euro"
+  billing: "monthly"
+  
+pricing: 
+  cost: 0
+  currency: "euro"
+
+```
+
 
 #### 4.2.4 MetricsObject
 Contains definitions of metrics with name, types and descriptions.
