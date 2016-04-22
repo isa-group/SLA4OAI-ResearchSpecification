@@ -186,13 +186,13 @@ Describes a plan in full.
 
 *TBD*
 
-Describes a guarantee in full.
+Describes a warranty level supported by the plan.
 
 | Field Name     | Type            | Description  |
 | :------------- | :--------------:| :------------|
-| objective      | `Object`        | **Optional** Configuration parameters for the service tailored for the plan. |
-| period         | `string`        | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| window         | `string`        | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
+| objective      | `Expression`    |  **Optional**            |
+| period         | `string`        |  **Optional** Period used for checking warrinty. Supported values are: `daily`, `weekly`, `monthly`,`yearly`. Default to `monthly` if unspecified. |
+| window         | `string`        |  **Optional**            |
 ----------------------
 
 **Example:**
