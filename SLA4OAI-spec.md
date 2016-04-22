@@ -186,6 +186,28 @@ Describes a plan in full.
 
 *TBD*
 
+Describes a guarantee in full.
+
+| Field Name     | Type            | Description  |
+| :------------- | :--------------:| :------------|
+| objective      | `Object`        | **Optional** Configuration parameters for the service tailored for the plan. |
+| period         | `string`        | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
+| window         | `string`        | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
+----------------------
+
+**Example:**
+```
+ guarantees: 
+      /problems: 
+        post: 
+          - objective: "avgResponseTimeMs < 500"
+            period: "daily"
+            window: "dynamic"
+      global: 
+        - objective: "uptimePercentage > 95"
+          period: "monthly"
+          window: "static"
+```
 ## 5. Expressions 
 *TBD* Supported expressions and BNF
 ### 5.1  Supported expressions
