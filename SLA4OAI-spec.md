@@ -136,6 +136,17 @@ The infrastructure object describes the operational tooling to use in the servic
 | store          | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
 ----------------------
 
+**Example:**
+
+```
+infrastructure: 
+  supervisor: "http://supervisor.sla4oai.governify.io/v1/"
+  monitor: "http://monitor.sla4oai.governify.io/v1/"
+  registry: "http://registry.sla4oai.governify.io/v1/"
+  
+```
+
+
 #### 4.2.2 ProviderObject
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
