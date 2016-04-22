@@ -1,0 +1,52 @@
+sla: 1.0
+infrastructure: 
+  supervisor: http://supervisor.sla4oai.governify.io/v1/
+  monitor: http://monitor.sla4oai.governify.io/v1/
+  registry: http://registry.sla4oai.governify.io/v1/
+provider: ISAGroup
+pricing: 
+  cost: 100
+  currency: euro
+  billing: monthly
+  plan: pro
+metrics: 
+  problemSize: 
+    type: int64
+    description: Number of constraints
+  $ref: ./metrics.yml
+availability: R/09:00:00Z/21:00:00Z
+configuration: 
+  reasoner: fastReasoner
+  maxOptimizationTime: 100
+quotas:
+  /problems:
+    get: 
+      requests: 
+        - max: 200
+          period: hourly
+  /problems: 
+    post: 
+      problemSize: 
+        - max: 100
+          scope: account
+      requests: 
+        - max: 20
+          period: hourly
+        - max: 20
+          period: daily
+rates:
+  /problems:
+    post: 
+      requests:
+       - max: 2
+         period: secondly
+guarantees:
+  /problems: 
+    post: 
+      - objective: avgResponseTimeMs < 500
+        period: daily
+        window: dynamic
+  global: 
+    - objective: uptimePercentage > 95
+      period: monthly
+      window: static

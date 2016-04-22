@@ -67,9 +67,9 @@ plans:
   pro: 
     pricing: 
       cost: 100
-      configuration: 
-        reasoner: "fastReasoner"
-      availability: "R/09:00:00Z/21:00:00Z"
+    configuration: 
+      reasoner: "fastReasoner"
+    availability: "R/09:00:00Z/21:00:00Z"
     quotas: 
       /problems: 
         post: 
