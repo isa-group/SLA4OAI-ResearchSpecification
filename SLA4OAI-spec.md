@@ -143,9 +143,7 @@ infrastructure:
   supervisor: "http://supervisor.sla4oai.governify.io/v1/"
   monitor: "http://monitor.sla4oai.governify.io/v1/"
   registry: "http://registry.sla4oai.governify.io/v1/"
-  
 ```
-
 
 #### 4.2.2 ProviderObject
 | Field Name     | Type          | Description  |
@@ -157,9 +155,7 @@ infrastructure:
 
 ```
 provider: "ISAGroup"
- 
 ```
-
 
 #### 4.2.3 PricingObject
 Describes the general information of the pricing of the API.
@@ -182,9 +178,7 @@ pricing:
 pricing: 
   cost: 0
   currency: "euro"
-
 ```
-
 
 #### 4.2.4 MetricsObject
 Contains definitions of metrics with name, types and descriptions.
