@@ -136,11 +136,26 @@ The infrastructure object describes the operational tooling to use in the servic
 | store          | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
 ----------------------
 
+**Example:**
+
+```
+infrastructure: 
+  supervisor: "http://supervisor.sla4oai.governify.io/v1/"
+  monitor: "http://monitor.sla4oai.governify.io/v1/"
+  registry: "http://registry.sla4oai.governify.io/v1/"
+```
+
 #### 4.2.2 ProviderObject
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
 | name           | `string`      | **Required** Name of the provider of the service. |
 ----------------------
+
+**Example:**
+
+```
+provider: "ISAGroup"
+```
 
 #### 4.2.3 PricingObject
 Describes the general information of the pricing of the API.
@@ -149,8 +164,21 @@ Describes the general information of the pricing of the API.
 | :------------- | :------------:| :------------|
 | cost           | `number`      | **Optional** Cost associated to this service. Defaults to `0` if unspecified. |
 | currency       | `string`      | **Optional** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. Defaults to `USD` if unspecified. |
-| billingCycle   | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
+| billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
 ----------------------
+
+**Example:**
+
+```
+pricing: 
+  cost: 0
+  currency: "euro"
+  billing: "monthly"
+  
+pricing: 
+  cost: 0
+  currency: "euro"
+```
 
 #### 4.2.4 MetricsObject
 Contains definitions of metrics with name, types and descriptions.
@@ -186,6 +214,28 @@ Describes a plan in full.
 
 *TBD*
 
+Describes a warranty level supported by the plan.
+
+| Field Name     | Type            | Description  |
+| :------------- | :--------------:| :------------|
+| objective      | `Expression`    |  **Optional**            |
+| period         | `string`        |  **Optional** Period used for checking warrinty. Supported values are: `daily`, `weekly`, `monthly`,`yearly`. Default to `monthly` if unspecified. |
+| window         | `string`        |  **Optional**            |
+----------------------
+
+**Example:**
+```
+ guarantees: 
+      /problems: 
+        post: 
+          - objective: "avgResponseTimeMs < 500"
+            period: "daily"
+            window: "dynamic"
+      global: 
+        - objective: "uptimePercentage > 95"
+          period: "monthly"
+          window: "static"
+```
 ## 5. Expressions 
 *TBD* Supported expressions and BNF
 ### 5.1  Supported expressions
