@@ -27,7 +27,8 @@ A. This specification describes the format for defining SLAs ove APIs in a neutr
 B. The **sla0** [spec](./operationalServices.md) provides a runtime standard API for measure and SLA enforcement defined in (A). 
 
 C. Reference implementations are provided to show (A) and (B) in a real examples:
-   1. Server side implementations: [sla-service-mock](https://sla-service-mock.herokuapp.com/), governify/v6
+
+   1. Server side implementations: [sla-service-mock](https://sla-service-mock.herokuapp.com/), governify/v6   
    2. Client side implementations: plugins for generated [Hivepod](https://www.hivepod.io) backends. 
 
 ## 2. Execution Model
@@ -99,7 +100,7 @@ A full SLA definition is a JSON or a YAML document composed of the following str
 
 ### 4.1 Reference from an OpenAPI document
 To declare a given API exposes an SLA, the OpenAPI description is extended with an optional attribute 
-`x-sla` inside the `info` object. The value contains an URI pointing tho the document describing the SLA. 
+`x-sla` inside the `info` object. The value contains an URI pointing to the document describing the SLA. 
 
 **Example:**
 ```
@@ -111,7 +112,7 @@ info:
     x-sla: ./csp-sla.yml
 ```
 
-### 4.2 SLA Document Format
+### 4.2 SLA Document Schema
 The SLA document must conform to the following constraints. 
 
 | Field Name     | Type          | Description  |
