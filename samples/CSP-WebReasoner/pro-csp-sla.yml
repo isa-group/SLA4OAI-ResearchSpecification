@@ -4,6 +4,7 @@ infrastructure:
   monitor: http://monitor.sla4oai.governify.io/v1/
   registry: http://registry.sla4oai.governify.io/v1/
 provider: ISAGroup
+consumer: user2
 pricing: 
   cost: 100
   currency: euro
