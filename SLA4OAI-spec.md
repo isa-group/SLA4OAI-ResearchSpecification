@@ -134,9 +134,9 @@ The infrastructure object describes the operational tooling to use in the servic
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
-| manager        | `uri`         | **Optional** Location of the SLA manager used for SLA governance. |
-| checker        | `uri`         | **Required** Location of the SLA Check service accordingly to the [sla0](./operationalServices.md) spec. |
-| store          | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
+| supervisor     | `uri`         | **Optional** Location of the SLA manager used for SLA governance. |
+| monitor        | `uri`         | **Required** Location of the SLA Check service accordingly to the [sla0](./operationalServices.md) spec. |
+| registry       | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
 
 **Example:**
 
