@@ -67,6 +67,7 @@ In this scenario load-balancers are not involved and service is provided from a 
 
 A cluster with a whitebox load-balancer contain more than one nodes for the API and a load-balancer we can parametrize 
 to verify the current state of the SLA on requests. Based on the state, the balancer can deny or allow the service.
+The balancer is only responsible for checking SLA status, all metrices information gathered in the service node. 
 
 ![Figure 4](images/blackbox-deployment.svg "Figure 4. Cluster with blackbox load-balancer deployment.")
 
