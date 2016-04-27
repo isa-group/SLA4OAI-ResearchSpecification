@@ -114,21 +114,23 @@ info:
 ```
 
 ### 4.2 SLA Document Schema
-The SLA document must conform to the following constraints. 
+#### 4.2.1 SLA Object
+The SLA Object must conform to the following constraints. 
 
 | Field Name     | Type                                                  | Description  |
 | :------------- | :---------------------------------------------------- | :------------|
 | sla            | `string`                                              | **Required** Indicates the version of the sla format `='1.0'`. |
 | api            | `uri`                                                 | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
-| infrastructure | [`InfrastructureObject`](#4-2-1-infrastructureobject) | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
-| provider       | [`ProviderObject`](#4-2-2-providerobject)             | **Optional** Provider information: data about the owner/host of the API. |
-| pricing        | [`PricingObject`](#4-2-3-pricingobject)               | **Optional** Pricing general data. |
-| metrics        | [`MetricsObject`](#4-2-4-metricsobject)               | **Required** A list of metrics to use in the context of the SLA. |
-| availability   | `string`                                              | **Optional** Availability of the service expressed via time slots using the ISO 8601 time intervals format. |
-| plans          | [`PlansObject`](#4-2-5-plansobject)                   | **Required** A set of plans to define different SLA per plan. |
+| infrastructure | [`InfrastructureObject`](#4-2-2-infrastructureobject) | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
+| provider       | [`ProviderObject`](#4-2-3-providerobject)             | **Optional** Provider information: data about the owner/host of the API. |
+| pricing        | [`PricingObject`](#4-2-4-pricingobject)               | **Optional** Global pricing data. |
+| metrics        | [`MetricsObject`](#4-2-5-metricsobject)               | **Required** A list of metrics to use in the context of the SLA. |
+| availability   | `string`                                              | **Optional** Availability of the service expressed via time slots using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
+| plans          | [`PlansObject`](#4-2-6-plansobject)                   | **Required** A set of plans to define different SLA per plan. |
+| configuration  | `Map<string, string>`                                 | **Optional** Define the global configurations. |
 ----------------------
 
-#### 4.2.1 InfrastructureObject
+#### 4.2.2 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
 
 | Field Name     | Type          | Description  |
@@ -147,7 +149,7 @@ infrastructure:
   registry: "http://registry.sla4oai.governify.io/v1/"
 ```
 
-#### 4.2.2 ProviderObject
+#### 4.2.3 ProviderObject
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
 | name           | `string`      | **Required** Name of the provider of the service. |
@@ -159,7 +161,7 @@ infrastructure:
 provider: "ISAGroup"
 ```
 
-#### 4.2.3 PricingObject
+#### 4.2.4 PricingObject
 Describes the general information of the pricing of the API.
 
 | Field Name     | Type          | Description  |
@@ -182,37 +184,37 @@ pricing:
   currency: "euro"
 ```
 
-#### 4.2.4 MetricsObject
+#### 4.2.5 MetricsObject
 Contains definitions of metrics with name, types and descriptions.
 
 References can be used to reuse definitions of pre-existing metrics.
 
 *TBD*
 
-#### 4.2.5 PlansObject
+#### 4.2.6 PlansObject
 Contains a list of plans describing different Level of Service and prices.
 
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
-| {planName}     | [`PlanObject`](#4-2-6-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
+| {planName}     | [`PlanObject`](#4-2-7-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
 ----------------------
 
-#### 4.2.6 PlanObject
+#### 4.2.7 PlanObject
 Describes a plan in full.
 
 | Field Name     | Type                                          | Description  |
 | :------------- | :-------------------------------------------- | :------------|
 | configuration  | `Object`                                      | **Optional** Configuration parameters for the service tailored for the plan. |
 | availability   | `string`                                      | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| pricing        | [`PricingObject`](#4-2-3-pricingobject)       | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
-| limits         | [`LimitsObject`](#4-2-7-limitsobject)         | **Optional** Defines the limits for the service on the current plan. |
-| guarantees     | [`[GuaranteeObject]`](#4-2-8-guaranteeobject) | **Optional** Array of warranties in the current plan. |
+| pricing        | [`PricingObject`](#4-2-4-pricingobject)       | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
+| limits         | [`LimitsObject`](#4-2-8-limitsobject)         | **Optional** Defines the limits for the service on the current plan. |
+| guarantees     | [`[GuaranteeObject]`](#4-2-9-guaranteeobject) | **Optional** Array of warranties in the current plan. |
 ----------------------
 
-#### 4.2.7 LimitsObject
+#### 4.2.8 LimitsObject
 *TBD*
 
-#### 4.2.8 GuaranteeObject
+#### 4.2.9 GuaranteeObject
 
 *TBD*
 
