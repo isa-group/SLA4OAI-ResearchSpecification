@@ -116,16 +116,16 @@ info:
 ### 4.2 SLA Document Schema
 The SLA document must conform to the following constraints. 
 
-| Field Name     | Type          | Description  |
-| :------------- | :------------:| :------------|
-| sla            | `string`      | **Required** Indicates the version of the sla format `='1.0'`. |
-| api            | `uri`         | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
-| infrastructure | `InfrastructureObject` | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
-| provider       | `ProviderObject`       | **Optional** Provider information: data about the owner/host of the API. |
-| pricing        | `PricingObject`        | **Optional** Pricing general data. |
-| metrics        | `MetricsObject`        | **Required** A list of metrics to use in the context of the SLA. |
-| availability   | `string`               | **Optional** Availability of the service expressed via time slots using the ISO 8601 time intervals format. |
-| plans          | `PlansObject`          | **Required** A set of plans to define different SLA per plan. |
+| Field Name     | Type                                                  | Description  |
+| :------------- | :---------------------------------------------------- | :------------|
+| sla            | `string`                                              | **Required** Indicates the version of the sla format `='1.0'`. |
+| api            | `uri`                                                 | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
+| infrastructure | [`InfrastructureObject`](#4-2-1-infrastructureobject) | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
+| provider       | [`ProviderObject`](#4-2-2-providerobject)             | **Optional** Provider information: data about the owner/host of the API. |
+| pricing        | [`PricingObject`](#4-2-3-pricingobject)               | **Optional** Pricing general data. |
+| metrics        | [`MetricsObject`](#4-2-4-metricsobject)               | **Required** A list of metrics to use in the context of the SLA. |
+| availability   | `string`                                              | **Optional** Availability of the service expressed via time slots using the ISO 8601 time intervals format. |
+| plans          | [`PlansObject`](#4-2-5-plansobject)                   | **Required** A set of plans to define different SLA per plan. |
 ----------------------
 
 #### 4.2.1 InfrastructureObject
@@ -192,21 +192,21 @@ References can be used to reuse definitions of pre-existing metrics.
 #### 4.2.5 PlansObject
 Contains a list of plans describing different Level of Service and prices.
 
-| Field Pattern  | Type          | Description  |
-| :------------- | :------------:| :------------|
-| {planName}     | `PlanObject`  | Describes a usage plan for the API with its associate costs, availability and warranties. |
+| Field Pattern  | Type                              | Description  |
+| :------------- | :-------------------------------- | :------------|
+| {planName}     | [`PlanObject`](#4-2-6-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
 ----------------------
 
 #### 4.2.6 PlanObject
 Describes a plan in full.
 
-| Field Name     | Type            | Description  |
-| :------------- | :--------------:| :------------|
-| configuration  | `Object`        | **Optional** Configuration parameters for the service tailored for the plan. |
-| availability   | `string`        | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| pricing        | `PricingObject` | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
-| limits         | `LimitsObject`  | **Optional** Defines the limits for the service on the current plan. |
-| guarantees     | `[GuaranteeObject]` | **Optional** Array of warranties in the current plan. |
+| Field Name     | Type                                          | Description  |
+| :------------- | :-------------------------------------------- | :------------|
+| configuration  | `Object`                                      | **Optional** Configuration parameters for the service tailored for the plan. |
+| availability   | `string`                                      | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
+| pricing        | [`PricingObject`](#4-2-3-pricingobject)       | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
+| limits         | [`LimitsObject`](#4-2-7-limitsobject)         | **Optional** Defines the limits for the service on the current plan. |
+| guarantees     | [`[GuaranteeObject]`](#4-2-8-guaranteeobject) | **Optional** Array of warranties in the current plan. |
 ----------------------
 
 #### 4.2.7 LimitsObject
@@ -218,11 +218,11 @@ Describes a plan in full.
 
 Describes a warranty level supported by the plan.
 
-| Field Name     | Type            | Description  |
-| :------------- | :--------------:| :------------|
-| objective      | `Expression`    |  **Optional**            |
-| period         | `string`        |  **Optional** Period used for checking warrinty. Supported values are: `daily`, `weekly`, `monthly`,`yearly`. Default to `monthly` if unspecified. |
-| window         | `string`        |  **Optional**            |
+| Field Name     | Type                              | Description  |
+| :------------- | :-------------------------------- | :------------|
+| objective      | [`Expression`](#5-expressions )   |  **Optional**            |
+| period         | `string`                          |  **Optional** Period used for checking warrinty. Supported values are: `daily`, `weekly`, `monthly`,`yearly`. Default to `monthly` if unspecified. |
+| window         | `string`                          |  **Optional**            |
 ----------------------
 
 **Example:**
