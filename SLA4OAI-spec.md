@@ -128,7 +128,6 @@ The SLA Object must conform to the following constraints.
 | availability   | `string`                                              | **Optional** Availability of the service expressed via time slots using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
 | plans          | [`PlansObject`](#4-2-6-plansobject)                   | **Required** A set of plans to define different SLA per plan. |
 | configuration  | `Map<string, string>`                                 | **Optional** Define the global configurations. |
-----------------------
 
 #### 4.2.2 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
@@ -138,7 +137,6 @@ The infrastructure object describes the operational tooling to use in the servic
 | manager        | `uri`         | **Optional** Location of the SLA manager used for SLA governance. |
 | checker        | `uri`         | **Required** Location of the SLA Check service accordingly to the [sla0](./operationalServices.md) spec. |
 | store          | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
-----------------------
 
 **Example:**
 
@@ -153,7 +151,6 @@ infrastructure:
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
 | name           | `string`      | **Required** Name of the provider of the service. |
-----------------------
 
 **Example:**
 
@@ -169,7 +166,6 @@ Describes the general information of the pricing of the API.
 | cost           | `number`      | **Optional** Cost associated to this service. Defaults to `0` if unspecified. |
 | currency       | `string`      | **Optional** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. Defaults to `USD` if unspecified. |
 | billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
-----------------------
 
 **Example:**
 
@@ -197,7 +193,6 @@ Contains a list of plans describing different Level of Service and prices.
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
 | {planName}     | [`PlanObject`](#4-2-7-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
-----------------------
 
 #### 4.2.7 PlanObject
 Describes a plan in full.
@@ -209,7 +204,6 @@ Describes a plan in full.
 | pricing        | [`PricingObject`](#4-2-4-pricingobject)       | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
 | limits         | [`LimitsObject`](#4-2-8-limitsobject)         | **Optional** Defines the limits for the service on the current plan. |
 | guarantees     | [`[GuaranteeObject]`](#4-2-9-guaranteeobject) | **Optional** Array of warranties in the current plan. |
-----------------------
 
 #### 4.2.8 LimitsObject
 *TBD*
@@ -225,7 +219,6 @@ Describes a warranty level supported by the plan.
 | objective      | [`Expression`](#5-expressions )   |  **Optional**            |
 | period         | `string`                          |  **Optional** Period used for checking warrinty. Supported values are: `daily`, `weekly`, `monthly`,`yearly`. Default to `monthly` if unspecified. |
 | window         | `string`                          |  **Optional**            |
-----------------------
 
 **Example:**
 ```
