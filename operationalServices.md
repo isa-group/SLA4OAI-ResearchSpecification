@@ -366,11 +366,11 @@ Response proposed is very concise to indicate acceptation of the payoad. It only
 ### Invalid payload response
 
 ```
-412 Created
+400 Bad request
 Content-Type: application/json
 
 {
-    error: 412,
+    error: 400,
     reason: "Invalid message format."
 }
 ```
