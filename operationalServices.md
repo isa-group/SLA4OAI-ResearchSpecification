@@ -162,7 +162,7 @@ The response message follows the structure:
 | Field Name           | Type                | Description  |
 | :------------------- | :------------------ | :----------- |
 | accept               | `boolean`           | **Required** Indicates if the service is authorize for execution or denied.  |
-| serviceProperties    | `[ServiceProperty]` | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota or Rate limit info can be used to inform the client. |
+| serviceProperties    | [`[ServiceProperty]`](#serviceproperty-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota or Rate limit info can be used to inform the client. |
 | serviceConfiguration | `Object`            | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
 | requestedMetrics     | `Object`            | **Optional** Provides extra information to measure specific (custom) metrics during the service execution. This extensibility point allow to add custom domain metrics to be gather after the service is executed. |
 | error                | `integer`           | **Optional** An error type code number if error. |
@@ -316,8 +316,8 @@ The payload in the body accepts the following fields:
 
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
-| sender     | `SenderObject`   | **Required** An object describing the source of the metrics.  |
-| metrics    | `[MetricsObject]` | **Required** Array of metrics. At least, it must contain one item. |
+| sender     | [`SenderObject`](#senderobject-definition-)   | **Required** An object describing the source of the metrics.  |
+| metrics    | [`[MetricsObject]`](#metricsobject-definition-) | **Required** Array of metrics. At least, it must contain one item. |
 
 #### SenderObject definition:
 Sender describes the information related to the source of events and metrics. It is described only once in the payload to avoid 
