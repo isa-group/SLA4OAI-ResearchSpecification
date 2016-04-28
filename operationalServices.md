@@ -90,8 +90,8 @@ Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standari
 ## 4. Service Endpoints
 **sla0** exposes two endpoints to be described here:
 
-- POST `/slaCheck` to check for current SLA state. (MUST)
-- POST `/slaMetrics` to report runtime metrics to the datastore. (MUST)
+- POST `/check` to check for current SLA state. (MUST)
+- POST `/metrics` to report runtime metrics to the datastore. (MUST)
 
 ## 4.1 SLA Check
 The SLA Check endpoint allows to verify the current state of the SLA for a given service and operation in context: 
@@ -105,7 +105,7 @@ In the essence, the service will respond true or false to notify the provider if
 
 ### Sample Invocation:
 ```
-POST /slaCheck
+POST /check
 Content-Type: application/json
 Accept: application/json
 Authorization Basic Ym9zZ236Ym9zY28=
@@ -274,14 +274,14 @@ The Metrics Service exposes an endpoint for gathering the metrics collected from
 
 The API supports buffering. Therefore, metrics can be grouped in batches or sent one by one to fine-tune performance versus real-time SLA tracking.
 
-The service exposes a **POST** operation over the route `/slaMetrics`.
+The service exposes a **POST** operation over the route `/metrics`.
 
 ### Sample Invocation:
 The following sample shows a metrics store request using the service. An array of batch measures identifying each 
 of the events, measures per event and source instance information provided.
 
 ```
-POST /slaMetrics
+POST /metrics
 Authentication Basic 20325asW.uNh6yHjMU
 Content-Type: application/json
 
