@@ -341,6 +341,7 @@ Each metrics structure collects a set of metrics for a service in a given point 
 | result     | `string`      | **Optional** Exit code of the result of the operation.  |
 | userId     | `string`      | **Optional** User identifier for the operation (not provided if the event was not as a response for a user request).  |
 | scope      | `string`      | **Optional** Scope: used to aggregate SLA metrics on logical containers.  |
+| agreement  | `string`      | **Optional** Specify the agreement that is related with current metrics.  |
 
 **Extension metrics:**
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is 
