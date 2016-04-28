@@ -18,7 +18,7 @@ This proposal presents an open and standard proposal for simple SLA checking and
 The proposal introduces a simple standard API to provide the following services:
 
 1. An endpoint for checking the current state of a given SLA (Service level Agreement).
-2. An endpoint for reporting metrics to calculate the current SLA.
+2. An endpoint for reporting metrics to calculate the current state of given SLA.
 
 In this way, using this proposed operational standard called **sla0**:
 
@@ -46,7 +46,7 @@ A second service playing the role of **SLA Manager** will be used to outsource t
 
 In the rest of this document, the endpoints for both use cases are described using OpenAPI style format.
 The descriptions will explain the semantics and signatures expected in the service, leaving all the 
-implementation details open for implementors of this standard.
+implementation details open for implementers of this standard.
 
 Finally, some samples and a reference implementation is provided to help implementers to comply with **sla0**.
 
@@ -93,8 +93,8 @@ Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standari
 - POST `/slaCheck` to check for current SLA state. (MUST)
 - POST `/slaMetrics` to report runtime metrics to the datastore. (MUST)
 
-## 4.1 Check SLA
-The Check SLA endpoint allows to verify the current state of the SLA for a given service and operation in context: 
+## 4.1 SLA Check
+The SLA Check endpoint allows to verify the current state of the SLA for a given service and operation in context: 
 (for a given user, or role, organization, time of the date, etc.).
 
 In the essence, the service will respond true or false to notify the provider if it is:
