@@ -263,10 +263,10 @@ Content-Type: application/json
 ```
 
 
-## 4.2 Metrics Service
+## 4.2 SLA Metrics
 At any moment, a service can collect a set of basic metrics and send them to a data store for aggregation and later consumption.
 
-The Metrics Service exposes an endpoint for gathering the metrics collected from different nodes.
+The SLA Metrics exposes an endpoint for gathering the metrics collected from different nodes.
 
 The API supports buffering. Therefore, metrics can be grouped in batches or sent one by one to fine-tune performance versus real-time SLA tracking.
 
