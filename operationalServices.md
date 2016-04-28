@@ -177,7 +177,7 @@ The response message follows the structure:
 | awaitBeforeRetrySec | `integer` | **Optional** Await time in seconds to await before retrying after a rate limit violation. |
 
 
-### Positive Response:
+### Positive Response
 If the access to the service is granted, a positive response is sent.
 
 Sample response:
@@ -234,8 +234,8 @@ If denegation reason is rate limit enforcement, then the recommendation is to us
 adding rate limit information and reason as metadata into the client response to notify clients the denegation
 of service.
 
-### Invalid Messages:
-Invalid messages sent will return an explicit error code for rejection.
+### Invalid Message
+Invalid message sent will return an explicit error code for rejection.
 
 ``` 
 400 Bad request
@@ -348,7 +348,7 @@ Any other field not listed here can be added for custom extensions. The recommen
 to use the prefix `x-` to avoid collisions with future versions of this standard.
 
 
-#### Response format:
+### Response Message Format
 Response proposed is very concise to indicate acceptation of the payoad. It only provide information in case of error. 
 
 | Field Name | Type          | Description  |
@@ -356,14 +356,15 @@ Response proposed is very concise to indicate acceptation of the payoad. It only
 | error      | `integer`     | **Optional** An error type code number. |
 | reason     | `string`      | **Optional** A description for the error.  |
 
-### Accepted payload response
+### Positive Response
 
 ```
 201 Created
 ```
 
-
-### Invalid payload response
+### Negative Response
+#### Invalid Message
+Invalid message sent will return an explicit error code for rejection.
 
 ```
 400 Bad request
@@ -375,7 +376,8 @@ Content-Type: application/json
 }
 ```
 
-### Unauthorized response
+#### Invalid credentials
+If invalid credentials are provided, a 401 error will be raised.
 
 ```
 401 Unauthorized
