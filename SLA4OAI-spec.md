@@ -104,6 +104,19 @@ To declare a given API exposes an SLA, the OpenAPI description is extended with 
 `x-sla` inside the `info` object. The value contains an URI pointing to the document describing the SLA. 
 
 **Example:**
+
+```
+{
+   "swagger": "2.0",
+   "info":{
+      "title": "CSPWeb Reasoner",
+      "description": "Solver for CSP Problems",
+      "version": "1.0.0",
+      "x-sla": "./csp-sla.yml"
+   }
+}
+```
+
 ```
 swagger: '2.0'
 info:
@@ -141,6 +154,16 @@ The infrastructure object describes the operational tooling to use in the servic
 **Example:**
 
 ```
+{
+   "infrastructure":{
+      "supervisor": "http://supervisor.sla4oai.governify.io/v1/",
+      "monitor": "http://monitor.sla4oai.governify.io/v1/",
+      "registry": "http://registry.sla4oai.governify.io/v1/"
+   }
+}
+```
+
+```
 infrastructure: 
   supervisor: "http://supervisor.sla4oai.governify.io/v1/"
   monitor: "http://monitor.sla4oai.governify.io/v1/"
@@ -159,11 +182,28 @@ Describes the general information of the pricing of the API.
 **Example:**
 
 ```
+{
+   "pricing":{
+      "cost": 0,
+      "currency": "euro",
+      "billing": "monthly"
+   }
+}
+
+{
+   "pricing":{
+      "cost": 0,
+      "currency": "euro"
+   }
+}
+```
+
+```
 pricing: 
   cost: 0
   currency: "euro"
   billing: "monthly"
-  
+
 pricing: 
   cost: 0
   currency: "euro"
@@ -210,6 +250,26 @@ Describes a warranty level supported by the plan.
 | window         | `string`                          |  **Optional**            |
 
 **Example:**
+
+```
+{
+   "guarantees":{
+      "/problems":{
+         "post":{
+            "objective":"avgResponseTimeMs < 500",
+            "period":"daily",
+            "window":"dynamic"
+         }
+      },
+      "global":{
+         "objective":"uptimePercentage > 95",
+         "period":"monthly",
+         "window":"static"
+      }
+   }
+}
+```
+
 ```
  guarantees: 
       /problems: 
