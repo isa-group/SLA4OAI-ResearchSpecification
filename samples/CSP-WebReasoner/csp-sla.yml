@@ -79,6 +79,9 @@ plans:
           requests: 
             - max: 20
               period: hourly
+            - max: 5
+              period: hourly
+              scope: account
             - max: 20
               period: daily
     guarantees: 
