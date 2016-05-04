@@ -27,7 +27,8 @@ A. This specification describes the format for defining SLAs ove APIs in a neutr
 B. The **sla0** [spec](./operationalServices.md) provides a runtime standard API for measure and SLA enforcement defined in (A). 
 
 C. Reference implementations are provided to show (A) and (B) in a real examples:
-   1. Server side implementations: [sla-service-mock](https://sla-service-mock.herokuapp.com/), governify/v6
+
+   1. Server side implementations: [sla-service-mock](https://sla-service-mock.herokuapp.com/), governify/v6   
    2. Client side implementations: plugins for generated [Hivepod](https://www.hivepod.io) backends. 
 
 ## 2. Execution Model
@@ -66,6 +67,7 @@ In this scenario load-balancers are not involved and service is provided from a 
 
 A cluster with a whitebox load-balancer contain more than one nodes for the API and a load-balancer we can parametrize 
 to verify the current state of the SLA on requests. Based on the state, the balancer can deny or allow the service.
+The balancer is only responsible for checking SLA status, all metrices information gathered in the service node. 
 
 ![Figure 4](images/blackbox-deployment.svg "Figure 4. Cluster with blackbox load-balancer deployment.")
 
@@ -99,9 +101,22 @@ A full SLA definition is a JSON or a YAML document composed of the following str
 
 ### 4.1 Reference from an OpenAPI document
 To declare a given API exposes an SLA, the OpenAPI description is extended with an optional attribute 
-`x-sla` inside the `info` object. The value contains an URI pointing tho the document describing the SLA. 
+`x-sla` inside the `info` object. The value contains an URI pointing to the document describing the SLA. 
 
 **Example:**
+
+```
+{
+   "swagger": "2.0",
+   "info":{
+      "title": "CSPWeb Reasoner",
+      "description": "Solver for CSP Problems",
+      "version": "1.0.0",
+      "x-sla": "./csp-sla.yml"
+   }
+}
+```
+
 ```
 swagger: '2.0'
 info:
@@ -111,50 +126,48 @@ info:
     x-sla: ./csp-sla.yml
 ```
 
-### 4.2 SLA Document Format
-The SLA document must conform to the following constraints. 
+### 4.2 SLA Document Schema
+#### 4.2.1 SLA Object
+The SLA Object must conform to the following constraints. 
 
-| Field Name     | Type          | Description  |
-| :------------- | :------------:| :------------|
-| sla            | `string`      | **Required** Indicates the version of the sla format `='1.0'`. |
-| api            | `uri`         | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
-| infrastructure | `InfrastructureObject` | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
-| provider       | `ProviderObject`       | **Optional** Provider information: data about the owner/host of the API. |
-| pricing        | `PricingObject`        | **Optional** Pricing general data. |
-| metrics        | `MetricsObject`        | **Required** A list of metrics to use in the context of the SLA. |
-| availability   | `string`               | **Optional** Availability of the service expressed via time slots using the ISO 8601 time intervals format. |
-| plans          | `PlansObject`          | **Required** A set of plans to define different SLA per plan. |
-----------------------
+| Field Name     | Type                                                  | Description  |
+| :------------- | :---------------------------------------------------- | :------------|
+| sla            | `string`                                              | **Required** Indicates the version of the sla format `='1.0'`. |
+| api            | `uri`                                                 | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
+| infrastructure | [`InfrastructureObject`](#4-2-2-infrastructureobject) | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
+| provider       | `string`                                              | **Optional** Provider information: data about the owner/host of the API. |
+| pricing        | [`PricingObject`](#4-2-3-pricingobject)               | **Optional** Global pricing data. |
+| metrics        | [`MetricsObject`](#4-2-4-metricsobject)               | **Required** A list of metrics to use in the context of the SLA. |
+| availability   | `string`                                              | **Optional** Availability of the service expressed via time slots using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
+| plans          | [`PlansObject`](#4-2-5-plansobject)                   | **Required** A set of plans to define different SLA per plan. |
+| configuration  | `Map<string, string>`                                 | **Optional** Define the global configurations. |
 
-#### 4.2.1 InfrastructureObject
+#### 4.2.2 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
-| manager        | `uri`         | **Optional** Location of the SLA manager used for SLA governance. |
-| checker        | `uri`         | **Required** Location of the SLA Check service accordingly to the [sla0](./operationalServices.md) spec. |
-| store          | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
-----------------------
+| supervisor     | `uri`         | **Optional** Location of the SLA manager used for SLA governance. |
+| monitor        | `uri`         | **Required** Location of the SLA Check service accordingly to the [sla0](./operationalServices.md) spec. |
+| registry       | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
 
 **Example:**
+
+```
+{
+   "infrastructure":{
+      "supervisor": "http://supervisor.sla4oai.governify.io/v1/",
+      "monitor": "http://monitor.sla4oai.governify.io/v1/",
+      "registry": "http://registry.sla4oai.governify.io/v1/"
+   }
+}
+```
 
 ```
 infrastructure: 
   supervisor: "http://supervisor.sla4oai.governify.io/v1/"
   monitor: "http://monitor.sla4oai.governify.io/v1/"
   registry: "http://registry.sla4oai.governify.io/v1/"
-```
-
-#### 4.2.2 ProviderObject
-| Field Name     | Type          | Description  |
-| :------------- | :------------:| :------------|
-| name           | `string`      | **Required** Name of the provider of the service. |
-----------------------
-
-**Example:**
-
-```
-provider: "ISAGroup"
 ```
 
 #### 4.2.3 PricingObject
@@ -165,16 +178,32 @@ Describes the general information of the pricing of the API.
 | cost           | `number`      | **Optional** Cost associated to this service. Defaults to `0` if unspecified. |
 | currency       | `string`      | **Optional** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. Defaults to `USD` if unspecified. |
 | billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
-----------------------
 
 **Example:**
+
+```
+{
+   "pricing":{
+      "cost": 0,
+      "currency": "euro",
+      "billing": "monthly"
+   }
+}
+
+{
+   "pricing":{
+      "cost": 0,
+      "currency": "euro"
+   }
+}
+```
 
 ```
 pricing: 
   cost: 0
   currency: "euro"
   billing: "monthly"
-  
+
 pricing: 
   cost: 0
   currency: "euro"
@@ -190,22 +219,20 @@ References can be used to reuse definitions of pre-existing metrics.
 #### 4.2.5 PlansObject
 Contains a list of plans describing different Level of Service and prices.
 
-| Field Pattern  | Type          | Description  |
-| :------------- | :------------:| :------------|
-| {planName}     | `PlanObject`  | Describes a usage plan for the API with its associate costs, availability and warranties. |
-----------------------
+| Field Pattern  | Type                              | Description  |
+| :------------- | :-------------------------------- | :------------|
+| {planName}     | [`PlanObject`](#4-2-6-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
 
 #### 4.2.6 PlanObject
 Describes a plan in full.
 
-| Field Name     | Type            | Description  |
-| :------------- | :--------------:| :------------|
-| configuration  | `Object`        | **Optional** Configuration parameters for the service tailored for the plan. |
-| availability   | `string`        | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| pricing        | `PricingObject` | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
-| limits         | `LimitsObject`  | **Optional** Defines the limits for the service on the current plan. |
-| guarantees     | `[GuaranteeObject]` | **Optional** Array of warranties in the current plan. |
-----------------------
+| Field Name     | Type                                          | Description  |
+| :------------- | :-------------------------------------------- | :------------|
+| configuration  | `Object`                                      | **Optional** Configuration parameters for the service tailored for the plan. |
+| availability   | `string`                                      | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
+| pricing        | [`PricingObject`](#4-2-3-pricingobject)       | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
+| limits         | [`LimitsObject`](#4-2-7-limitsobject)         | **Optional** Defines the limits for the service on the current plan. |
+| guarantees     | [`[GuaranteeObject]`](#4-2-8-guaranteeobject) | **Optional** Array of warranties in the current plan. |
 
 #### 4.2.7 LimitsObject
 *TBD*
@@ -216,14 +243,33 @@ Describes a plan in full.
 
 Describes a warranty level supported by the plan.
 
-| Field Name     | Type            | Description  |
-| :------------- | :--------------:| :------------|
-| objective      | `Expression`    |  **Optional**            |
-| period         | `string`        |  **Optional** Period used for checking warrinty. Supported values are: `daily`, `weekly`, `monthly`,`yearly`. Default to `monthly` if unspecified. |
-| window         | `string`        |  **Optional**            |
-----------------------
+| Field Name     | Type                              | Description  |
+| :------------- | :-------------------------------- | :------------|
+| objective      | [`Expression`](#5-expressions )   |  **Optional**            |
+| period         | `string`                          |  **Optional** Period used for checking warrinty. Supported values are: `daily`, `weekly`, `monthly`,`yearly`. Default to `monthly` if unspecified. |
+| window         | `string`                          |  **Optional**            |
 
 **Example:**
+
+```
+{
+   "guarantees":{
+      "/problems":{
+         "post":{
+            "objective":"avgResponseTimeMs < 500",
+            "period":"daily",
+            "window":"dynamic"
+         }
+      },
+      "global":{
+         "objective":"uptimePercentage > 95",
+         "period":"monthly",
+         "window":"static"
+      }
+   }
+}
+```
+
 ```
  guarantees: 
       /problems: 

@@ -18,7 +18,7 @@ This proposal presents an open and standard proposal for simple SLA checking and
 The proposal introduces a simple standard API to provide the following services:
 
 1. An endpoint for checking the current state of a given SLA (Service level Agreement).
-2. An endpoint for reporting metrics to calculate the current SLA.
+2. An endpoint for reporting metrics to calculate the current state of given SLA.
 
 In this way, using this proposed operational standard called **sla0**:
 
@@ -46,7 +46,7 @@ A second service playing the role of **SLA Manager** will be used to outsource t
 
 In the rest of this document, the endpoints for both use cases are described using OpenAPI style format.
 The descriptions will explain the semantics and signatures expected in the service, leaving all the 
-implementation details open for implementors of this standard.
+implementation details open for implementers of this standard.
 
 Finally, some samples and a reference implementation is provided to help implementers to comply with **sla0**.
 
@@ -90,11 +90,11 @@ Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standari
 ## 4. Service Endpoints
 **sla0** exposes two endpoints to be described here:
 
-- POST `/slaCheck` to check for current SLA state. (MUST)
-- POST `/slaMetrics` to report runtime metrics to the datastore. (MUST)
+- POST `/check` to check for current SLA state. (MUST)
+- POST `/metrics` to report runtime metrics to the datastore. (MUST)
 
-## 4.1 Check SLA
-The Check SLA endpoint allows to verify the current state of the SLA for a given service and operation in context: 
+## 4.1 SLA Check
+The SLA Check endpoint allows to verify the current state of the SLA for a given service and operation in context: 
 (for a given user, or role, organization, time of the date, etc.).
 
 In the essence, the service will respond true or false to notify the provider if it is:
@@ -105,7 +105,7 @@ In the essence, the service will respond true or false to notify the provider if
 
 ### Sample Invocation:
 ```
-POST /slaCheck
+POST /check
 Content-Type: application/json
 Accept: application/json
 Authorization Basic Ym9zZ236Ym9zY28=
@@ -159,29 +159,25 @@ The calculation method is out of the scope for this spec and is let open for imp
 ### Response Message Format
 The response message follows the structure:
 
-| Field Name | Type          | Description  |
-| :--------- | :------------:| :------------|
-| accept               | `boolean`| **Required** Indicates if the service is authorize for execution or denied.  |
-| serviceProperties    | `ServiceProperties Object` | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota or Rate limit info can be used to inform the client. |
-| serviceConfiguration | `Object` | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
-| requestedMetrics     | `Object` | **Optional** Provides extra information to measure specific (custom) metrics during the service execution. This extensibility point allow to add custom domain metrics to be gather after the service is executed. |
-| error                | `integer`| **Optional** An error type code number if error. |
-| reason               | `string` | **Optional** A description for the error in case of error.  |
+| Field Name           | Type                | Description  |
+| :------------------- | :------------------ | :----------- |
+| accept               | `boolean`           | **Required** Indicates if the service is authorize for execution or denied.  |
+| serviceProperties    | [`[ServiceProperty]`](#serviceproperty-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota or Rate limit info can be used to inform the client. |
+| serviceConfiguration | `Object`            | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
+| requestedMetrics     | `Object`            | **Optional** Provides extra information to measure specific (custom) metrics during the service execution. This extensibility point allow to add custom domain metrics to be gather after the service is executed. |
+| error                | `integer`           | **Optional** An error type code number if error. |
+| reason               | `string`            | **Optional** A description for the error in case of error.  |
 
-### ServiceProperties Object
-| Field Name | Type          | Description  |
-| :--------- | :------------:| :------------|
-| quotaResource| `string`| **Optional** Name of the resource protected with quota.  |
-| quotaLimit   | `integer`| **Optional** Max of quota for the given resource.  |
-| quotaUsed    | `integer` | **Optional** Current used quota. |
-| rateLimitResource| `string`| **Optional** Name of the resource protected with a rate limit policy.  |
-| rateLimit        | `integer`| **Optional** Limit to rate-limit for the given resource.  |
-| rateLimitUsed    | `integer` | **Optional** Current used rate-limit. |
-| rateLimitTimePeriodSec | `integer` | **Optional** Period of time where the rate-limit is measured (in seconds). |
-| awaitBeforeRetrySec    | `integer` | **Optional** Await time in seconds to await before retrying after a rate limit violation. |
+### ServiceProperty Object
+| Field Name          | Type      | Description  |
+| :------------------ | :-------- | :----------- |
+| resource            | `string`  | **Optional** Name of the resource protected with quota.  |
+| limit               | `integer` | **Optional** Max of quota for the given resource.  |
+| used                | `integer` | **Optional** Current used quota. |
+| awaitBeforeRetrySec | `integer` | **Optional** Await time in seconds to await before retrying after a rate limit violation. |
 
 
-### Positive Response:
+### Positive Response
 If the access to the service is granted, a positive response is sent.
 
 Sample response:
@@ -238,8 +234,8 @@ If denegation reason is rate limit enforcement, then the recommendation is to us
 adding rate limit information and reason as metadata into the client response to notify clients the denegation
 of service.
 
-### Invalid Messages:
-Invalid messages sent will return an explicit error code for rejection.
+### Invalid Message
+Invalid message sent will return an explicit error code for rejection.
 
 ``` 
 400 Bad request
@@ -267,21 +263,21 @@ Content-Type: application/json
 ```
 
 
-## 4.2 Metrics Service
+## 4.2 SLA Metrics
 At any moment, a service can collect a set of basic metrics and send them to a data store for aggregation and later consumption.
 
-The Metrics Service exposes an endpoint for gathering the metrics collected from different nodes.
+The SLA Metrics exposes an endpoint for gathering the metrics collected from different nodes.
 
 The API supports buffering. Therefore, metrics can be grouped in batches or sent one by one to fine-tune performance versus real-time SLA tracking.
 
-The service exposes a **POST** operation over the route `/slaMetrics`.
+The service exposes a **POST** operation over the route `/metrics`.
 
 ### Sample Invocation:
 The following sample shows a metrics store request using the service. An array of batch measures identifying each 
 of the events, measures per event and source instance information provided.
 
 ```
-POST /slaMetrics
+POST /metrics
 Authentication Basic 20325asW.uNh6yHjMU
 Content-Type: application/json
 
@@ -320,8 +316,8 @@ The payload in the body accepts the following fields:
 
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
-| sender     | `SenderObject`   | **Required** An object describing the source of the metrics.  |
-| metrics    | `[MetricsObject]` | **Required** Array of metrics. At least, it must contain one item. |
+| sender     | [`SenderObject`](#senderobject-definition-)   | **Required** An object describing the source of the metrics.  |
+| metrics    | [`[MetricsObject]`](#metricsobject-definition-) | **Required** Array of metrics. At least, it must contain one item. |
 
 #### SenderObject definition:
 Sender describes the information related to the source of events and metrics. It is described only once in the payload to avoid 
@@ -345,13 +341,14 @@ Each metrics structure collects a set of metrics for a service in a given point 
 | result     | `string`      | **Optional** Exit code of the result of the operation.  |
 | userId     | `string`      | **Optional** User identifier for the operation (not provided if the event was not as a response for a user request).  |
 | scope      | `string`      | **Optional** Scope: used to aggregate SLA metrics on logical containers.  |
+| agreement  | `string`      | **Optional** Specify the agreement that is related with current metrics.  |
 
 **Extension metrics:**
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is 
 to use the prefix `x-` to avoid collisions with future versions of this standard.
 
 
-#### Response format:
+### Response Message Format
 Response proposed is very concise to indicate acceptation of the payoad. It only provide information in case of error. 
 
 | Field Name | Type          | Description  |
@@ -359,26 +356,28 @@ Response proposed is very concise to indicate acceptation of the payoad. It only
 | error      | `integer`     | **Optional** An error type code number. |
 | reason     | `string`      | **Optional** A description for the error.  |
 
-### Accepted payload response
+### Positive Response
 
 ```
 201 Created
 ```
 
-
-### Invalid payload response
+### Negative Response
+#### Invalid Message
+Invalid message sent will return an explicit error code for rejection.
 
 ```
-412 Created
+400 Bad request
 Content-Type: application/json
 
 {
-    error: 412,
+    error: 400,
     reason: "Invalid message format."
 }
 ```
 
-### Unauthorized response
+#### Invalid credentials
+If invalid credentials are provided, a 401 error will be raised.
 
 ```
 401 Unauthorized
