@@ -1,0 +1,86 @@
+sla: 1.0
+infrastructure: 
+  supervisor: http://supervisor.sla4oai.governify.io/v1/
+  monitor: http://monitor.sla4oai.governify.io/v1/
+provider: ISAGroup
+metrics:
+  animalTypes:
+    type: int64
+    description: Number of different animal types.
+  $ref: ./metrics.yml
+pricing: 
+  cost: 0
+  currency: euro
+  billing: monthly
+availability: R/00:00:00Z/23:59:59Z
+configuration:
+  filteringType: none
+  xmlFormat: false
+quotas:
+  /pets:
+    get:
+      requests:
+        - max: 1
+          period: secondly
+          scope: account
+        - max: 5
+          period: secondly
+          scope: tenant
+    post:
+      requests:
+        - max: 10
+          period: minutely
+      resourceInstances:
+        - max: 5
+      animalTypes:
+        - max: 2
+rates:
+      /pets/{id}:
+        get:
+          requests:
+            - max: 20
+              period: secondly
+guarantees:
+  global:
+    global:
+      - objective: avgResponseTimeMs <= 800
+        period: daily
+        window: dynamic
+plans:
+  free:
+    rates:
+      /pets/{id}:
+        get:
+          requests:
+            - max: 1
+              period: secondly
+  pro:
+    pricing:
+      cost: 50
+    configuration:
+      filteringType: multipleTags
+      xmlFormat: true
+    quotas:
+      /pets:
+        get:
+          requests:
+            - max: 20
+              period: secondly
+              scope: account
+            - max: 100
+              period: secondly
+              scope: tenant
+        post:
+          requests:
+            - max: 100
+              period: minutely
+          resourceInstances:
+            - max: 500
+          animalTypes:
+            - max: 5
+    guarantees:
+      global:
+        global:
+          - objective: avgResponseTimeMs <= 250
+            period: daily
+            window: dynamic
