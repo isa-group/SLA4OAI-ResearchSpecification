@@ -41,7 +41,7 @@ The execution model for SLA assumes as little as possible about the system to tr
 Figure 1 shows a basic production deployment for a service exposing an API enhancement with a load-balancer and service redundancy 
 for fault tolerance.
 
-In order to instrument for SLA enforcement, a new service can be added to the picture: the *SLA Manager*.
+In order to instrument for SLA enforcement, some new services can be added to the picture, these services can be grouped into one unit called *SLA Manager* or it can be one or more independent services with different elasticity and scalability.
 
 The roles considered are:
 
