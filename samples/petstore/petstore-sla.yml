@@ -4,6 +4,9 @@ infrastructure:
   monitor: http://monitor.sla4oai.governify.io/v1/
 provider: ISAGroup
 metrics:
+  animalTypes:
+    type: int64
+    description: Number of different animal types.
   $ref: ./metrics.yml
 pricing: 
   cost: 0
@@ -11,65 +14,46 @@ pricing:
   billing: monthly
 availability: R/00:00:00Z/23:59:59Z
 configuration:
-  filteringType: false
-  jsonFormat: true
-  xmlFormat: flase
+  filteringType: none
+  xmlFormat: false
+quotas:
+  /pets:
+    get:
+      requests:
+        - max: 1
+          period: secondly
+          scope: account
+        - max: 5
+          period: secondly
+          scope: tenant
+    post:
+      requests:
+        - max: 10
+          period: minutely
+      resourceInstances:
+        - max: 5
+      animalTypes:
+        - max: 2
+rates:
+      /pets/{id}:
+        get:
+          requests:
+            - max: 20
+              period: secondly
+guarantees:
+  global:
+    global:
+      - objective: avgResponseTimeMs <= 800
+        period: daily
+        window: dynamic
 plans:
   free:
-    quotas:
-      /pets:
-        get:
-          requests:
-            - max: 1
-              period: secondly
-        post:
-          requests:
-            - max: 10
-              period: minutely
-          resourceInstances:
-            - max: 5
     rates:
       /pets/{id}:
         get:
           requests:
             - max: 1
               period: secondly
-    guarantees:
-      global:
-        global:
-          - objective: avgResponseTimeMs <= 800
-            period: daily
-            window: dynamic
-  basic:
-    pricing:
-      cost: 10
-    configuration:
-      filteringType: oneTag
-      xmlFormat: true
-    quotas:
-      /pets:
-        get:
-          requests:
-            - max: 5
-              period: secondly
-        post:
-          requests:
-            - max: 20
-              period: minutely
-          resourceInstances:
-            - max: 20
-    rates:
-      /pets/{id}:
-        get:
-          requests:
-            - max: 5
-              period: secondly
-    guarantees:
-      global:
-        global:
-          - objective: avgResponseTimeMs <= 500
-            period: daily
-            window: dynamic
   pro:
     pricing:
       cost: 50
@@ -82,18 +66,18 @@ plans:
           requests:
             - max: 20
               period: secondly
+              scope: account
+            - max: 100
+              period: secondly
+              scope: tenant
         post:
           requests:
             - max: 100
               period: minutely
           resourceInstances:
             - max: 500
-    rates:
-      /pets/{id}:
-        get:
-          requests:
-            - max: 20
-              period: secondly
+          animalTypes:
+            - max: 5
     guarantees:
       global:
         global:
