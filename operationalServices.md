@@ -111,10 +111,10 @@ Accept: application/json
 Authorization Basic Ym9zZ236Ym9zY28=
 
 {
-    "aggreement": "papamoscas/v1",
+    "aggreement": "petstore/v1",
     "scope": "serviceSla908923",
     "userId": "u7862neui3",
-    "operation": "/bird/get",
+    "operation": "/pets",
     "ts": "2016-01-12T12:57:37.345Z",
     "organizationId": "acme.com",
     "env": "production"
@@ -202,7 +202,7 @@ Content-Type: application/json
         "responseSize":0, //0 -> avoid it
         "responseTime":1 // domain-independent (pre-implemented)
         "optimizacionTime":1, 
-        "problemSize":1, //domain-specific (plugin necessary)
+        "animalType":1, //domain-specific (plugin necessary)
     }
 }
 ```
@@ -220,7 +220,7 @@ Content-Type: application/json
     "accept": false,
     "reason": "Quota limit exceed.",
     "serviceProperties": {
-        "quotaResource": "problem",
+        "quotaResource": "pet",
         "quotaLimit": 100,
         "quotaUsed": 100
     }
@@ -289,12 +289,12 @@ Content-Type: application/json
     },
     "metrics" : [{
         // measure 1
-        "operation": "/birds/get", 	
+        "operation": "/pets", 	
         "t": "2016-01-12T12:57:37.345Z",
         "ellapsedMs": 350,
         "result": "200",
         "userId": "13456789aadfc",
-        "scope" : "/papamocas/qa/n1",
+        "scope" : "/petstore/qa/n1",
         //(Optional: Complete request, headers, etc.)
         "x-cpu": 20.5,
         "x-memory-used-mb": 16.7,
