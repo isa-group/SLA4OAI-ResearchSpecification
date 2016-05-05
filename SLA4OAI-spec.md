@@ -81,17 +81,11 @@ scenarios where an API is served.
 
 ## 3. Samples
 
-### 3.1 CSP WebReasoner
-This sample illustrates a simple API for a problem solver. 
+### 3.1 Petstore
+This sample illustrates a simple Resource based API for Pets database. 
 
-- The full OpenAPI description is provided in [csp-service.yml](./samples/CSP-WebReasoner/csp-service.yml).
-- The service provides a SLA described in [csp-sla.yml](./samples/CSP-WebReasoner/csp-sla.yml).
-
-### 3.2 Papamoscas
-This sample illustrates a simple Resource based API for Birds database. 
-
-- The full OpenAPI description is provided in [papamoscas-service.yml](./samples/papamoscas/papamoscas-service.yml).
-- The service provides a SLA described in [papamoscas-sla.yml](./samples/papamoscas/papamoscas-sla.yml).
+- The full OpenAPI description is provided in [petstore-service.yml](./samples/petstore/petstore-service.yml).
+- The service provides a SLA described in [petstore-sla.yml](./samples/petstore/petstore-sla.yml).
 
 
 ## 4. Specification
@@ -109,10 +103,10 @@ To declare a given API exposes an SLA, the OpenAPI description is extended with 
 {
    "swagger": "2.0",
    "info":{
-      "title": "CSPWeb Reasoner",
-      "description": "Solver for CSP Problems",
+      "title": "Swagger Petstore (Simple)",
+      "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
       "version": "1.0.0",
-      "x-sla": "./csp-sla.yml"
+      "x-sla": "./petstore-sla.yml"
    }
 }
 ```
@@ -120,10 +114,10 @@ To declare a given API exposes an SLA, the OpenAPI description is extended with 
 ```
 swagger: '2.0'
 info:
-    title: CSPWeb Reasoner
-    description: Solver for CSP Problems
+    title: "Swagger Petstore (Simple)"
+    description: "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification"
     version: "1.0.0"
-    x-sla: ./csp-sla.yml
+    x-sla: ./petstore-sla.yml
 ```
 
 ### 4.2 SLA Document Schema
@@ -254,9 +248,9 @@ Describes a warranty level supported by the plan.
 ```
 {
    "guarantees":{
-      "/problems":{
+      "/pets":{
          "post":{
-            "objective":"avgResponseTimeMs < 500",
+            "objective":"avgResponseTimeMs <= 800",
             "period":"daily",
             "window":"dynamic"
          }
@@ -272,9 +266,9 @@ Describes a warranty level supported by the plan.
 
 ```
  guarantees: 
-      /problems: 
+      /pets: 
         post: 
-          - objective: "avgResponseTimeMs < 500"
+          - objective: "avgResponseTimeMs <= 800"
             period: "daily"
             window: "dynamic"
       global: 
