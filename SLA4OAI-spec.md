@@ -194,13 +194,6 @@ Describes the general information of the pricing of the API.
       "billing": "monthly"
    }
 }
-
-{
-   "pricing":{
-      "cost": 0,
-      "currency": "euro"
-   }
-}
 ```
 
 ```
@@ -208,10 +201,6 @@ pricing:
   cost: 0
   currency: "euro"
   billing: "monthly"
-
-pricing: 
-  cost: 0
-  currency: "euro"
 ```
 
 #### 4.2.4 MetricsObject
