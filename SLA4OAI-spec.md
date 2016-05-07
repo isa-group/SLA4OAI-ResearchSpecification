@@ -134,6 +134,10 @@ The SLA Object must conform to the following constraints.
 | metrics        | [`MetricsObject`](#4-2-4-metricsobject)               | **Required** A list of metrics to use in the context of the SLA. |
 | availability   | `string`                                              | **Optional** Availability of the service expressed via time slots using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
 | plans          | [`PlansObject`](#4-2-5-plansobject)                   | **Required** A set of plans to define different SLA per plan. |
+| quotas         | [`QuotasObject`](#4-2-6-quotasobject)                 | **Optional** Global quotas, these quotas affect to all plans. |
+| rates          | [`RatesObject`](#4-2-7-ratesobject)                   | **Optional** Global rates, these rates affect to all plans. |
+| guarantees     | [`GuaranteesObject`](#4-2-8-guaranteesobject)         | **Optional** Global guarantees, these guarantees affect to all plans.. |
+| Consumer       | `string`                                              | **Optional** Consumer information: data about the entity that consumes the service. | 
 | configuration  | `Map<string, string>`                                 | **Optional** Define the global configurations. |
 
 #### 4.2.2 InfrastructureObject
