@@ -211,6 +211,28 @@ Contains definitions of metrics with name, types and descriptions. References ca
 | {name}         | [`MetricObject`](#4-2-5-metricobject)         | **Optional** Definitions of metrics with name, types and descriptions. |
 | $ref           | `uri`                                         | **Optional** References to pre-existing metrics. |
 
+**Example:**
+
+```
+{
+  "metrics": {
+    "animalTypes": {
+      "type": "int64",
+      "description": "Number of different animal types."
+    },
+    "$ref": "./metrics.yml"
+  }
+}
+```
+
+```
+metrics:
+  animalTypes:
+    type: int64
+    description: Number of different animal types.
+  $ref: ./metrics.yml
+```
+
 #### 4.2.5 MetricObject
 Contains definitions of metric with type, description and unit of the metric.
 
@@ -219,6 +241,24 @@ Contains definitions of metric with type, description and unit of the metric.
 | type           | `string`                                      | **Required** This is the metric type accordingly to [the OAI spec format column](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types). |
 | description    | `string`                                      | **Optional** A brief description of the metric. |
 | unit           | `string`                                      | **Optional** The unit of the metric. |
+
+**Example:**
+
+```
+{
+  "animalTypes": {
+    "type": "int64",
+    "description": "Number of different animal types."
+  }
+}
+```
+
+```
+animalTypes:
+  type: int64
+  description: Number of different animal types.
+```
+
 
 #### 4.2.5 PlansObject
 Contains a list of plans describing different Level of Service and prices.
