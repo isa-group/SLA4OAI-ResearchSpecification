@@ -204,11 +204,13 @@ pricing:
 ```
 
 #### 4.2.4 MetricsObject
-Contains definitions of metrics with name, types and descriptions.
+Contains definitions of metrics with name, types and descriptions. References can be used to reuse definitions of pre-existing metrics.
 
-References can be used to reuse definitions of pre-existing metrics.
+| Field Name     | Type                                          | Description  |
+| :------------- | :-------------------------------------------- | :------------|
+| {name}         | [`MetricObject`](#4-2-6-metricobject)         | **Optional** Definitions of metrics with name, types and descriptions. |
+| $ref           | `uri`                                         | **Optional** References to pre-existing metrics. |
 
-*TBD*
 
 #### 4.2.5 PlansObject
 Contains a list of plans describing different Level of Service and prices.
