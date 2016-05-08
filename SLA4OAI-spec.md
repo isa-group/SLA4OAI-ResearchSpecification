@@ -208,9 +208,17 @@ Contains definitions of metrics with name, types and descriptions. References ca
 
 | Field Name     | Type                                          | Description  |
 | :------------- | :-------------------------------------------- | :------------|
-| {name}         | [`MetricObject`](#4-2-6-metricobject)         | **Optional** Definitions of metrics with name, types and descriptions. |
+| {name}         | [`MetricObject`](#4-2-5-metricobject)         | **Optional** Definitions of metrics with name, types and descriptions. |
 | $ref           | `uri`                                         | **Optional** References to pre-existing metrics. |
 
+#### 4.2.5 MetricObject
+Contains definitions of metric with type, description and unit of the metric.
+
+| Field Name     | Type                                          | Description  |
+| :------------- | :-------------------------------------------- | :------------|
+| type           | `string`                                      | **Required** This is the metric type accordingly to [the OAI spec format column](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types). |
+| description    | `string`                                      | **Optional** A brief description of the metric. |
+| unit           | `string`                                      | **Optional** The unit of the metric. |
 
 #### 4.2.5 PlansObject
 Contains a list of plans describing different Level of Service and prices.
