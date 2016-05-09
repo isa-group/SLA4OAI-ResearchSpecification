@@ -535,6 +535,39 @@ global:
       window: dynamic
 ```
 
+#### 4.2.8 GuaranteeObjectiveObject
+(Description: *TBD*)
+
+| Field Name     | Type                           | Description  |
+| :------------- | :----------------------------- | :----------- |
+| objective      | [`Expression`](#5-expression)  |  **Required** (Description: *TBD*) |
+| period         | `string`                       |  **Optional** (Description: *TBD*) |
+| window         | `string`                       |  **Optional** (Description: *TBD*) |
+| scope          | `string`                       |  **Optional** (Description: *TBD*) |
+
+**Example:**
+
+```
+{
+  "global": [
+    {
+      "objective": "avgResponseTimeMs <= 250",
+      "period": "daily",
+      "window": "dynamic",
+      "scope": "account"
+    }
+  ]
+}
+```
+
+```
+global:
+  - objective: avgResponseTimeMs <= 250
+    period: daily
+    window: dynamic
+    scope: account
+```
+
 ## 5. Expressions 
 *TBD* Supported expressions and BNF
 ### 5.1  Supported expressions
