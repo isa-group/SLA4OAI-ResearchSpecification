@@ -133,12 +133,12 @@ The SLA Object must conform to the following constraints.
 | pricing        | [`PricingObject`](#4-2-3-pricingobject)               | **Optional** Global pricing data. |
 | metrics        | [`MetricsObject`](#4-2-4-metricsobject)               | **Required** A list of metrics to use in the context of the SLA. |
 | availability   | `string`                                              | **Optional** Availability of the service expressed via time slots using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
-| plans          | [`PlansObject`](#4-2-5-plansobject)                   | **Required** A set of plans to define different SLA per plan. |
-| quotas         | [`QuotasObject`](#4-2-6-quotasobject)                 | **Optional** Global quotas, these quotas affect all plans. |
-| rates          | [`RatesObject`](#4-2-7-ratesobject)                   | **Optional** Global rates, these rates affect all plans. |
-| guarantees     | [`GuaranteesObject`](#4-2-8-guaranteesobject)         | **Optional** Global guarantees, these guarantees affect all plans. |
+| plans          | [`PlansObject`](#4-2-6-plansobject)                   | **Required** A set of plans to define different SLA per plan. |
+| quotas         | [`QuotasObject`](#4-2-8-quotasobject)                 | **Optional** Global quotas, these quotas affect all plans. |
+| rates          | [`RatesObject`](#4-2-9-ratesobject)                   | **Optional** Global rates, these rates affect all plans. |
+| guarantees     | [`GuaranteesObject`](#4-2-10-guaranteesobject)        | **Optional** Global guarantees, these guarantees affect all plans. |
 | Consumer       | `string`                                              | **Optional** Consumer information, data about the entity that consumes the service. | 
-| configuration  | [`ConfigurationsObject`](#4-2-11-configurationsobject)| **Optional** Define the global configurations. |
+| configuration  | [`ConfigurationsObject`](#4-2-16-configurationsobject)| **Optional** Define the global configurations. |
 
 #### 4.2.2 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
@@ -260,12 +260,12 @@ animalTypes:
 ```
 
 
-#### 4.2.5 PlansObject
+#### 4.2.6 PlansObject
 Contains a list of plans describing different Level of Service and prices.
 
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
-| {planName}     | [`PlanObject`](#4-2-6-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
+| {planName}     | [`PlanObject`](#4-2-7-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
 
 **Example:**
 
@@ -327,17 +327,17 @@ plans:
               period: secondly
 ```
 
-#### 4.2.6 PlanObject
+#### 4.2.7 PlanObject
 Describes a plan in full.
 
 | Field Name     | Type                                                   | Description  |
 | :------------- | :----------------------------------------------------- | :----------- |
-| configuration  | [`ConfigurationsObject`](#4-2-11-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
+| configuration  | [`ConfigurationsObject`](#4-2-16-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
 | availability   | `string`                                               | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
 | pricing        | [`PricingObject`](#4-2-3-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
-| quotas         | [`QuotasObject`](#4-2-7-quotasobject )                 | **Optional** Defines the quotas for the service on the current plan. |
-| rates          | [`RatesObject `](#4-2-7-ratesobject  )                 | **Optional** Defines the rates for the service on the current plan. |
-| guarantees     | [`GuaranteesObject`](#4-2-8-guaranteesobject)          | **Optional** Defines the warranties in the current plan. |
+| quotas         | [`QuotasObject`](#4-2-8-quotasobject)                  | **Optional** Defines the quotas for the service on the current plan. |
+| rates          | [`RatesObject `](#4-2-9-ratesobject)                   | **Optional** Defines the rates for the service on the current plan. |
+| guarantees     | [`GuaranteesObject`](#4-2-10-guaranteesobject)         | **Optional** Defines the warranties in the current plan. |
 
 
 **Example:**
@@ -398,12 +398,12 @@ pro:
           window: dynamic
 ```
 
-#### 4.2.7 QuotasObject
+#### 4.2.8 QuotasObject
 Contains a list of guarantees describing the quotas for the service on the current plan
 
-| Field Pattern  | Type                              | Description  |
-| :------------- | :-------------------------------- | :------------|
-| {pathName}     | [`PathObject`](#4-2-6-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
+| Field Pattern  | Type                               | Description  |
+| :------------- | :--------------------------------- | :------------|
+| {pathName}     | [`PathObject`](#4-2-13-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
 
 
 **Example:**
@@ -434,12 +434,12 @@ quotas:
           period: secondly
 ```
 
-#### 4.2.8 RatesObject
+#### 4.2.9 RatesObject
 Contains a list of guarantees describing the rates for the service on the current plan
 
-| Field Pattern  | Type                              | Description  |
-| :------------- | :-------------------------------- | :------------|
-| {pathName}     | [`PathObject`](#4-2-6-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
+| Field Pattern  | Type                               | Description  |
+| :------------- | :--------------------------------- | :------------|
+| {pathName}     | [`PathObject`](#4-2-13-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
 
 
 **Example:**
@@ -470,12 +470,12 @@ rates:
           period: secondly
 ```
 
-#### 4.2.8 GuaranteesObject
+#### 4.2.10 GuaranteesObject
 Contains a list of guarantees describing the warranties in the current plan.
 
-| Field Pattern  | Type                                        | Description  |
-| :------------- | :------------------------------------------ | :------------|
-| {pathName}     | [`GuaranteeObject`](#4-2-6-guaranteeobject) | **Optional** Describes a warranty level supported by the plan. |
+| Field Pattern  | Type                                         | Description  |
+| :------------- | :------------------------------------------- | :------------|
+| {pathName}     | [`GuaranteeObject`](#4-2-11-guaranteeobject) | **Optional** Describes a warranty level supported by the plan. |
 
 **Example:**
 
@@ -504,12 +504,12 @@ guarantees:
         window: dynamic
 ```
 
-#### 4.2.8 GuaranteeObject
+#### 4.2.11 GuaranteeObject
 Describes a warranty level supported by the plan.
 
-| Field Name     | Type                                                          | Description  |
-| :------------- | :------------------------------------------------------------ | :------------|
-| {MethodName}   | [`GuaranteeObjectiveObject`](#4-2-6-guaranteeobjectiveobject) |  **Optional** (Description: *TBD*) |
+| Field Name     | Type                                                           | Description  |
+| :------------- | :------------------------------------------------------------- | :----------- |
+| {MethodName}   | [`GuaranteeObjectiveObject`](#4-2-12-guaranteeobjectiveobject) |  **Optional** (Description: *TBD*) |
 
 **Example:**
 
@@ -535,12 +535,12 @@ global:
       window: dynamic
 ```
 
-#### 4.2.8 GuaranteeObjectiveObject
+#### 4.2.12 GuaranteeObjectiveObject
 (Description: *TBD*)
 
 | Field Name     | Type                           | Description  |
 | :------------- | :----------------------------- | :----------- |
-| objective      | [`Expression`](#5-expression)  |  **Required** (Description: *TBD*) |
+| objective      | [`Expression`](#5-expressions) |  **Required** (Description: *TBD*) |
 | period         | `string`                       |  **Optional** (Description: *TBD*) |
 | window         | `string`                       |  **Optional** (Description: *TBD*) |
 | scope          | `string`                       |  **Optional** (Description: *TBD*) |
@@ -568,12 +568,12 @@ global:
     scope: account
 ```
 
-#### 4.2.9 PathObject
+#### 4.2.13 PathObject
 (Description: *TBD*)
 
 | Field Pattern  | Type                                         | Description  |
 | :------------- | :------------------------------------------- | :------------|
-| {methodName}   | [`OperationObject`](#4-2-10-operationobject) | **Optional** (Description: *TBD*) |
+| {methodName}   | [`OperationObject`](#4-2-14-operationobject) | **Optional** (Description: *TBD*) |
 
 
 **Example:**
@@ -601,12 +601,12 @@ global:
         period: secondly
 ```
 
-#### 4.2.10 OperationObject
+#### 4.2.14 OperationObject
 (Description: *TBD*)
 
 | Field Pattern  | Type                                         | Description  |
 | :------------- | :------------------------------------------- | :------------|
-| {metricName}   | [`LimitObject`](#4-2-11-limitobject)         | **Optional** (Description: *TBD*) |
+| {metricName}   | [`LimitObject`](#4-2-15-limitobject)         | **Optional** (Description: *TBD*) |
 
 
 **Example:**
@@ -638,7 +638,7 @@ requests:
     scope: tenant
 ```
 
-#### 4.2.11 LimitObject
+#### 4.2.15 LimitObject
 (Description: *TBD*)
 
 | Field Pattern  | Type                           | Description  |
@@ -663,7 +663,7 @@ period: secondly
 scope: account
 ```
 
-#### 4.2.12 ConfigurationsObject
+#### 4.2.16 ConfigurationsObject
 (Description: *TBD*)
 
 | Field Pattern  | Type                           | Description  |
