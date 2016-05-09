@@ -399,11 +399,11 @@ pro:
 ```
 
 #### 4.2.7 QuotasObject
-Defines the quotas for the service on the current plan
+Contains a list of guarantees describing the quotas for the service on the current plan
 
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
-| {pathName}     | [`PathObject`](#4-2-6-pathobject) | Describes the API endpoint path configurations. |
+| {pathName}     | [`PathObject`](#4-2-6-pathobject) | Describes the API endpoint path quota configurations. |
 
 
 **Example:**
@@ -435,11 +435,11 @@ quotas:
 ```
 
 #### 4.2.8 RatesObject
-Defines the rates for the service on the current plan
+Contains a list of guarantees describing the rates for the service on the current plan
 
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
-| {pathName}     | [`PathObject`](#4-2-6-pathobject) | Describes the API endpoint path configurations. |
+| {pathName}     | [`PathObject`](#4-2-6-pathobject) | Describes the API endpoint path rate configurations. |
 
 
 **Example:**
