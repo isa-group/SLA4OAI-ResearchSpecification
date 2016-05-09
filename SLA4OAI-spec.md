@@ -403,7 +403,7 @@ Contains a list of guarantees describing the quotas for the service on the curre
 
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
-| {pathName}     | [`PathObject`](#4-2-6-pathobject) | Describes the API endpoint path quota configurations. |
+| {pathName}     | [`PathObject`](#4-2-6-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
 
 
 **Example:**
@@ -439,7 +439,7 @@ Contains a list of guarantees describing the rates for the service on the curren
 
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
-| {pathName}     | [`PathObject`](#4-2-6-pathobject) | Describes the API endpoint path rate configurations. |
+| {pathName}     | [`PathObject`](#4-2-6-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
 
 
 **Example:**
@@ -475,7 +475,7 @@ Contains a list of guarantees describing the warranties in the current plan.
 
 | Field Pattern  | Type                                        | Description  |
 | :------------- | :------------------------------------------ | :------------|
-| {pathName}     | [`GuaranteeObject`](#4-2-6-guaranteeobject) | Describes a warranty level supported by the plan. |
+| {pathName}     | [`GuaranteeObject`](#4-2-6-guaranteeobject) | **Optional** Describes a warranty level supported by the plan. |
 
 **Example:**
 
@@ -566,6 +566,39 @@ global:
     period: daily
     window: dynamic
     scope: account
+```
+
+#### 4.2.9 PathObject
+(Description: *TBD*)
+
+| Field Pattern  | Type                                         | Description  |
+| :------------- | :------------------------------------------- | :------------|
+| {methodName}   | [`OperationObject`](#4-2-10-operationobject) | **Optional** (Description: *TBD*) |
+
+
+**Example:**
+
+```
+{
+  "/pets/{id}": {
+    "get": {
+      "requests": [
+        {
+          "max": 1,
+          "period": "secondly"
+        }
+      ]
+    }
+  }
+}
+```
+
+```
+/pets/{id}:
+  get:
+    requests:
+      - max: 1
+        period: secondly
 ```
 
 ## 5. Expressions 
