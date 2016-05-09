@@ -335,8 +335,68 @@ Describes a plan in full.
 | configuration  | `Object`                                      | **Optional** Configuration parameters for the service tailored for the plan. |
 | availability   | `string`                                      | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
 | pricing        | [`PricingObject`](#4-2-3-pricingobject)       | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
-| limits         | [`LimitsObject`](#4-2-7-limitsobject)         | **Optional** Defines the limits for the service on the current plan. |
-| guarantees     | [`[GuaranteeObject]`](#4-2-8-guaranteeobject) | **Optional** Array of warranties in the current plan. |
+| quotas         | [`QuotasObject`](#4-2-7-quotasobject )        | **Optional** Defines the quotas for the service on the current plan. |
+| rates          | [`RatesObject `](#4-2-7-ratesobject  )        | **Optional** Defines the rates for the service on the current plan. |
+| guarantees     | [`GuaranteesObject`](#4-2-8-guaranteesobject) | **Optional** Defines the warranties in the current plan. |
+
+
+**Example:**
+
+```
+{
+  "pro": {
+    "pricing": {
+      "cost": 50
+    },
+    "configuration": {
+      "filteringType": "multipleTags"
+    },
+    "quotas": {
+      "/pets": {
+        "get": {
+          "requests": [
+            {
+              "max": 20,
+              "period": "secondly"
+            }
+          ]
+        }
+      }
+    },
+    "guarantees": {
+      "global": {
+        "global": [
+          {
+            "objective": "avgResponseTimeMs <= 250",
+            "period": "daily",
+            "window": "dynamic"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+```
+pro:
+  pricing:
+    cost: 50
+  configuration:
+    filteringType: multipleTags
+  quotas:
+    /pets:
+      get:
+        requests:
+          - max: 20
+            period: secondly
+  guarantees:
+    global:
+      global:
+        - objective: avgResponseTimeMs <= 250
+          period: daily
+          window: dynamic
+```
 
 #### 4.2.7 LimitsObject
 *TBD*
