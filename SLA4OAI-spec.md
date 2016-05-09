@@ -477,7 +477,6 @@ Contains a list of guarantees describing the warranties in the current plan.
 | :------------- | :------------------------------------------ | :------------|
 | {pathName}     | [`GuaranteeObject`](#4-2-6-guaranteeobject) | Describes a warranty level supported by the plan. |
 
-
 **Example:**
 
 ```
@@ -506,50 +505,36 @@ guarantees:
 ```
 
 #### 4.2.8 GuaranteeObject
-
-*TBD*
-
 Describes a warranty level supported by the plan.
 
-| Field Name     | Type                              | Description  |
-| :------------- | :-------------------------------- | :------------|
-| objective      | [`Expression`](#5-expressions )   |  **Optional**            |
-| period         | `string`                          |  **Optional** Period used for checking warrinty. Supported values are: `daily`, `weekly`, `monthly`,`yearly`. Default to `monthly` if unspecified. |
-| window         | `string`                          |  **Optional**            |
+| Field Name     | Type                                                          | Description  |
+| :------------- | :------------------------------------------------------------ | :------------|
+| {MethodName}   | [`GuaranteeObjectiveObject`](#4-2-6-guaranteeobjectiveobject) |  **Optional** (Description: *TBD*) |
 
 **Example:**
 
 ```
 {
-   "guarantees":{
-      "/pets":{
-         "post":{
-            "objective":"avgResponseTimeMs <= 800",
-            "period":"daily",
-            "window":"dynamic"
-         }
-      },
-      "global":{
-         "objective":"uptimePercentage > 95",
-         "period":"monthly",
-         "window":"static"
+  "global": {
+    "global": [
+      {
+        "objective": "avgResponseTimeMs <= 250",
+        "period": "daily",
+        "window": "dynamic"
       }
-   }
+    ]
+  }
 }
 ```
 
 ```
- guarantees: 
-      /pets: 
-        post: 
-          - objective: "avgResponseTimeMs <= 800"
-            period: "daily"
-            window: "dynamic"
-      global: 
-        - objective: "uptimePercentage > 95"
-          period: "monthly"
-          window: "static"
+global:
+  global:
+    - objective: avgResponseTimeMs <= 250
+      period: daily
+      window: dynamic
 ```
+
 ## 5. Expressions 
 *TBD* Supported expressions and BNF
 ### 5.1  Supported expressions
