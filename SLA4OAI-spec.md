@@ -638,6 +638,31 @@ requests:
     scope: tenant
 ```
 
+#### 4.2.11 LimitObject
+(Description: *TBD*)
+
+| Field Pattern  | Type                           | Description  |
+| :------------- | :----------------------------- | :------------|
+| max            | `number`                       |  **Required** Max value that can be accepted. |
+| period         | `number`                       |  **Optional** (Description: *TBD*) |
+| scope          | `string`                       |  **Optional** (Description: *TBD*) |
+
+**Example:**
+
+```
+{
+  "max": 20,
+  "period": "secondly",
+  "scope": "account"
+}
+```
+
+```
+max: 20
+period: secondly
+scope: account
+```
+
 ## 5. Expressions 
 *TBD* Supported expressions and BNF
 ### 5.1  Supported expressions
