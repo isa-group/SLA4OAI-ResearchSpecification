@@ -434,6 +434,42 @@ quotas:
           period: secondly
 ```
 
+#### 4.2.8 RatesObject
+Defines the rates for the service on the current plan
+
+| Field Pattern  | Type                              | Description  |
+| :------------- | :-------------------------------- | :------------|
+| {pathName}     | [`PathObject`](#4-2-6-pathobject) | Describes the API endpoint path configurations. |
+
+
+**Example:**
+
+```
+{
+  "rates": {
+    "/pets/{id}": {
+      "get": {
+        "requests": [
+          {
+            "max": 1,
+            "period": "secondly"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+```
+rates:
+  /pets/{id}:
+    get:
+      requests:
+        - max: 1
+          period: secondly
+```
+
 #### 4.2.8 GuaranteeObject
 
 *TBD*
