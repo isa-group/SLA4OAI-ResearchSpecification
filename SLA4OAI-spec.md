@@ -138,7 +138,7 @@ The SLA Object must conform to the following constraints.
 | rates          | [`RatesObject`](#4-2-7-ratesobject)                   | **Optional** Global rates, these rates affect all plans. |
 | guarantees     | [`GuaranteesObject`](#4-2-8-guaranteesobject)         | **Optional** Global guarantees, these guarantees affect all plans. |
 | Consumer       | `string`                                              | **Optional** Consumer information, data about the entity that consumes the service. | 
-| configuration  | `Map<string, string>`                                 | **Optional** Define the global configurations. |
+| configuration  | [`ConfigurationsObject`](#4-2-11-configurationsobject)| **Optional** Define the global configurations. |
 
 #### 4.2.2 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
@@ -330,14 +330,14 @@ plans:
 #### 4.2.6 PlanObject
 Describes a plan in full.
 
-| Field Name     | Type                                          | Description  |
-| :------------- | :-------------------------------------------- | :------------|
-| configuration  | `Object`                                      | **Optional** Configuration parameters for the service tailored for the plan. |
-| availability   | `string`                                      | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| pricing        | [`PricingObject`](#4-2-3-pricingobject)       | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
-| quotas         | [`QuotasObject`](#4-2-7-quotasobject )        | **Optional** Defines the quotas for the service on the current plan. |
-| rates          | [`RatesObject `](#4-2-7-ratesobject  )        | **Optional** Defines the rates for the service on the current plan. |
-| guarantees     | [`GuaranteesObject`](#4-2-8-guaranteesobject) | **Optional** Defines the warranties in the current plan. |
+| Field Name     | Type                                                   | Description  |
+| :------------- | :----------------------------------------------------- | :----------- |
+| configuration  | [`ConfigurationsObject`](#4-2-11-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
+| availability   | `string`                                               | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
+| pricing        | [`PricingObject`](#4-2-3-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
+| quotas         | [`QuotasObject`](#4-2-7-quotasobject )                 | **Optional** Defines the quotas for the service on the current plan. |
+| rates          | [`RatesObject `](#4-2-7-ratesobject  )                 | **Optional** Defines the rates for the service on the current plan. |
+| guarantees     | [`GuaranteesObject`](#4-2-8-guaranteesobject)          | **Optional** Defines the warranties in the current plan. |
 
 
 **Example:**
@@ -661,6 +661,30 @@ requests:
 max: 20
 period: secondly
 scope: account
+```
+
+#### 4.2.12 ConfigurationsObject
+(Description: *TBD*)
+
+| Field Pattern  | Type                           | Description  |
+| :------------- | :----------------------------- | :------------|
+| {name}         | `string`                       |  **Optional** Configurations description. |
+
+**Example:**
+
+```
+{
+  "configuration": {
+    "filteringType": "multipleTags",
+    "xmlFormat": true
+  }
+}
+```
+
+```
+configuration:
+  filteringType: multipleTags
+  xmlFormat: true
 ```
 
 ## 5. Expressions 
