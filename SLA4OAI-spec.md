@@ -509,7 +509,7 @@ Describes a warranty level supported by the plan.
 
 | Field Name     | Type                                                           | Description  |
 | :------------- | :------------------------------------------------------------- | :----------- |
-| {MethodName}   | [`GuaranteeObjectiveObject`](#4-2-12-guaranteeobjectiveobject) |  **Optional** (Description: *TBD*) |
+| {MethodName}   | [`GuaranteeObjectiveObject`](#4-2-12-guaranteeobjectiveobject) |  **Optional** An object describes the warranty level. |
 
 **Example:**
 
@@ -536,14 +536,14 @@ global:
 ```
 
 #### 4.2.12 GuaranteeObjectiveObject
-(Description: *TBD*)
+An object describes the warranty level.
 
 | Field Name     | Type                           | Description  |
 | :------------- | :----------------------------- | :----------- |
-| objective      | [`Expression`](#5-expressions) |  **Required** (Description: *TBD*) |
-| period         | `string`                       |  **Optional** (Description: *TBD*) |
-| window         | `string`                       |  **Optional** (Description: *TBD*) |
-| scope          | `string`                       |  **Optional** (Description: *TBD*) |
+| objective      | [`Expression`](#5-expressions) |  **Required** The objective of the guarantee. |
+| period         | `string`                       |  **Optional** The period of the objective. |
+| window         | `string`                       |  **Optional** The state of the Objective (Dynamic or static) |
+| scope          | `string`                       |  **Optional** The scope of who request the service. |
 
 **Example:**
 
@@ -569,11 +569,11 @@ global:
 ```
 
 #### 4.2.13 PathObject
-(Description: *TBD*)
+The API endpoint path.
 
 | Field Pattern  | Type                                         | Description  |
 | :------------- | :------------------------------------------- | :------------|
-| {methodName}   | [`OperationObject`](#4-2-14-operationobject) | **Optional** (Description: *TBD*) |
+| {methodName}   | [`OperationObject`](#4-2-14-operationobject) | **Optional** the operations attached to this path. |
 
 
 **Example:**
@@ -602,50 +602,45 @@ global:
 ```
 
 #### 4.2.14 OperationObject
-(Description: *TBD*)
+The operations attached to the path.
 
 | Field Pattern  | Type                                         | Description  |
 | :------------- | :------------------------------------------- | :------------|
-| {metricName}   | [`LimitObject`](#4-2-15-limitobject)         | **Optional** (Description: *TBD*) |
+| {metricName}   | [`LimitObject`](#4-2-15-limitobject)         | **Optional** The allowed limits of the request. |
 
 
 **Example:**
 
 ```
 {
-  "requests": [
-    {
-      "max": 20,
-      "period": "secondly",
-      "scope": "account"
-    },
-    {
-      "max": 100,
-      "period": "secondly",
-      "scope": "tenant"
-    }
-  ]
+  "get": {
+    "requests": [
+      {
+        "max": 20,
+        "period": "secondly",
+        "scope": "account"
+      }
+    ]
+  }
 }
 ```
 
 ```
-requests:
-  - max: 20
-    period: secondly
-    scope: account
-  - max: 100
-    period: secondly
-    scope: tenant
+get:
+  requests:
+    - max: 20
+      period: secondly
+      scope: account
 ```
 
 #### 4.2.15 LimitObject
-(Description: *TBD*)
+The allowed limits of the request.
 
 | Field Pattern  | Type                           | Description  |
 | :------------- | :----------------------------- | :------------|
 | max            | `number`                       |  **Required** Max value that can be accepted. |
-| period         | `number`                       |  **Optional** (Description: *TBD*) |
-| scope          | `string`                       |  **Optional** (Description: *TBD*) |
+| period         | `number`                       |  **Optional** The period of the objective. |
+| scope          | `string`                       |  **Optional** The scope of who request the service. |
 
 **Example:**
 
@@ -664,7 +659,7 @@ scope: account
 ```
 
 #### 4.2.16 ConfigurationsObject
-(Description: *TBD*)
+Configurations description.
 
 | Field Pattern  | Type                           | Description  |
 | :------------- | :----------------------------- | :------------|
