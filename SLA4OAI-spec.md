@@ -601,6 +601,43 @@ global:
         period: secondly
 ```
 
+#### 4.2.10 OperationObject
+(Description: *TBD*)
+
+| Field Pattern  | Type                                         | Description  |
+| :------------- | :------------------------------------------- | :------------|
+| {metricName}   | [`LimitObject`](#4-2-11-limitobject)         | **Optional** (Description: *TBD*) |
+
+
+**Example:**
+
+```
+{
+  "requests": [
+    {
+      "max": 20,
+      "period": "secondly",
+      "scope": "account"
+    },
+    {
+      "max": 100,
+      "period": "secondly",
+      "scope": "tenant"
+    }
+  ]
+}
+```
+
+```
+requests:
+  - max: 20
+    period: secondly
+    scope: account
+  - max: 100
+    period: secondly
+    scope: tenant
+```
+
 ## 5. Expressions 
 *TBD* Supported expressions and BNF
 ### 5.1  Supported expressions
