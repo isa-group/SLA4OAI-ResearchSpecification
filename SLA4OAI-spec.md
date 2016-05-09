@@ -267,6 +267,66 @@ Contains a list of plans describing different Level of Service and prices.
 | :------------- | :-------------------------------- | :------------|
 | {planName}     | [`PlanObject`](#4-2-6-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
 
+**Example:**
+
+```
+{
+  "plans": {
+    "free": {
+      "rates": {
+        "/pets/{id}": {
+          "get": {
+            "requests": [
+              {
+                "max": 1,
+                "period": "secondly"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "pro": {
+      "pricing": {
+        "cost": 50
+      },
+      "quotas": {
+        "/pets": {
+          "get": {
+            "requests": [
+              {
+                "max": 20,
+                "period": "secondly"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```
+plans:
+  free:
+    rates:
+      /pets/{id}:
+        get:
+          requests:
+            - max: 1
+              period: secondly
+  pro:
+    pricing:
+      cost: 50
+    quotas:
+      /pets:
+        get:
+          requests:
+            - max: 20
+              period: secondly
+```
+
 #### 4.2.6 PlanObject
 Describes a plan in full.
 
