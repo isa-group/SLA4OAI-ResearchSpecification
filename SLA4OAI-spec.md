@@ -398,8 +398,41 @@ pro:
           window: dynamic
 ```
 
-#### 4.2.7 LimitsObject
-*TBD*
+#### 4.2.7 QuotasObject
+Defines the quotas for the service on the current plan
+
+| Field Pattern  | Type                              | Description  |
+| :------------- | :-------------------------------- | :------------|
+| {pathName}     | [`PathObject`](#4-2-6-pathobject) | Describes the API endpoint path configurations. |
+
+
+**Example:**
+
+```
+{
+  "quotas": {
+    "/pets": {
+      "get": {
+        "requests": [
+          {
+            "max": 20,
+            "period": "secondly"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+```
+quotas:
+  /pets:
+    get:
+      requests:
+        - max: 20
+          period: secondly
+```
 
 #### 4.2.8 GuaranteeObject
 
