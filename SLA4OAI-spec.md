@@ -470,6 +470,41 @@ rates:
           period: secondly
 ```
 
+#### 4.2.8 GuaranteesObject
+Contains a list of guarantees describing the warranties in the current plan.
+
+| Field Pattern  | Type                                        | Description  |
+| :------------- | :------------------------------------------ | :------------|
+| {pathName}     | [`GuaranteeObject`](#4-2-6-guaranteeobject) | Describes a warranty level supported by the plan. |
+
+
+**Example:**
+
+```
+{
+  "guarantees": {
+    "global": {
+      "global": [
+        {
+          "objective": "avgResponseTimeMs <= 250",
+          "period": "daily",
+          "window": "dynamic"
+        }
+      ]
+    }
+  }
+}
+```
+
+```
+guarantees:
+  global:
+    global:
+      - objective: avgResponseTimeMs <= 250
+        period: daily
+        window: dynamic
+```
+
 #### 4.2.8 GuaranteeObject
 
 *TBD*
