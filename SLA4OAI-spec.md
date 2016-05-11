@@ -390,7 +390,7 @@ pro:
 ```
 
 #### 4.2.8 QuotasObject
-Contains a list of guarantees describing the quotas for the service on the current plan
+Contains a map from name to PathObject describing the quota limits for the service on the current plan.
 
 | Field Pattern  | Type                               | Description  |
 | :------------- | :--------------------------------- | :------------|
@@ -426,7 +426,7 @@ quotas:
 ```
 
 #### 4.2.9 RatesObject
-Contains a list of guarantees describing the rates for the service on the current plan
+Contains a map from name to PathObject describing the rate limits for the service on the current plan.
 
 | Field Pattern  | Type                               | Description  |
 | :------------- | :--------------------------------- | :------------|
@@ -462,7 +462,7 @@ rates:
 ```
 
 #### 4.2.10 GuaranteesObject
-Contains a list of guarantees describing the guarantees in the current plan.
+Contains a map from name to GuaranteeObject describing the guarantees for the service on the current plan.
 
 | Field Pattern  | Type                                         | Description  |
 | :------------- | :------------------------------------------- | :------------|
@@ -533,7 +533,7 @@ An object describes the guarantee level.
 | :------------- | :----------------------------- | :----------- |
 | objective      | [`Expression`](#5-expressions) |  **Required** The objective of the guarantee. |
 | period         | `string`                       |  **Optional** The period of the objective. |
-| window         | `string`                       |  **Optional** The state of the Objective (Dynamic or static) |
+| window         | `string`                       |  **Optional** The state of the Objective (dynamic or static) |
 | scope          | `string`                       |  **Optional** The scope of who request the service. |
 
 **Example:**
