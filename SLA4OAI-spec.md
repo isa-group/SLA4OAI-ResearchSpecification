@@ -252,7 +252,7 @@ animalTypes:
 
 
 #### 4.2.6 PlansObject
-Contains a list of plans describing different Level of Service and prices.
+Contains a list of plans describing different level of service and prices.
 
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
