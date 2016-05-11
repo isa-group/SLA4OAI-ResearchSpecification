@@ -256,7 +256,7 @@ Contains a list of plans describing different level of service and prices.
 
 | Field Pattern  | Type                              | Description  |
 | :------------- | :-------------------------------- | :------------|
-| {planName}     | [`PlanObject`](#4-2-7-planobject) | Describes a usage plan for the API with its associate costs, availability and warranties. |
+| {planName}     | [`PlanObject`](#4-2-7-planobject) | Describes a usage plan for the API with its associate costs, availability and guarantees. |
 
 **Example:**
 
@@ -328,7 +328,7 @@ Describes a plan in full.
 | pricing        | [`PricingObject`](#4-2-3-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
 | quotas         | [`QuotasObject`](#4-2-8-quotasobject)                  | **Optional** Defines the quotas for the service on the current plan. |
 | rates          | [`RatesObject `](#4-2-9-ratesobject)                   | **Optional** Defines the rates for the service on the current plan. |
-| guarantees     | [`GuaranteesObject`](#4-2-10-guaranteesobject)         | **Optional** Defines the warranties in the current plan. |
+| guarantees     | [`GuaranteesObject`](#4-2-10-guaranteesobject)         | **Optional** Defines the guarantees in the current plan. |
 
 
 **Example:**
@@ -462,11 +462,11 @@ rates:
 ```
 
 #### 4.2.10 GuaranteesObject
-Contains a list of guarantees describing the warranties in the current plan.
+Contains a list of guarantees describing the guarantees in the current plan.
 
 | Field Pattern  | Type                                         | Description  |
 | :------------- | :------------------------------------------- | :------------|
-| {pathName}     | [`GuaranteeObject`](#4-2-11-guaranteeobject) | **Optional** Describes a warranty level supported by the plan. |
+| {pathName}     | [`GuaranteeObject`](#4-2-11-guaranteeobject) | **Optional** Describes a guarantee level supported by the plan. |
 
 **Example:**
 
@@ -496,11 +496,11 @@ guarantees:
 ```
 
 #### 4.2.11 GuaranteeObject
-Describes a warranty level supported by the plan.
+Describes a guarantee level supported by the plan.
 
 | Field Name     | Type                                                           | Description  |
 | :------------- | :------------------------------------------------------------- | :----------- |
-| {MethodName}   | [`GuaranteeObjectiveObject`](#4-2-12-guaranteeobjectiveobject) |  **Optional** An object describes the warranty level. |
+| {MethodName}   | [`GuaranteeObjectiveObject`](#4-2-12-guaranteeobjectiveobject) |  **Optional** An object describes the guarantee level. |
 
 **Example:**
 
@@ -527,7 +527,7 @@ global:
 ```
 
 #### 4.2.12 GuaranteeObjectiveObject
-An object describes the warranty level.
+An object describes the guarantee level.
 
 | Field Name     | Type                           | Description  |
 | :------------- | :----------------------------- | :----------- |
