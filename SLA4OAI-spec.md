@@ -325,10 +325,10 @@ Describes a plan in full.
 | :------------- | :----------------------------------------------------- | :----------- |
 | configuration  | [`ConfigurationsObject`](#4-2-16-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
 | availability   | `string`                                               | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| pricing        | [`PricingObject`](#4-2-3-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides general pricing data defined before. |
-| quotas         | [`QuotasObject`](#4-2-8-quotasobject)                  | **Optional** Defines the quotas for the service on the current plan. |
-| rates          | [`RatesObject `](#4-2-9-ratesobject)                   | **Optional** Defines the rates for the service on the current plan. |
-| guarantees     | [`GuaranteesObject`](#4-2-10-guaranteesobject)         | **Optional** Defines the guarantees in the current plan. |
+| pricing        | [`PricingObject`](#4-2-3-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides default pricing data defined before. |
+| quotas         | [`QuotasObject`](#4-2-8-quotasobject)                  | **Optional** Specific quotas data for this plan. Overrides default quotas data defined before. |
+| rates          | [`RatesObject `](#4-2-9-ratesobject)                   | **Optional** Specific rates data for this plan. Overrides default rates data defined before. |
+| guarantees     | [`GuaranteesObject`](#4-2-10-guaranteesobject)         | **Optional** Specific guarantees data for this plan. Overrides default guarantees data defined before. |
 
 
 **Example:**
