@@ -145,11 +145,8 @@ The infrastructure object describes the operational tooling to use in the servic
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
-| supervisor     | `uri`         | **Optional** Location of the SLA manager used for SLA governance. |
-| monitor        | `uri`         | **Required** Location of the SLA Check service accordingly to the [sla0](./operationalServices.md) spec. |
-| registry       | `uri`         | **Required** Location of the SLA data storage service accordingly to the [sla0](./operationalServices.md) spec. |
-| check          | `uri`         | **Required** Location of the SLA Check endpoint accordingly to the [sla0](./operationalServices.md) spec. |
-| metrics        | `uri`         | **Required** Location of the SLA Metrics endpoint accordingly to the [sla0](./operationalServices.md) spec. |
+| supervisor     | `uri`         | **Required** Location of the SLA Check service accordingly to the [sla0](./operationalServices.md) spec. |
+| monitor        | `uri`         | **Required** Location of the SLA Metrics endpoint accordingly to the [sla0](./operationalServices.md) spec. |
 | {name}         | `uri`         | **Optional** Optional endpoints of SLA governance infrastructure. |
 
 **Example:**
@@ -158,10 +155,7 @@ The infrastructure object describes the operational tooling to use in the servic
 {
    "infrastructure":{
       "supervisor": "http://supervisor.sla4oai.governify.io/v1/",
-      "monitor": "http://monitor.sla4oai.governify.io/v1/",
-      "registry": "http://registry.sla4oai.governify.io/v1/",
-      "check": "http://check.sla4oai.governify.io/v1/",
-      "metrics": "http://metrics.sla4oai.governify.io/v1/"
+      "monitor": "http://monitor.sla4oai.governify.io/v1/"
    }
 }
 ```
@@ -170,9 +164,6 @@ The infrastructure object describes the operational tooling to use in the servic
 infrastructure: 
   supervisor: "http://supervisor.sla4oai.governify.io/v1/"
   monitor: "http://monitor.sla4oai.governify.io/v1/"
-  registry: "http://registry.sla4oai.governify.io/v1/"
-  check: "http://check.sla4oai.governify.io/v1/"
-  metrics: "http://metrics.sla4oai.governify.io/v1/"
 ```
 
 #### 4.2.3 PricingObject
