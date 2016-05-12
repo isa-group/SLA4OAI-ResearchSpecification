@@ -143,19 +143,19 @@ The SLA Object must conform to the following constraints.
 
 | Field Name     | Type                                                  | Description  |
 | :------------- | :---------------------------------------------------- | :------------|
-| sla            | `string`                                              | **Required** Indicates the version of the sla format `='1.0'`. |
-| api            | `uri`                                                 | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
-| infrastructure | [`InfrastructureObject`](#markdown-header-522-infrastructureobject) | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
-| provider       | `string`                                              | **Optional** Provider information: data about the owner/host of the API. |
-| pricing        | [`PricingObject`](#5-2-3-pricingobject)               | **Optional** Global pricing data. |
-| metrics        | [`MetricsObject`](#5-2-4-metricsobject)               | **Required** A list of metrics to use in the context of the SLA. |
-| availability   | `string`                                              | **Optional** Availability of the service expressed via time slots using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
-| plans          | [`PlansObject`](#5-2-6-plansobject)                   | **Optional** A set of plans to define different service levels per plan. |
-| quotas         | [`QuotasObject`](#5-2-8-quotasobject)                 | **Optional** Global quotas, these are the default quotas, later each plan can be override it. |
-| rates          | [`RatesObject`](#5-2-9-ratesobject)                   | **Optional** Global rates, these are the default rates, later each plan can be override it. |
-| guarantees     | [`GuaranteesObject`](#5-2-10-guaranteesobject)        | **Optional** Global guarantees, these are the default guarantees, later each plan can be override it. |
-| consumer       | `string`                                              | **Optional** Consumer information, data about the entity that consumes the service. | 
-| configuration  | [`ConfigurationsObject`](#5-2-16-configurationsobject)| **Optional** Define the default configurations, later each plan can be override it. |
+| sla            | `string`                                                             | **Required** Indicates the version of the sla format `='1.0'`. |
+| api            | `uri`                                                                | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
+| infrastructure | [`InfrastructureObject`](#markdown-header-522-infrastructureobject)  | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
+| provider       | `string`                                                             | **Optional** Provider information: data about the owner/host of the API. |
+| pricing        | [`PricingObject`](#markdown-header-523-pricingobject)                | **Optional** Global pricing data. |
+| metrics        | [`MetricsObject`](#markdown-header-524-metricsobject)                | **Required** A list of metrics to use in the context of the SLA. |
+| availability   | `string`                                                             | **Optional** Availability of the service expressed via time slots using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
+| plans          | [`PlansObject`](#markdown-header-526-plansobject)                    | **Optional** A set of plans to define different service levels per plan. |
+| quotas         | [`QuotasObject`](#markdown-header-528-quotasobject)                  | **Optional** Global quotas, these are the default quotas, later each plan can be override it. |
+| rates          | [`RatesObject`](#markdown-header-529-ratesobject)                    | **Optional** Global rates, these are the default rates, later each plan can be override it. |
+| guarantees     | [`GuaranteesObject`](#markdown-header-5210-guaranteesobject)         | **Optional** Global guarantees, these are the default guarantees, later each plan can be override it. |
+| consumer       | `string`                                                             | **Optional** Consumer information, data about the entity that consumes the service. | 
+| configuration  | [`ConfigurationsObject`](#markdown-header-5216-configurationsobject) | **Optional** Define the default configurations, later each plan can be override it. |
 
 #### 5.2.2 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
