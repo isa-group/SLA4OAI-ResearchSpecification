@@ -145,7 +145,7 @@ The SLA Object must conform to the following constraints.
 | :------------- | :---------------------------------------------------- | :------------|
 | sla            | `string`                                              | **Required** Indicates the version of the sla format `='1.0'`. |
 | api            | `uri`                                                 | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
-| infrastructure | [`InfrastructureObject`](#5-2-2-infrastructureobject) | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
+| infrastructure | [`InfrastructureObject`](#markdown-header-522-infrastructureobject) | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
 | provider       | `string`                                              | **Optional** Provider information: data about the owner/host of the API. |
 | pricing        | [`PricingObject`](#5-2-3-pricingobject)               | **Optional** Global pricing data. |
 | metrics        | [`MetricsObject`](#5-2-4-metricsobject)               | **Required** A list of metrics to use in the context of the SLA. |
