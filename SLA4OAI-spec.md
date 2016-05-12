@@ -549,7 +549,7 @@ An object describes the guarantee level.
 | Field Name     | Type                                           | Description  |
 | :------------- | :--------------------------------------------- | :----------- |
 | objective      | [`Expression`](#markdown-header-6-expressions) |  **Required** The objective of the guarantee. |
-| period         | `string`                                       |  **Optional** The period of the objective. |
+| period         | `string`                                       |  **Optional** The period of the objective (secondly, minutely, hourly, daily, monthly or yearly). |
 | window         | `string`                                       |  **Optional** The state of the Objective (dynamic or static) |
 | scope          | `string`                                       |  **Optional** The scope of who request the service. |
 
@@ -647,7 +647,7 @@ The allowed limits of the request.
 | Field Pattern  | Type                           | Description  |
 | :------------- | :----------------------------- | :------------|
 | max            | `number`                       |  **Required** Max value that can be accepted. |
-| period         | `number`                       |  **Optional** The period of the objective. |
+| period         | `string`                       |  **Optional** The period of the objective (secondly, minutely, hourly, daily, monthly or yearly). |
 | scope          | `string`                       |  **Optional** The scope of who request the service. |
 
 **Example:**
