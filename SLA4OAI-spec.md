@@ -691,11 +691,30 @@ configuration:
 ```
 
 ## 6. Expressions 
-*TBD* Supported expressions and BNF
+Guarantee's objective is expressed as a boolean expression which produces a Boolean value when evaluated. 
+
 ### 6.1  Supported expressions
-*TBD* Describe: Operators, data-types supported and predefined identifiers (and semantics)
+Currently only simple comparassion operators are supported.
+
+**Supported operators:**
+
+| Operator       | Name of operator               | 
+| :------------- | :----------------------------- | 
+| `<`            | less than                      | 
+| `<=`           | less than or equal to          |
+| `==`           | equal to                       |
+| `!=`           | not equal to                   |
+| `>=`           | greater than or equal to       |
+| `>`            | greater than                   |
+
 ### 6.2  Expression BNF
-Grammar for expressions.
+Supported expression syntax has a single form: Property + Operator + Value
+
+```
+<expression> ::= <variable> <op> <value>
+<op>         ::= '<' | '<=' | '==' | '!=' | '>=' | '>'
+<value>      ::= <integer> | <string>
+```
 
 ## 7. References
 
