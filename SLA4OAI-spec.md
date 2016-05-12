@@ -141,8 +141,8 @@ info:
 #### 5.2.1 SLA Object
 The SLA Object must conform to the following constraints. 
 
-| Field Name     | Type                                                  | Description  |
-| :------------- | :---------------------------------------------------- | :------------|
+| Field Name     | Type                                                                 | Description  |
+| :------------- | :------------------------------------------------------------------- | :----------- |
 | sla            | `string`                                                             | **Required** Indicates the version of the sla format `='1.0'`. |
 | api            | `uri`                                                                | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
 | infrastructure | [`InfrastructureObject`](#markdown-header-522-infrastructureobject)  | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
@@ -214,10 +214,10 @@ pricing:
 #### 5.2.4 MetricsObject
 Contains definitions of metrics with name, types and descriptions. References can be used to reuse definitions of pre-existing metrics.
 
-| Field Name     | Type                                          | Description  |
-| :------------- | :-------------------------------------------- | :------------|
-| {name}         | [`MetricObject`](#5-2-5-metricobject)         | **Optional** Definitions of metrics with name, types and descriptions. |
-| $ref           | `uri`                                         | **Optional** References to pre-existing metrics. |
+| Field Name     | Type                                                | Description  |
+| :------------- | :-------------------------------------------------- | :----------- |
+| {name}         | [`MetricObject`](#markdown-header-525-metricobject) | **Optional** Definitions of metrics with name, types and descriptions. |
+| $ref           | `uri`                                               | **Optional** References to pre-existing metrics. |
 
 **Example:**
 
@@ -271,9 +271,9 @@ animalTypes:
 #### 5.2.6 PlansObject
 Contains a list of plans describing different level of service and prices.
 
-| Field Pattern  | Type                              | Description  |
-| :------------- | :-------------------------------- | :------------|
-| {planName}     | [`PlanObject`](#5-2-7-planobject) | Describes a usage plan for the API with its associate costs, availability and guarantees. |
+| Field Pattern  | Type                                            | Description  |
+| :------------- | :---------------------------------------------- | :----------- |
+| {planName}     | [`PlanObject`](#markdown-header-527-planobject) | Describes a usage plan for the API with its associate costs, availability and guarantees. |
 
 **Example:**
 
@@ -338,14 +338,14 @@ plans:
 #### 5.2.7 PlanObject
 Describes a plan in full.
 
-| Field Name     | Type                                                   | Description  |
-| :------------- | :----------------------------------------------------- | :----------- |
-| configuration  | [`ConfigurationsObject`](#5-2-16-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
-| availability   | `string`                                               | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| pricing        | [`PricingObject`](#5-2-3-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides default pricing data defined before. |
-| quotas         | [`QuotasObject`](#5-2-8-quotasobject)                  | **Optional** Specific quotas data for this plan. Overrides default quotas data defined before. |
-| rates          | [`RatesObject `](#5-2-9-ratesobject)                   | **Optional** Specific rates data for this plan. Overrides default rates data defined before. |
-| guarantees     | [`GuaranteesObject`](#5-2-10-guaranteesobject)         | **Optional** Specific guarantees data for this plan. Overrides default guarantees data defined before. |
+| Field Name     | Type                                                                 | Description  |
+| :------------- | :------------------------------------------------------------------- | :----------- |
+| configuration  | [`ConfigurationsObject`](#markdown-header-5216-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
+| availability   | `string`                                                             | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
+| pricing        | [`PricingObject`](#markdown-header-523-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides default pricing data defined before. |
+| quotas         | [`QuotasObject`](#markdown-header-528-quotasobject)                  | **Optional** Specific quotas data for this plan. Overrides default quotas data defined before. |
+| rates          | [`RatesObject `](#markdown-header-529-ratesobject)                   | **Optional** Specific rates data for this plan. Overrides default rates data defined before. |
+| guarantees     | [`GuaranteesObject`](#markdown-header-5210-guaranteesobject)         | **Optional** Specific guarantees data for this plan. Overrides default guarantees data defined before. |
 
 
 **Example:**
@@ -409,9 +409,9 @@ pro:
 #### 5.2.8 QuotasObject
 Contains a map from name to PathObject describing the quota limits for the service on the current plan.
 
-| Field Pattern  | Type                               | Description  |
-| :------------- | :--------------------------------- | :------------|
-| {pathName}     | [`PathObject`](#5-2-13-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
+| Field Pattern  | Type                                             | Description  |
+| :------------- | :----------------------------------------------- | :----------- |
+| {pathName}     | [`PathObject`](#markdown-header-5213-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
 
 
 **Example:**
@@ -445,9 +445,9 @@ quotas:
 #### 5.2.9 RatesObject
 Contains a map from name to PathObject describing the rate limits for the service on the current plan.
 
-| Field Pattern  | Type                               | Description  |
-| :------------- | :--------------------------------- | :------------|
-| {pathName}     | [`PathObject`](#5-2-13-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
+| Field Pattern  | Type                                             | Description  |
+| :------------- | :----------------------------------------------- | :----------- |
+| {pathName}     | [`PathObject`](#markdown-header-5213-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
 
 
 **Example:**
@@ -481,9 +481,9 @@ rates:
 #### 5.2.10 GuaranteesObject
 Contains a map from name to GuaranteeObject describing the guarantees for the service on the current plan.
 
-| Field Pattern  | Type                                         | Description  |
-| :------------- | :------------------------------------------- | :------------|
-| {pathName}     | [`GuaranteeObject`](#5-2-11-guaranteeobject) | **Optional** Describes a guarantee level supported by the plan. |
+| Field Pattern  | Type                                                       | Description  |
+| :------------- | :--------------------------------------------------------- | :----------- |
+| {pathName}     | [`GuaranteeObject`](#markdown-header-5211-guaranteeobject) | **Optional** Describes a guarantee level supported by the plan. |
 
 **Example:**
 
@@ -515,9 +515,9 @@ guarantees:
 #### 5.2.11 GuaranteeObject
 Describes a guarantee level supported by the plan.
 
-| Field Name     | Type                                                           | Description  |
-| :------------- | :------------------------------------------------------------- | :----------- |
-| {MethodName}   | [`GuaranteeObjectiveObject`](#5-2-12-guaranteeobjectiveobject) |  **Optional** An object describes the guarantee level. |
+| Field Name     | Type                                                                         | Description  |
+| :------------- | :--------------------------------------------------------------------------- | :----------- |
+| {MethodName}   | [`GuaranteeObjectiveObject`](#markdown-header-5212-guaranteeobjectiveobject) |  **Optional** An object describes the guarantee level. |
 
 **Example:**
 
@@ -546,12 +546,12 @@ global:
 #### 5.2.12 GuaranteeObjectiveObject
 An object describes the guarantee level.
 
-| Field Name     | Type                           | Description  |
-| :------------- | :----------------------------- | :----------- |
-| objective      | [`Expression`](#6-expressions) |  **Required** The objective of the guarantee. |
-| period         | `string`                       |  **Optional** The period of the objective. |
-| window         | `string`                       |  **Optional** The state of the Objective (dynamic or static) |
-| scope          | `string`                       |  **Optional** The scope of who request the service. |
+| Field Name     | Type                                           | Description  |
+| :------------- | :--------------------------------------------- | :----------- |
+| objective      | [`Expression`](#markdown-header-6-expressions) |  **Required** The objective of the guarantee. |
+| period         | `string`                                       |  **Optional** The period of the objective. |
+| window         | `string`                                       |  **Optional** The state of the Objective (dynamic or static) |
+| scope          | `string`                                       |  **Optional** The scope of who request the service. |
 
 **Example:**
 
@@ -579,9 +579,9 @@ global:
 #### 5.2.13 PathObject
 The API endpoint path.
 
-| Field Pattern  | Type                                         | Description  |
-| :------------- | :------------------------------------------- | :------------|
-| {methodName}   | [`OperationObject`](#5-2-14-operationobject) | **Optional** the operations attached to this path. |
+| Field Pattern  | Type                                                       | Description  |
+| :------------- | :--------------------------------------------------------- | :----------- |
+| {methodName}   | [`OperationObject`](#markdown-header-5214-operationobject) | **Optional** the operations attached to this path. |
 
 
 **Example:**
@@ -612,9 +612,9 @@ The API endpoint path.
 #### 5.2.14 OperationObject
 The operations attached to the path.
 
-| Field Pattern  | Type                                         | Description  |
-| :------------- | :------------------------------------------- | :------------|
-| {metricName}   | [`LimitObject`](#5-2-15-limitobject)         | **Optional** The allowed limits of the request. |
+| Field Pattern  | Type                                               | Description  |
+| :------------- | :------------------------------------------------- | :----------- |
+| {metricName}   | [`LimitObject`](#markdown-header-5215-limitobject) | **Optional** The allowed limits of the request. |
 
 
 **Example:**
