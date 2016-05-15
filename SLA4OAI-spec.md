@@ -81,16 +81,10 @@ scenarios where an API is served.
 
 ## 3. Lifecycle of Agreement
 
-The lifecycle of a SLA is composed by two phases, we must distinguish the document is defined to provide different levels of service,
-against the document which the consumer and provider agree. In this specification a service level is named **Plan**.
+The lifecycle of any SLA agreement has two phases:
 
-
-First service providers must design the levels of service and define the **Offering** document,
-after consumers can choose what levels they want and finally provider and consumer agree the **SLA** document.
-The two phases of the lifecycle are represented by two type of documents:
-
-- Offering document, see the example at [petstore-offering.yml](./samples/petstore/petstore-offering.yml).
-- SLA document, see the example at [petstore-sla.yml](./samples/petstore/petstore-sla.yml).
+1. The service provider design the levels (plans) of the service, then define the **Plans** document. See an example at [petstore-plans.yml](./samples/petstore/petstore-plans.yml). 
+2. The consumer choose the levels (plans) he need, then both provider and consumer agree the **SLA** document. See an example at [petstore-sla.yml](./samples/petstore/petstore-sla.yml).
 
 ![Figure 5](images/lifecycle-agreement.svg "Figure 5. Lifecycle of Agreement.")
 
