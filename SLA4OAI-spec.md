@@ -96,7 +96,8 @@ The lifecycle of any SLA agreement has two phases:
 This sample illustrates a simple Resource based API for Pets database. 
 
 - The full OpenAPI description is provided in [petstore-service.yml](./samples/petstore/petstore-service.yml).
-- The service provides a SLA described in [petstore-sla.yml](./samples/petstore/petstore-sla.yml).
+- The service provides a template SLA described in [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
+- The provider and consumer agree the SLA described in [petstore-sla.yml](./samples/petstore/petstore-sla.yml).
 
 
 ## 5. Specification
@@ -117,7 +118,7 @@ To declare a given API exposes an SLA, the OpenAPI description is extended with 
       "title": "Swagger Petstore (Simple)",
       "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
       "version": "1.0.0",
-      "x-sla": "./petstore-sla.yml"
+      "x-sla": "./petstore-plans.yml"
    }
 }
 ```
@@ -128,7 +129,7 @@ info:
     title: "Swagger Petstore (Simple)"
     description: "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification"
     version: "1.0.0"
-    x-sla: ./petstore-sla.yml
+    x-sla: ./petstore-plans.yml
 ```
 
 ### 5.2 SLA Document Schema
