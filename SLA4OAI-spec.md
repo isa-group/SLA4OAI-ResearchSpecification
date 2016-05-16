@@ -707,7 +707,7 @@ Supported expression syntax has a single form: Property + Operator + Value
 ```
 <expression> ::= <variable> <op> <value>
 <op>         ::= '<' | '<=' | '==' | '!=' | '>=' | '>'
-<value>      ::= <integer> | <string>
+<value>      ::= <integer> | <string> | <double>
 ```
 
 ## 7. References
