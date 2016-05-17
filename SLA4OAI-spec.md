@@ -138,21 +138,39 @@ The SLA Object must conform to the following constraints.
 
 | Field Name     | Type                                                                 | Description  |
 | :------------- | :------------------------------------------------------------------- | :----------- |
-| sla            | `string`                                                             | **Required** Indicates the version of the sla format `='1.0'`. |
-| api            | `uri`                                                                | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
-| infrastructure | [`InfrastructureObject`](#markdown-header-522-infrastructureobject)  | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
-| provider       | `string`                                                             | **Optional** Provider information: data about the owner/host of the API. |
-| pricing        | [`PricingObject`](#markdown-header-523-pricingobject)                | **Optional** Global pricing data. |
-| metrics        | [`MetricsObject`](#markdown-header-524-metricsobject)                | **Required** A list of metrics to use in the context of the SLA. |
-| availability   | `string`                                                             | **Optional** Availability of the service expressed via time slots using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
-| plans          | [`PlansObject`](#markdown-header-526-plansobject)                    | **Optional** A set of plans to define different service levels per plan. |
-| quotas         | [`QuotasObject`](#markdown-header-528-quotasobject)                  | **Optional** Global quotas, these are the default quotas, later each plan can be override it. |
-| rates          | [`RatesObject`](#markdown-header-529-ratesobject)                    | **Optional** Global rates, these are the default rates, later each plan can be override it. |
-| guarantees     | [`GuaranteesObject`](#markdown-header-5210-guaranteesobject)         | **Optional** Global guarantees, these are the default guarantees, later each plan can be override it. |
-| consumer       | `string`                                                             | **Optional** Consumer information, data about the entity that consumes the service. | 
-| configuration  | [`ConfigurationsObject`](#markdown-header-5216-configurationsobject) | **Optional** Define the default configurations, later each plan can be override it. |
+| context        | [`ContextObject`](#markdown-header-522-contextobject)                | **Required** Holds the main information of the SLA context. |
+| infrastructure | [`InfrastructureObject`](#markdown-header-524-infrastructureobject)  | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
+| pricing        | [`PricingObject`](#markdown-header-525-pricingobject)                | **Optional** Global pricing data. |
+| metrics        | [`MetricsObject`](#markdown-header-526-metricsobject)                | **Required** A list of metrics to use in the context of the SLA. |
+| plans          | [`PlansObject`](#markdown-header-528-plansobject)                    | **Optional** A set of plans to define different service levels per plan. |
+| quotas         | [`QuotasObject`](#markdown-header-5210-quotasobject)                  | **Optional** Global quotas, these are the default quotas, later each plan can be override it. |
+| rates          | [`RatesObject`](#markdown-header-5211-ratesobject)                    | **Optional** Global rates, these are the default rates, later each plan can be override it. |
+| guarantees     | [`GuaranteesObject`](#markdown-header-5212-guaranteesobject)         | **Optional** Global guarantees, these are the default guarantees, later each plan can be override it. |
+| configuration  | [`ConfigurationsObject`](#markdown-header-5218-configurationsobject) | **Optional** Define the default configurations, later each plan can be override it. |
 
-#### 5.2.2 InfrastructureObject
+#### 5.2.2 ContextObject
+Holds the main information of the SLA context. 
+
+| Field Name     | Type                                                                 | Description  |
+| :------------- | :------------------------------------------------------------------- | :----------- |
+| id             | `string`                                                             | **Required** The identification of the SLA context. |
+| version        | `string`                                                             | **Required** Indicates the version of the sla format `='1.0'`. |
+| api            | `uri`                                                                | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
+| type           | `string`                                                             | **Required** The type of SLA based on the [Lifecycle of Agreement](#markdown-header-3-lifecycle-of-agreement) (`plans` or `instance`). |
+| provider       | `string`                                                             | **Optional** Provider information: data about the owner/host of the API. This field is **required** in case of the context type is `instance`. |
+| consumer       | `string`                                                             | **Optional** Consumer information, data about the entity that consumes the service. This field is **required** in case of the context type is `instance`. |
+| validity       | [`ValidityObject`](#markdown-header-523-validityobject)              | **Optional** Availability of the service expressed via time slots. This field is **required** in case of the context type is `instance`. |
+
+#### 5.2.3 ValidityObject
+Holds the availability of the service expressed via time slots. 
+
+| Field Name     | Type             | Description  |
+| :------------- | :--------------- | :----------- |
+| effectiveDate  | `string`         | **Required** The starting date of the SLA agreement using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
+| expirationDate | `string`         | **Optional** The expiration date of the SLA agreement using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
+
+
+#### 5.2.4 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
 
 | Field Name     | Type          | Description  |
@@ -178,7 +196,7 @@ infrastructure:
   monitor: "http://monitor.sla4oai.governify.io/v1/"
 ```
 
-#### 5.2.3 PricingObject
+#### 5.2.5 PricingObject
 Describes the general information of the pricing of the API.
 
 | Field Name     | Type          | Description  |
@@ -206,12 +224,12 @@ pricing:
   billing: "monthly"
 ```
 
-#### 5.2.4 MetricsObject
+#### 5.2.6 MetricsObject
 Contains definitions of metrics with name, types and descriptions. References can be used to reuse definitions of pre-existing metrics.
 
 | Field Name     | Type                                                | Description  |
 | :------------- | :-------------------------------------------------- | :----------- |
-| {name}         | [`MetricObject`](#markdown-header-525-metricobject) | **Optional** Definitions of metrics with name, types and descriptions. |
+| {name}         | [`MetricObject`](#markdown-header-527-metricobject) | **Optional** Definitions of metrics with name, types and descriptions. |
 | $ref           | `uri`                                               | **Optional** References to pre-existing metrics. |
 
 **Example:**
@@ -236,7 +254,7 @@ metrics:
   $ref: ./metrics.yml
 ```
 
-#### 5.2.5 MetricObject
+#### 5.2.7 MetricObject
 Contains definitions of metric with type, description and unit of the metric.
 
 | Field Name     | Type                                          | Description  |
@@ -263,12 +281,12 @@ animalTypes:
 ```
 
 
-#### 5.2.6 PlansObject
+#### 5.2.8 PlansObject
 Contains a list of plans describing different level of service and prices.
 
 | Field Pattern  | Type                                            | Description  |
 | :------------- | :---------------------------------------------- | :----------- |
-| {planName}     | [`PlanObject`](#markdown-header-527-planobject) | Describes a usage plan for the API with its associate costs, availability and guarantees. |
+| {planName}     | [`PlanObject`](#markdown-header-529-planobject) | Describes a usage plan for the API with its associate costs, availability and guarantees. |
 
 **Example:**
 
@@ -330,17 +348,17 @@ plans:
               period: secondly
 ```
 
-#### 5.2.7 PlanObject
+#### 5.2.9 PlanObject
 Describes a plan in full.
 
 | Field Name     | Type                                                                 | Description  |
 | :------------- | :------------------------------------------------------------------- | :----------- |
-| configuration  | [`ConfigurationsObject`](#markdown-header-5216-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
+| configuration  | [`ConfigurationsObject`](#markdown-header-5218-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
 | availability   | `string`                                                             | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| pricing        | [`PricingObject`](#markdown-header-523-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides default pricing data defined before. |
-| quotas         | [`QuotasObject`](#markdown-header-528-quotasobject)                  | **Optional** Specific quotas data for this plan. Overrides default quotas data defined before. |
-| rates          | [`RatesObject `](#markdown-header-529-ratesobject)                   | **Optional** Specific rates data for this plan. Overrides default rates data defined before. |
-| guarantees     | [`GuaranteesObject`](#markdown-header-5210-guaranteesobject)         | **Optional** Specific guarantees data for this plan. Overrides default guarantees data defined before. |
+| pricing        | [`PricingObject`](#markdown-header-525-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides default pricing data defined before. |
+| quotas         | [`QuotasObject`](#markdown-header-5210-quotasobject)                  | **Optional** Specific quotas data for this plan. Overrides default quotas data defined before. |
+| rates          | [`RatesObject `](#markdown-header-5211-ratesobject)                   | **Optional** Specific rates data for this plan. Overrides default rates data defined before. |
+| guarantees     | [`GuaranteesObject`](#markdown-header-5212-guaranteesobject)         | **Optional** Specific guarantees data for this plan. Overrides default guarantees data defined before. |
 
 
 **Example:**
@@ -401,12 +419,12 @@ pro:
           window: dynamic
 ```
 
-#### 5.2.8 QuotasObject
+#### 5.2.10 QuotasObject
 Contains a map from name to PathObject describing the quota limits for the service on the current plan.
 
 | Field Pattern  | Type                                             | Description  |
 | :------------- | :----------------------------------------------- | :----------- |
-| {pathName}     | [`PathObject`](#markdown-header-5213-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
+| {pathName}     | [`PathObject`](#markdown-header-5215-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
 
 
 **Example:**
@@ -437,12 +455,12 @@ quotas:
           period: secondly
 ```
 
-#### 5.2.9 RatesObject
+#### 5.2.11 RatesObject
 Contains a map from name to PathObject describing the rate limits for the service on the current plan.
 
 | Field Pattern  | Type                                             | Description  |
 | :------------- | :----------------------------------------------- | :----------- |
-| {pathName}     | [`PathObject`](#markdown-header-5213-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
+| {pathName}     | [`PathObject`](#markdown-header-5215-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
 
 
 **Example:**
@@ -473,12 +491,12 @@ rates:
           period: secondly
 ```
 
-#### 5.2.10 GuaranteesObject
+#### 5.2.12 GuaranteesObject
 Contains a map from name to GuaranteeObject describing the guarantees for the service on the current plan.
 
 | Field Pattern  | Type                                                       | Description  |
 | :------------- | :--------------------------------------------------------- | :----------- |
-| {pathName}     | [`GuaranteeObject`](#markdown-header-5211-guaranteeobject) | **Optional** Describes a guarantee level supported by the plan. |
+| {pathName}     | [`GuaranteeObject`](#markdown-header-5213-guaranteeobject) | **Optional** Describes a guarantee level supported by the plan. |
 
 **Example:**
 
@@ -507,12 +525,12 @@ guarantees:
         window: dynamic
 ```
 
-#### 5.2.11 GuaranteeObject
+#### 5.2.13 GuaranteeObject
 Describes a guarantee level supported by the plan.
 
 | Field Name     | Type                                                                         | Description  |
 | :------------- | :--------------------------------------------------------------------------- | :----------- |
-| {MethodName}   | [`GuaranteeObjectiveObject`](#markdown-header-5212-guaranteeobjectiveobject) |  **Optional** An object describes the guarantee level. |
+| {MethodName}   | [`GuaranteeObjectiveObject`](#markdown-header-5214-guaranteeobjectiveobject) |  **Optional** An object describes the guarantee level. |
 
 **Example:**
 
@@ -538,7 +556,7 @@ global:
       window: dynamic
 ```
 
-#### 5.2.12 GuaranteeObjectiveObject
+#### 5.2.14 GuaranteeObjectiveObject
 An object describes the guarantee level.
 
 | Field Name     | Type                                           | Description  |
@@ -571,12 +589,12 @@ global:
     scope: account
 ```
 
-#### 5.2.13 PathObject
+#### 5.2.15 PathObject
 The API endpoint path.
 
 | Field Pattern  | Type                                                       | Description  |
 | :------------- | :--------------------------------------------------------- | :----------- |
-| {methodName}   | [`OperationObject`](#markdown-header-5214-operationobject) | **Optional** the operations attached to this path. |
+| {methodName}   | [`OperationObject`](#markdown-header-5216-operationobject) | **Optional** the operations attached to this path. |
 
 
 **Example:**
@@ -604,12 +622,12 @@ The API endpoint path.
         period: secondly
 ```
 
-#### 5.2.14 OperationObject
+#### 5.2.16 OperationObject
 The operations attached to the path.
 
 | Field Pattern  | Type                                               | Description  |
 | :------------- | :------------------------------------------------- | :----------- |
-| {metricName}   | [`LimitObject`](#markdown-header-5215-limitobject) | **Optional** The allowed limits of the request. |
+| {metricName}   | [`LimitObject`](#markdown-header-5217-limitobject) | **Optional** The allowed limits of the request. |
 
 
 **Example:**
@@ -636,7 +654,7 @@ get:
       scope: account
 ```
 
-#### 5.2.15 LimitObject
+#### 5.2.17 LimitObject
 The allowed limits of the request.
 
 | Field Pattern  | Type                           | Description  |
@@ -661,7 +679,7 @@ period: secondly
 scope: account
 ```
 
-#### 5.2.16 ConfigurationsObject
+#### 5.2.18 ConfigurationsObject
 Configurations description.
 
 | Field Pattern  | Type                           | Description  |
