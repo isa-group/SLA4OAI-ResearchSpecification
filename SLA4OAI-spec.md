@@ -84,7 +84,7 @@ scenarios where an API is served.
 The lifecycle of any SLA agreement has two phases:
 
 1. The service provider design the levels (plans) of the service, then define the **Plans** document. See an example at [petstore-plans.yml](./samples/petstore/petstore-plans.yml). 
-2. The consumer choose the levels (plans) he need, then both provider and consumer agree the **SLA** document. See an example at [petstore-sla.yml](./samples/petstore/petstore-sla.yml).
+2. The consumer choose the levels (plans) he need, then both provider and consumer agree the **SLA** document. See an example at [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
 
 ![Figure 5](images/lifecycle-agreement.svg "Figure 5. Lifecycle of Agreement.")
 
@@ -97,7 +97,7 @@ This sample illustrates a simple Resource based API for Pets database.
 
 - The full OpenAPI description is provided in [petstore-service.yml](./samples/petstore/petstore-service.yml).
 - The service provides a template SLA described in [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
-- The provider and consumer agree the SLA described in [petstore-sla.yml](./samples/petstore/petstore-sla.yml).
+- The provider and consumer agree the SLA described in [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
 
 
 ## 5. Specification
