@@ -2,6 +2,7 @@ context:
   id: petstore-sample
   sla: 1.0
   type: plans
+  api: ./petstore-service.yml
   provider: ISAGroup
 infrastructure: 
   supervisor: http://supervisor.sla4oai.governify.io/v1/
@@ -13,7 +14,7 @@ metrics:
   $ref: ./metrics.yml
 pricing: 
   cost: 0
-  currency: euro
+  currency: EUR
   billing: monthly
 availability: R/00:00:00Z/23:59:59Z
 configuration:
