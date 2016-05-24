@@ -161,6 +161,38 @@ Holds the main information of the SLA context.
 | consumer       | `string`                                                             | **Optional** Consumer information, data about the entity that consumes the service. This field is **required** in case of the context type is `instance`. |
 | validity       | [`ValidityObject`](#markdown-header-523-validityobject)              | **Optional** Availability of the service expressed via time slots. This field is **required** in case of the context type is `instance`. |
 
+**Example:**
+
+```
+{
+  "context": {
+    "id": "PetPlans",
+    "version": 1,
+    "api": "https://sla-petstore.herokuapp.com/api/swagger.json",
+    "type": "instance",
+    "provider": "ISAGroup",
+    "consumer": "tenant1",
+    "validity": {
+      "effectiveDate": "2016-01-12T12:57:37.345Z",
+      "expirationDate": "2017-01-12T12:57:37.345Z"
+    }
+  }
+}
+```
+
+```
+context: 
+  id: PetPlans
+  version: 1.0
+  api: https://sla-petstore.herokuapp.com/api/swagger.json
+  type: instance
+  provider: ISAGroup
+  consumer: tenant1
+  validity:
+    effectiveDate: 2016-01-12T12:57:37.345Z
+    expirationDate: 2017-01-12T12:57:37.345Z
+```
+
 #### 5.2.3 ValidityObject
 Holds the availability of the service expressed via time slots. 
 
@@ -169,6 +201,22 @@ Holds the availability of the service expressed via time slots.
 | effectiveDate  | `string`         | **Required** The starting date of the SLA agreement using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
 | expirationDate | `string`         | **Optional** The expiration date of the SLA agreement using the [ISO 8601](https://www.w3.org/TR/NOTE-datetime) time intervals format. |
 
+**Example:**
+
+```
+{
+  "validity": {
+    "effectiveDate": "2016-01-12T12:57:37.345Z",
+    "expirationDate": "2017-01-12T12:57:37.345Z"
+  }
+}
+```
+
+```
+validity: 
+  effectiveDate: 2016-01-12T12:57:37.345Z
+  expirationDate: 2017-01-12T12:57:37.345Z
+```
 
 #### 5.2.4 InfrastructureObject
 The infrastructure object describes the operational tooling to use in the service execution. 
