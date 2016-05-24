@@ -1,11 +1,16 @@
-sla: 1.0
+context:
+  id: petstore-sample-tenant1
+  sla: 1.0
+  type: instance
+  api: ./petstore-service.yml
+  provider: ISAGroup
+  consumer: tenant1
+  validity:
+    effectiveDate: 2015-05-16T09:00:54Z
+    expirationDate: 2016-05-16T09:00:54Z
 infrastructure: 
   supervisor: http://supervisor.sla4oai.governify.io/v1/
   monitor: http://monitor.sla4oai.governify.io/v1/
-provider: ISAGroup
-consumer: tenant1
-effective_date: 2015-05-16T09:00:54Z
-expiration_date: 2016-05-16T09:00:54Z
 metrics:
   animalTypes:
     type: int64
@@ -13,7 +18,7 @@ metrics:
   $ref: ./metrics.yml
 pricing: 
   cost: 0
-  currency: euro
+  currency: EUR
   billing: monthly
   plan: free
 availability: R/00:00:00Z/23:59:59Z
