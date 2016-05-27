@@ -5,10 +5,10 @@ context:
   api: ./petstore-service.yml
   provider: ISAGroup
   consumer: tenant1
-  validity: 
+  validity:
     effectiveDate: 2015-05-16T09:00:54Z
     expirationDate: 2016-05-16T09:00:54Z
-infrastructure: 
+infrastructure:
   supervisor: http://supervisor.sla4oai.governify.io/v1/
   monitor: http://monitor.sla4oai.governify.io/v1/
 metrics:
@@ -16,7 +16,7 @@ metrics:
     type: int64
     description: Number of different animal types.
   $ref: ./metrics.yml
-pricing: 
+pricing:
   cost: 0
   currency: EUR
   billing: monthly

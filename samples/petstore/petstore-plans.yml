@@ -4,7 +4,7 @@ context:
   type: plans
   api: ./petstore-service.yml
   provider: ISAGroup
-infrastructure: 
+infrastructure:
   supervisor: http://supervisor.sla4oai.governify.io/v1/
   monitor: http://monitor.sla4oai.governify.io/v1/
 metrics:
@@ -12,11 +12,11 @@ metrics:
     type: int64
     description: Number of different animal types.
   $ref: ./metrics.yml
-pricing: 
+pricing:
   cost: 0
   currency: EUR
   billing: monthly
-availability: R/00:00:00Z/23:59:59Z
+availability: R/00:00:00Z/15:00:00Z
 configuration:
   filteringType: none
   xmlFormat: false
@@ -59,6 +59,7 @@ plans:
             - max: 1
               period: secondly
   pro:
+    availability: R/00:00:00Z/23:59:59Z
     pricing:
       cost: 50
     configuration:
