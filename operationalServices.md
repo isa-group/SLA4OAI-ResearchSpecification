@@ -112,7 +112,7 @@ Authorization Basic Ym9zZ236Ym9zY28=
 
 {
     "aggreement": "petstore/v1",
-    "scope": "serviceSla908923",
+    "operationScope": "serviceSla908923",
     "userId": "u7862neui3",
     "operation": "/pets",
     "ts": "2016-01-12T12:57:37.345Z",
@@ -135,11 +135,11 @@ The payload in the body can contains the following fields:
 
 #### Optional fields:
 
-| Field Name | Type          | Description  |
-| :--------- | :------------:| :------------|
-| scope      | `string`      | **Optional** A scope identifier. Depends on the agreement. Used to group operations logically. |
-| organizationId | `string`  | **Optional** A unique identifier for the organization of the user. Used for aggregating SLAs per organization if needed.  |
-| env        | `string`      | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
+| Field Name     | Type     | Description  |
+| :------------- | :------- | :----------- |
+| operationScope | `string` | **Optional** A scope identifier. Depends on the agreement. Used to group operations logically. |
+| organizationId | `string` | **Optional** A unique identifier for the organization of the user. Used for aggregating SLAs per organization if needed.  |
+| env            | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
 
 
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is
@@ -294,7 +294,7 @@ Content-Type: application/json
         "ellapsedMs": 350,
         "result": "200",
         "userId": "13456789aadfc",
-        "scope" : "/petstore/qa/n1",
+        "operationScope" : "/petstore/qa/n1",
         //(Optional: Complete request, headers, etc.)
         "x-cpu": 20.5,
         "x-memory-used-mb": 16.7,
@@ -340,7 +340,7 @@ Each metrics structure collects a set of metrics for a service in a given point 
 | ellapsedMS | `integer`     | **Optional** Ellapsed time the operation took to complete (measured in milliseconds).  |
 | result     | `string`      | **Optional** Exit code of the result of the operation.  |
 | userId     | `string`      | **Optional** User identifier for the operation (not provided if the event was not as a response for a user request).  |
-| scope      | `string`      | **Optional** Scope: used to aggregate SLA metrics on logical containers.  |
+| operationScope | `string`  | **Optional** Used to aggregate SLA metrics on logical containers.  |
 | agreement  | `string`      | **Optional** Specify the agreement that is related with current metrics.  |
 
 **Extension metrics:**
