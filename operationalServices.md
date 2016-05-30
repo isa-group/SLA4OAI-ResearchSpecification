@@ -88,12 +88,66 @@ Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standari
 
 
 ## 4. Service Endpoints
-**sla0** exposes two endpoints to be described here:
+**sla0** exposes three endpoints to be described here:
 
-- POST `/check` to check for current SLA state. (MUST)
-- POST `/metrics` to report runtime metrics to the datastore. (MUST)
+- GET `/tenants` to get the scope definition.
+- POST `/check` to check for current SLA state.
+- POST `/metrics` to report runtime metrics to the datastore.
 
-## 4.1 SLA Check
+## 4.1 SLA Scope
+The SLA Scope endpoint allows to get the scope definition of the current account either by the account user name or the api key. 
+
+### Sample Invocation:
+```
+GET /tenants?apikey=xo1234
+```
+or
+
+```
+GET /tenants?account=john@tenant.com
+```
+
+### Request Message
+The api parameters should contains one of the following fields:
+
+#### Compulsory fields:
+
+| Field Name | Type       | Description  |
+| :--------- | :--------- | :----------- |
+| apikey     | `string`   | The api key that used to authenticate the coming request. |
+| account    | `string`   | The user identifier coming from OAuth Provider. |
+
+### Response Message Format
+
+| Field Name | Type     | Description  |
+| :--------- | :------- | :----------- |
+| sla        | `string` | **Optional** The url identifier of the agreement.  |
+| scope      | [`scope`](#markdown-header-scope-object) | **Required** The scope identifier associated with this account. |
+
+### Scope Object
+| Field Name | Type      | Description  |
+| :--------- | :-------- | :------------|
+| tenant     | `string`  | **Required** The tenant that this account belong to. |
+| account    | `string`  | **Required** The user identifier for this account scope. |
+
+Sample response:
+
+```
+200 OK
+Content-Type: application/json
+            	
+{
+    "sla": "../agreements/{agreementId}"
+    "scope":
+    {
+        "tenant": "tenant1"
+        "account": "john@tenant.com"
+    }
+}
+```
+
+
+## 4.2 SLA Check
 The SLA Check endpoint allows to verify the current state of the SLA for a given service and operation in context: 
 (for a given user, or role, organization, time of the date, etc.).
 
@@ -263,7 +317,7 @@ Content-Type: application/json
 ```
 
 
-## 4.2 SLA Metrics
+## 4.3 SLA Metrics
 At any moment, a service can collect a set of basic metrics and send them to a data store for aggregation and later consumption.
 
 The SLA Metrics exposes an endpoint for gathering the metrics collected from different nodes.
