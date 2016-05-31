@@ -122,7 +122,7 @@ The api parameters should contains one of the following fields:
 | Field Name      | Type     | Description  |
 | :-------------- | :------- | :----------- |
 | sla             | `string` | **Optional** The url identifier of the agreement.  |
-| scope           | [`scope`](#markdown-header-scope-object) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
+| scope           | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 | reqestedPayload | `[string]` | **Optional** List of the requested properties that should be provided in the [SLA Check](#markdown-header-42-sla-check). |
 
 Sample response:
@@ -144,7 +144,7 @@ Content-Type: application/json
 }
 ```
 
-### Scope Object
+### ScopeObject definition:
 | Field Name | Type      | Description  |
 | :--------- | :-------- | :------------|
 | tenant     | `string`  | **Required** The tenant that this account belong to. |
@@ -188,19 +188,12 @@ Authorization Basic Ym9zZ236Ym9zY28=
 ### Request Message
 The payload in the body can contains the following fields:
 
-#### Compulsory fields:
-
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
 | aggreement | `string`      | **Required** The identifier of the agreement to verify.  |
 | ts         | `datetime`    | **Required** The timestamp where the call was initiated. Date encoded as string using ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.sssZ`.  |
 | operation  | `string`      | **Required** The operation identifier requested. |
-| scope      | [`scope`](#markdown-header-scope-object) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
-
-#### Optional fields:
-
-| Field Name       | Type     | Description  |
-| :--------------- | :------- | :----------- |
+| scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 | requestedPayload | `object` | **Optional** An object contains the values of the requested properties came from [SLA Scope](#markdown-header-41-sla-scope). |
 | operationScope   | `string` | **Optional** A scope identifier. Depends on the agreement. Used to group operations logically. |
 | organizationId   | `string` | **Optional** A unique identifier for the organization of the user. Used for aggregating SLAs per organization if needed.  |
@@ -215,9 +208,9 @@ it will ignore any other not known (MUST).
 
  
 ### Calculation
-Based on request host (caller) information, service will be identified. 
-Based on user-id provided, role, tenant, organization, and agreement current plan will be recovered. 
-Current SLA for this user is calculated and responded.
+Based on agreement information, service will be identified. 
+Based on scope provided, current plan will be recovered. 
+Current SLA for this scope is calculated and responded.
 
 The calculation method is out of the scope for this spec and is let open for implementors.
 
@@ -393,7 +386,7 @@ The payload in the body accepts the following fields:
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
 | aggreement | `string`      | **Required** The identifier of the agreement.  |
-| scope      | [`scope`](#markdown-header-scope-object) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
+| scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 | sender     | [`SenderObject`](#markdown-header-senderobject-definition) | **Required** An object describing the source of the metrics.  |
 | metrics    | [`[MetricsObject]`](#markdown-header-metricsobject-definition) | **Required** Array of metrics. At least, it must contain one item. |
 
