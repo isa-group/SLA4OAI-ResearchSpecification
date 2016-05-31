@@ -119,16 +119,11 @@ The api parameters should contains one of the following fields:
 
 ### Response Message Format
 
-| Field Name | Type     | Description  |
-| :--------- | :------- | :----------- |
-| sla        | `string` | **Optional** The url identifier of the agreement.  |
-| scope      | [`scope`](#markdown-header-scope-object) | **Required** The scope identifier associated with this account. |
-
-### Scope Object
-| Field Name | Type      | Description  |
-| :--------- | :-------- | :------------|
-| tenant     | `string`  | **Required** The tenant that this account belong to. |
-| account    | `string`  | **Required** The user identifier for this account scope. |
+| Field Name      | Type     | Description  |
+| :-------------- | :------- | :----------- |
+| sla             | `string` | **Optional** The url identifier of the agreement.  |
+| scope           | [`scope`](#markdown-header-scope-object) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
+| reqestedPayload | `[string]` | **Optional** List of the requested properties that should be provided in the [SLA Check](#markdown-header-42-sla-check). |
 
 Sample response:
 
@@ -137,15 +132,23 @@ Sample response:
 Content-Type: application/json
             	
 {
-    "sla": "../agreements/{agreementId}"
-    "scope":
-    {
-        "tenant": "tenant1"
-        "account": "john@tenant.com"
-    }
+   "sla":"../agreements/{agreementId}",
+   "scope":{
+      "tenant":"tenant1",
+      "account":"john@tenant.com"
+   },
+   "reqestedPayload":[
+      "#/XXXX",
+      "#/YYYY"
+   ]
 }
 ```
 
+### Scope Object
+| Field Name | Type      | Description  |
+| :--------- | :-------- | :------------|
+| tenant     | `string`  | **Required** The tenant that this account belong to. |
+| account    | `string`  | **Required** The user identifier for this account scope. |
 
 ## 4.2 SLA Check
 The SLA Check endpoint allows to verify the current state of the SLA for a given service and operation in context: 
@@ -165,13 +168,20 @@ Accept: application/json
 Authorization Basic Ym9zZ236Ym9zY28=
 
 {
-    "aggreement": "petstore/v1",
-    "operationScope": "serviceSla908923",
-    "userId": "u7862neui3",
-    "operation": "/pets",
-    "ts": "2016-01-12T12:57:37.345Z",
-    "organizationId": "acme.com",
-    "env": "production"
+   "aggreement":"petstore/v1",
+   "ts":"2016-01-12T12:57:37.345Z",
+   "operation":"/pets",
+   "scope":{
+      "tenant":"tenant1",
+      "account":"john@tenant.com"
+   },
+   "requestedPayload":{
+      "XXXX":"...",
+      "YYYY":"..."
+   },
+   "operationScope":"serviceSla908923",
+   "organizationId":"acme.com",
+   "env":"production"
 }
 ```
 
@@ -183,17 +193,18 @@ The payload in the body can contains the following fields:
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
 | aggreement | `string`      | **Required** The identifier of the agreement to verify.  |
-| userId     | `string`      | **Required** The user identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
-| operation  | `string`      | **Required** The operation identifier requested. |
 | ts         | `datetime`    | **Required** The timestamp where the call was initiated. Date encoded as string using ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.sssZ`.  |
+| operation  | `string`      | **Required** The operation identifier requested. |
+| scope      | [`scope`](#markdown-header-scope-object) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 
 #### Optional fields:
 
-| Field Name     | Type     | Description  |
-| :------------- | :------- | :----------- |
-| operationScope | `string` | **Optional** A scope identifier. Depends on the agreement. Used to group operations logically. |
-| organizationId | `string` | **Optional** A unique identifier for the organization of the user. Used for aggregating SLAs per organization if needed.  |
-| env            | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
+| Field Name       | Type     | Description  |
+| :--------------- | :------- | :----------- |
+| requestedPayload | `object` | **Optional** An object contains the values of the requested properties came from [SLA Scope](#markdown-header-41-sla-scope). |
+| operationScope   | `string` | **Optional** A scope identifier. Depends on the agreement. Used to group operations logically. |
+| organizationId   | `string` | **Optional** A unique identifier for the organization of the user. Used for aggregating SLAs per organization if needed.  |
+| env              | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
 
 
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is
@@ -216,20 +227,20 @@ The response message follows the structure:
 | Field Name           | Type                | Description  |
 | :------------------- | :------------------ | :----------- |
 | accept               | `boolean`           | **Required** Indicates if the service is authorize for execution or denied.  |
-| serviceProperties    | [`[ServiceProperty]`](#markdown-header-serviceproperty-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota or Rate limit info can be used to inform the client. |
-| serviceConfiguration | `Object`            | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
+| quotas               | [`limit`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota limit info can be used to inform the client. |
+| rates                | [`limit`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Rate limit info can be used to inform the client. |
+| configuration        | `Object`            | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
 | requestedMetrics     | `Object`            | **Optional** Provides extra information to measure specific (custom) metrics during the service execution. This extensibility point allow to add custom domain metrics to be gather after the service is executed. |
 | error                | `integer`           | **Optional** An error type code number if error. |
 | reason               | `string`            | **Optional** A description for the error in case of error.  |
 
-### ServiceProperty Object
-| Field Name          | Type      | Description  |
-| :------------------ | :-------- | :----------- |
-| resource            | `string`  | **Optional** Name of the resource protected with quota.  |
-| limit               | `integer` | **Optional** Max of quota for the given resource.  |
-| used                | `integer` | **Optional** Current used quota. |
-| awaitBeforeRetrySec | `integer` | **Optional** Await time in seconds to await before retrying after a rate limit violation. |
-
+### Limit Object
+| Field Name | Type        | Description  |
+| :--------- | :---------- | :----------- |
+| resource   | `string`    | **Optional** Name of the resource protected with quota.  |
+| limit      | `integer`   | **Optional** Max of quota for the given resource.  |
+| used       | `integer`   | **Optional** Current used quota. |
+| awaitTo    | `timestamp` | **Optional** Await time in seconds to await before retrying after a rate limit violation. |
 
 ### Positive Response
 If the access to the service is granted, a positive response is sent.
@@ -241,23 +252,25 @@ Sample response:
 Content-Type: application/json
             	
 {
-    "accept": true,
-    "serviceProperties": {
-        "quotaLimit": 100,
-        "quotaUsed": 80
-    },
-    "serviceConfiguration": {
-        "codingAlgorithm" : "FAST",
-        "bitRate": 192,  
-        "maxOptimizationTime" : 100  //(sec)
-    },
-    "requestedMetrics" : {
-    	"requestSize":1, 
-        "responseSize":0, //0 -> avoid it
-        "responseTime":1 // domain-independent (pre-implemented)
-        "optimizacionTime":1, 
-        "animalType":1, //domain-specific (plugin necessary)
-    }
+   "accept":true,
+   "quotas":{
+      "resource":"pet",
+      "limit":100,
+      "used":100,
+      "awaitTo":"2016-01-12T12:57:37.345Z"
+   },
+   "rates":[],
+   "configuration":{
+      "codingAlgorithm":"FAST",
+      "bitRate":192,
+      "maxOptimizationTime":100
+   },
+   "requestedMetrics":{
+      "requestSize":1,
+      "responseSize":0,
+      "responseTime":1,
+      "animalType":1
+   }
 }
 ```
 
@@ -271,13 +284,14 @@ the reason for the SLA violation.
 Content-Type: application/json
  
 {
-    "accept": false,
-    "reason": "Quota limit exceed.",
-    "serviceProperties": {
-        "quotaResource": "pet",
-        "quotaLimit": 100,
-        "quotaUsed": 100
-    }
+   "accept":false,
+   "reason":"Quota limit exceed.",
+   "quotas":{
+      "resource":"pet",
+      "limit":100,
+      "used":100,
+      "awaitTo":"2016-01-12T12:57:37.345Z"
+   }
 }
 ```
  
@@ -336,30 +350,38 @@ Authentication Basic 20325asW.uNh6yHjMU
 Content-Type: application/json
 
 {
-    "sender" : {
-        "host" : "node1234",
-        "env" : "qa",
-        "cluster" : "cl1.acme.com",
-    },
-    "metrics" : [{
-        // measure 1
-        "operation": "/pets", 	
-        "t": "2016-01-12T12:57:37.345Z",
-        "ellapsedMs": 350,
-        "result": "200",
-        "userId": "13456789aadfc",
-        "operationScope" : "/petstore/qa/n1",
-        //(Optional: Complete request, headers, etc.)
-        "x-cpu": 20.5,
-        "x-memory-used-mb": 16.7,
-        "x-correlation-id": "abc5bZr-459832mdwq8chn0mtgn9012"
-    }{
+   "agreement":"aaa",
+   "scope":{
+      "tenant":"tenant1",
+      "account":"john@tenant.com"
+   },
+   "sender":{
+      "host":"node1234",
+      "env":"qa",
+      "cluster":"cl1.acme.com"
+   },
+   "metrics":[
+      {
+          // measure 1
+         "operation":"/pets",
+         "t":"2016-01-12T12:57:37.345Z",
+         "ellapsedMs":350,
+         "result":"200",
+         "operationScope":"/petstore/qa/n1",
+         //(Optional: Complete request, headers, etc.)
+         "x-cpu":20.5,
+         "x-memory-used-mb":16.7,
+         "x-correlation-id":"abc5bZr-459832mdwq8chn0mtgn9012"
+      },
+      {
         //measure 2
         //...
-    }{
+      },
+      {
         //Measure N
         //Extra measures (batch blocks allowed. Block-size tuneable for performance vs real-time information)
-    }]
+      }
+   ]
 }
 ```
 
@@ -370,7 +392,9 @@ The payload in the body accepts the following fields:
 
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
-| sender     | [`SenderObject`](#markdown-header-senderobject-definition)   | **Required** An object describing the source of the metrics.  |
+| aggreement | `string`      | **Required** The identifier of the agreement.  |
+| scope      | [`scope`](#markdown-header-scope-object) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
+| sender     | [`SenderObject`](#markdown-header-senderobject-definition) | **Required** An object describing the source of the metrics.  |
 | metrics    | [`[MetricsObject]`](#markdown-header-metricsobject-definition) | **Required** Array of metrics. At least, it must contain one item. |
 
 #### SenderObject definition:
@@ -393,9 +417,7 @@ Each metrics structure collects a set of metrics for a service in a given point 
 | t          | `datetime`    | **Required** Timestamp in ISO 8601 format when the event occur.  |
 | ellapsedMS | `integer`     | **Optional** Ellapsed time the operation took to complete (measured in milliseconds).  |
 | result     | `string`      | **Optional** Exit code of the result of the operation.  |
-| userId     | `string`      | **Optional** User identifier for the operation (not provided if the event was not as a response for a user request).  |
 | operationScope | `string`  | **Optional** Used to aggregate SLA metrics on logical containers.  |
-| agreement  | `string`      | **Optional** Specify the agreement that is related with current metrics.  |
 
 **Extension metrics:**
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is 
