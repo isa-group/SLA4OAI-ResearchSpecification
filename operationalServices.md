@@ -169,7 +169,7 @@ Authorization Basic Ym9zZ236Ym9zY28=
 {
    "aggreement":"petstore/v1",
    "ts":"2016-01-12T12:57:37.345Z",
-   "operation":"/pets",
+   "operation":"POST /pets",
    "scope":{
       "tenant":"tenant1",
       "account":"john@tenant.com"
@@ -215,8 +215,8 @@ The response message follows the structure:
 | Field Name           | Type                | Description  |
 | :------------------- | :------------------ | :----------- |
 | accept               | `boolean`           | **Required** Indicates if the service is authorize for execution or denied.  |
-| quotas               | [`limit`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota limit info can be used to inform the client. |
-| rates                | [`limit`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Rate limit info can be used to inform the client. |
+| quotas               | [`[limit]`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota limit info can be used to inform the client. |
+| rates                | [`[limit]`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Rate limit info can be used to inform the client. |
 | configuration        | `Object`            | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
 | requestedMetrics     | `Object`            | **Optional** Provides extra information to measure specific (custom) metrics during the service execution. This extensibility point allow to add custom domain metrics to be gather after the service is executed. |
 | error                | `integer`           | **Optional** An error type code number if error. |
@@ -241,12 +241,12 @@ Content-Type: application/json
             	
 {
    "accept":true,
-   "quotas":{
+   "quotas":[{
       "resource":"pet",
       "limit":100,
       "used":100,
       "awaitTo":"2016-01-12T12:57:37.345Z"
-   },
+   }],
    "rates":[],
    "configuration":{
       "codingAlgorithm":"FAST",
@@ -274,12 +274,12 @@ Content-Type: application/json
 {
    "accept":false,
    "reason":"Quota limit exceed.",
-   "quotas":{
+   "quotas":[{
       "resource":"pet",
       "limit":100,
       "used":100,
       "awaitTo":"2016-01-12T12:57:37.345Z"
-   }
+   }]
 }
 ```
  
@@ -351,7 +351,7 @@ Content-Type: application/json
    "metrics":[
       {
           // measure 1
-         "operation":"/pets",
+         "operation":"GET /pets",
          "t":"2016-01-12T12:57:37.345Z",
          "ellapsedMs":350,
          "result":"200",
