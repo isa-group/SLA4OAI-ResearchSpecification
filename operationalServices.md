@@ -178,7 +178,6 @@ Authorization Basic Ym9zZ236Ym9zY28=
       "XXXX":"...",
       "YYYY":"..."
    },
-   "operationScope":"serviceSla908923",
    "env":"production"
 }
 ```
@@ -193,7 +192,6 @@ The payload in the body can contains the following fields:
 | operation  | `string`      | **Required** The operation identifier requested. |
 | scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 | requestedPayload | `object` | **Optional** An object contains the values of the requested properties came from [SLA Scope](#markdown-header-41-sla-scope). |
-| operationScope   | `string` | **Optional** A scope identifier. Depends on the agreement. Used to group operations logically. |
 | env              | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
 
 
@@ -357,7 +355,6 @@ Content-Type: application/json
          "t":"2016-01-12T12:57:37.345Z",
          "ellapsedMs":350,
          "result":"200",
-         "operationScope":"/petstore/qa/n1",
          //(Optional: Complete request, headers, etc.)
          "x-cpu":20.5,
          "x-memory-used-mb":16.7,
@@ -407,7 +404,6 @@ Each metrics structure collects a set of metrics for a service in a given point 
 | t          | `datetime`    | **Required** Timestamp in ISO 8601 format when the event occur.  |
 | ellapsedMS | `integer`     | **Optional** Ellapsed time the operation took to complete (measured in milliseconds).  |
 | result     | `string`      | **Optional** Exit code of the result of the operation.  |
-| operationScope | `string`  | **Optional** Used to aggregate SLA metrics on logical containers.  |
 
 **Extension metrics:**
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is 
