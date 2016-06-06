@@ -151,8 +151,7 @@ Content-Type: application/json
 | account    | `string`  | **Required** The user identifier for this account scope. |
 
 ## 4.2 SLA Check
-The SLA Check endpoint allows to verify the current state of the SLA for a given service and operation in context: 
-(for a given user, or role, organization, time of the date, etc.).
+The SLA Check endpoint allows to verify the current state of the SLA for a given service and operation in context for a given scope.
 
 In the essence, the service will respond true or false to notify the provider if it is:
 
@@ -180,7 +179,6 @@ Authorization Basic Ym9zZ236Ym9zY28=
       "YYYY":"..."
    },
    "operationScope":"serviceSla908923",
-   "organizationId":"acme.com",
    "env":"production"
 }
 ```
@@ -196,7 +194,6 @@ The payload in the body can contains the following fields:
 | scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 | requestedPayload | `object` | **Optional** An object contains the values of the requested properties came from [SLA Scope](#markdown-header-41-sla-scope). |
 | operationScope   | `string` | **Optional** A scope identifier. Depends on the agreement. Used to group operations logically. |
-| organizationId   | `string` | **Optional** A unique identifier for the organization of the user. Used for aggregating SLAs per organization if needed.  |
 | env              | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
 
 
