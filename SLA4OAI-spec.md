@@ -302,6 +302,8 @@ metrics:
   $ref: ./metrics.yml
 ```
 
+In the above example, we refered to a pre-existing metrics [metrics.yml](./samples/petstore/metrics.yml) which has some predefined metrics like `requests` and `avgResponseTimeMs`.
+
 #### 5.2.7 MetricObject
 Contains definitions of metric with type, description and unit of the metric.
 
