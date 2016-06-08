@@ -169,7 +169,8 @@ Authorization Basic Ym9zZ236Ym9zY28=
 {
    "aggreement":"petstore/v1",
    "ts":"2016-01-12T12:57:37.345Z",
-   "operation":"POST /pets",
+   "operation":"/pets",
+   "method":"POST",
    "scope":{
       "tenant":"tenant1",
       "account":"john@tenant.com"
@@ -190,6 +191,7 @@ The payload in the body can contains the following fields:
 | aggreement | `string`      | **Required** The identifier of the agreement to verify.  |
 | ts         | `datetime`    | **Required** The timestamp where the call was initiated. Date encoded as string using ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.sssZ`.  |
 | operation  | `string`      | **Required** The operation identifier requested. |
+| method     | `string`      | **Required** The HTTP method of the operation. |
 | scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 | requestedPayload | `object` | **Optional** An object contains the values of the requested properties came from [SLA Scope](#markdown-header-41-sla-scope). |
 | env              | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
@@ -225,9 +227,11 @@ The response message follows the structure:
 ### Limit Object
 | Field Name | Type        | Description  |
 | :--------- | :---------- | :----------- |
-| resource   | `string`    | **Optional** Name of the resource protected with quota.  |
-| limit      | `integer`   | **Optional** Max of quota for the given resource.  |
-| used       | `integer`   | **Optional** Current used quota. |
+| resource   | `string`    | **Required** Name of the resource protected with quota/rate.  |
+| method     | `string`    | **Required** The HTTP method for the resource request. |
+| metric     | `string`    | **Required** The metric of this quota/rate.  |
+| limit      | `integer`   | **Optional** Max of quota/rate for the given resource.  |
+| used       | `integer`   | **Optional** Current used quota/rate. |
 | awaitTo    | `timestamp` | **Optional** Await time in seconds to await before retrying after a rate limit violation. |
 
 ### Positive Response
@@ -243,6 +247,8 @@ Content-Type: application/json
    "accept":true,
    "quotas":[{
       "resource":"pet",
+      "method":"GET",
+      "metric":"animalType",
       "limit":100,
       "used":100,
       "awaitTo":"2016-01-12T12:57:37.345Z"
@@ -276,6 +282,8 @@ Content-Type: application/json
    "reason":"Quota limit exceed.",
    "quotas":[{
       "resource":"pet",
+      "method":"GET",
+      "metric":"animalType",
       "limit":100,
       "used":100,
       "awaitTo":"2016-01-12T12:57:37.345Z"
@@ -351,7 +359,8 @@ Content-Type: application/json
    "metrics":[
       {
           // measure 1
-         "operation":"GET /pets",
+         "operation":"/pets",
+         "method":"GET",
          "t":"2016-01-12T12:57:37.345Z",
          "ellapsedMs":350,
          "result":"200",
@@ -401,6 +410,7 @@ Each metrics structure collects a set of metrics for a service in a given point 
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
 | operation  | `string`      | **Required** The name of the logical operation the metrics reported belong to. |
+| method     | `string`      | **Required** The HTTP method of the operation. |
 | t          | `datetime`    | **Required** Timestamp in ISO 8601 format when the event occur.  |
 | ellapsedMS | `integer`     | **Optional** Ellapsed time the operation took to complete (measured in milliseconds).  |
 | result     | `string`      | **Optional** Exit code of the result of the operation.  |
