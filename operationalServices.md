@@ -123,7 +123,7 @@ The api parameters should contains one of the following fields:
 | :-------------- | :------- | :----------- |
 | sla             | `string` | **Optional** The url identifier of the agreement.  |
 | scope           | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
-| reqestedPayload | `[string]` | **Optional** List of the requested properties that should be provided in the [SLA Check](#markdown-header-42-sla-check). |
+| requestedPayload | `object` | **Optional** Key-value pair of the requested properties that should be provided in the [SLA Check](#markdown-header-42-sla-check). |
 
 Sample response:
 
@@ -137,10 +137,9 @@ Content-Type: application/json
       "tenant":"tenant1",
       "account":"john@tenant.com"
    },
-   "reqestedPayload":[
-      "#/XXXX",
-      "#/YYYY"
-   ]
+   "requestedPayload":{
+      "reportType": “/type”
+   }
 }
 ```
 
@@ -176,8 +175,7 @@ Authorization Basic Ym9zZ236Ym9zY28=
       "account":"john@tenant.com"
    },
    "requestedPayload":{
-      "XXXX":"...",
-      "YYYY":"..."
+      reportType: “csv”
    },
    "env":"production"
 }
