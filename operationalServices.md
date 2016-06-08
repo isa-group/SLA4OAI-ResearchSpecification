@@ -177,7 +177,7 @@ Authorization Basic Ym9zZ236Ym9zY28=
    "requestedPayload":{
       reportType: “csv”
    },
-   "env":"production"
+   "environment":"qa"
 }
 ```
 
@@ -192,7 +192,7 @@ The payload in the body can contains the following fields:
 | method     | `string`      | **Required** The HTTP method of the operation. |
 | scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 | requestedPayload | `object` | **Optional** An object contains the values of the requested properties came from [SLA Scope](#markdown-header-41-sla-scope). |
-| env              | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
+| environment      | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
 
 
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is
@@ -351,7 +351,7 @@ Content-Type: application/json
    },
    "sender":{
       "host":"node1234",
-      "env":"qa",
+      "environment":"qa",
       "cluster":"cl1.acme.com"
    },
    "metrics":[
@@ -398,7 +398,7 @@ unnecessary repetition.
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
 | host       | `string`      | **Required** The name of the physical node reporting the data. |
-| env        | `string`      | **Optional** The environment label for this deployment.  |
+| environment | `string`     | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
 | cluster    | `string`      | **Optional** Cluster name to aggregate services.  |
 
 
