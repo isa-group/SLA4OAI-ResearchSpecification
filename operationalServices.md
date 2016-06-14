@@ -132,7 +132,7 @@ Sample response:
 Content-Type: application/json
             	
 {
-   "sla":"../agreements/{agreementId}",
+   "sla":"sla01",
    "scope":{
       "tenant":"tenant1",
       "account":"john@tenant.com"
@@ -166,7 +166,7 @@ Accept: application/json
 Authorization Basic Ym9zZ236Ym9zY28=
 
 {
-   "aggreement":"petstore/v1",
+   "sla":"sla01",
    "ts":"2016-01-12T12:57:37.345Z",
    "resource":"/pets",
    "method":"POST",
@@ -186,7 +186,7 @@ The payload in the body can contains the following fields:
 
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
-| aggreement | `string`      | **Required** The identifier of the agreement to verify.  |
+| sla        | `string`      | **Required** The identifier of the agreement to verify.  |
 | ts         | `datetime`    | **Required** The timestamp where the call was initiated. Date encoded as string using ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.sssZ`.  |
 | resource   | `string`      | **Required** The resource identifier requested. |
 | method     | `string`      | **Required** The HTTP method of the operation. |
@@ -343,7 +343,7 @@ Authentication Basic 20325asW.uNh6yHjMU
 Content-Type: application/json
 
 {
-   "agreement":"aaa",
+   "sla":"sla01",
    "scope":{
       "tenant":"tenant1",
       "account":"john@tenant.com"
@@ -359,7 +359,7 @@ Content-Type: application/json
          "resource":"/pets",
          "method":"GET",
          "result":"200",
-         "t":"2016-01-12T12:57:37.345Z",
+         "ts":"2016-01-12T12:57:37.345Z",
          "metrics": {
             "responseTime": 200,
             "animalTypes": 2,
@@ -385,7 +385,7 @@ The payload in the body accepts the following fields:
 
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
-| aggreement | `string`      | **Required** The identifier of the agreement.  |
+| sla        | `string`      | **Required** The identifier of the agreement.  |
 | scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
 | sender     | [`SenderObject`](#markdown-header-senderobject-definition) | **Required** An object describing the source of the metrics.  |
 | measures   | [`[MeasureObject]`](#markdown-header-measureobject-definition) | **Required** Array of measures. At least, it must contain one item. |
@@ -409,7 +409,7 @@ Each measure structure collects a set of metrics for a service in a given point 
 | resource   | `string`      | **Required** The name of the resource the metrics reported belong to. |
 | method     | `string`      | **Required** The HTTP method of the operation. |
 | result     | `string`      | **Optional** Exit code of the result of the operation.  |
-| t          | `datetime`    | **Required** Timestamp in ISO 8601 format when the event occur.  |
+| ts         | `datetime`    | **Required** Timestamp in ISO 8601 format when the event occur.  |
 | metrics    | `object`      | **Required** Set of metrics for a service in a given point of time.  |
 
 **Extension metrics:**
