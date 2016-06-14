@@ -209,6 +209,11 @@ Current SLA for this scope is calculated and responded.
 
 The calculation method is out of the scope for this spec and is let open for implementors.
 
+#### Pre-defined Metrics
+The result of the calulation may provide a list of requested metrics to be measured during the service execution.
+This extensibility point allow to add *pre-defined* or *custom* metrics to be gathered after, or during, the service execution.
+For example, [sla4oai-lib](https://bitbucket.org/sla4oai/sla4oai-lib) provides a list of pre-defined matrics at [metrics.yml](https://bitbucket.org/sla4oai/sla4oai-lib/src/master/predefined/metrics.yml).
+
 ### Response Message Format
 The response message follows the structure:
 
@@ -218,7 +223,7 @@ The response message follows the structure:
 | quotas               | [`[limit]`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota limit info can be used to inform the client. |
 | rates                | [`[limit]`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Rate limit info can be used to inform the client. |
 | configuration        | `object`            | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
-| requestedMetrics     | `array`             | **Optional** Provides extra information to measure specific (custom) metrics during the service execution. This extensibility point allow to add custom domain metrics to be gather after the service is executed. |
+| requestedMetrics     | `array`             | **Optional** The supervisor will send all metrics in the agreement as requested metrics. The list should included pre-defined (domain indepenedent) matrics and custom (domain specific) metrics. |
 | error                | `integer`           | **Optional** An error type code number if error. |
 | reason               | `string`            | **Optional** A description for the error in case of error.  |
 
