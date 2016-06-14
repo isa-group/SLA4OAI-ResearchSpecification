@@ -253,9 +253,8 @@ Content-Type: application/json
    }],
    "rates":[],
    "configuration":{
-      "codingAlgorithm":"FAST",
-      "bitRate":192,
-      "maxOptimizationTime":100
+      "filteringType":"none",
+      "xmlFormat":false
    },
    "requestedMetrics":[
       "responseTime",
