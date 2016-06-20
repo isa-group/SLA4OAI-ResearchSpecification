@@ -13,11 +13,18 @@ infrastructure:
   monitor: http://monitor.sla4oai.governify.io/v1/
 metrics:
   animalTypes:
-    type: int64
+    type: integer
+    format: int64
     description: Number of different animal types.
+    resolution: payload
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests
+    resolution: consumption
   $ref: ./metrics.yml
 pricing:
-  cost: 0
+  cost: 50
   currency: EUR
   billing: monthly
   plan: pro

@@ -9,8 +9,16 @@ infrastructure:
   monitor: http://monitor.sla4oai.governify.io/v1/
 metrics:
   animalTypes:
-    type: int64
+    type: integer
+    format: int64
     description: Number of different animal types.
+    resolution: payload # metric will be passed to /check by payload
+    # before consumption for sla state calculation
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests
+    resolution: consumption # metric will be passed after consumption
   $ref: ./metrics.yml
 pricing:
   cost: 0

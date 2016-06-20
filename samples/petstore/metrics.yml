@@ -1,13 +1,25 @@
-requests: 
+requests:
   type: "int64"
   description: "Number of requests"
-resourceInstances:
-  type: "int64"
-  description: "Number of resources stored"
-avgResponseTimeMs:
+  resolution: consumption
+responseTimeMs:
   type: "double"
   unit: "ms"
-  description: "Average response time in miliseconds"
-uptimePercentage:
-  type: "double"
-  description: "Uptime percentage over a period of time"
+  description: "Response time in miliseconds"
+  resolution: consumption
+requestBody:
+  type: "string"
+  description: "The body of the request"
+  resolution: payload
+responseHeaders:
+  type: "string"
+  description: "The header of the response"
+  resolution: consumption
+responseBody:
+  type: "string"
+  description: "The body of the response"
+  resolution: consumption
+userAgent:
+  type: "string"
+  description: "The user-agent attached to the request"
+  resolution: payload
