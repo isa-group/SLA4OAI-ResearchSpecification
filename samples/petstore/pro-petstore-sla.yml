@@ -16,13 +16,16 @@ metrics:
     type: integer
     format: int64
     description: Number of different animal types.
-    resolution: payload
-  requests:
+    resolution: check
+  resourceInstances:
     type: integer
     format: int64
-    description: Number of requests
+    description: Number of pet resources
     resolution: consumption
-  $ref: ./metrics.yml
+  requests:
+    $ref: ./metrics.yml#requests
+  responseTimeMs:
+    $ref: ./metrics.yml#responseTimeMs
 pricing:
   cost: 50
   currency: EUR
@@ -59,6 +62,6 @@ rates:
 guarantees:
   global:
     global:
-      - objective: avgResponseTimeMs <= 250
+      - objective: responseTimeMs <= 250
         period: daily
         window: dynamic

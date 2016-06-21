@@ -12,14 +12,16 @@ metrics:
     type: integer
     format: int64
     description: Number of different animal types.
-    resolution: payload # metric will be passed to /check by payload
-    # before consumption for sla state calculation
-  requests:
+    resolution: check
+  resourceInstances:
     type: integer
     format: int64
-    description: Number of requests
-    resolution: consumption # metric will be passed after consumption
-  $ref: ./metrics.yml
+    description: Number of pet resources
+    resolution: consumption
+  requests:
+    $ref: ./metrics.yml#requests
+  responseTimeMs:
+    $ref: ./metrics.yml#responseTimeMs
 pricing:
   cost: 0
   currency: EUR
@@ -55,7 +57,7 @@ rates:
 guarantees:
   global:
     global:
-      - objective: avgResponseTimeMs <= 800
+      - objective: responseTimeMs <= 800
         period: daily
         window: dynamic
 plans:
@@ -94,6 +96,6 @@ plans:
     guarantees:
       global:
         global:
-          - objective: avgResponseTimeMs <= 250
+          - objective: responseTimeMs <= 250
             period: daily
             window: dynamic
