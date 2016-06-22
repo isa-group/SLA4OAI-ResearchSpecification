@@ -7,9 +7,16 @@ The **SLA4OAI** specification is licensed under [The Apache License, Version 2.0
 
 ## Revision History
 
-|Version  | Date         | Notes          |
-|:--------|:-------------|:---------------|
-| 0.1     | 2015-12-18   | Initial draft. |
+|Version  | Date         | Notes                  |
+|:------- |:------------ |:---------------------- |
+| 0.1     | 2015-12-18   | Initial draft.         |
+| 0.2     | 2016-05-05   | Incorporate Review 01. |
+| 0.3     | 2016-05-10   | Incorporate Review 02. |
+| 0.4     | 2016-05-23   | Incorporate Review 03. |
+| 0.5     | 2016-05-20   | Incorporate Review 04. |
+| 0.6     | 2016-05-24   | Incorporate Review 05. |
+| 0.7     | 2016-06-07   | Incorporate Review 06. |
+| 0.8     | 2016-06-22   | Incorporate Review 07. |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
@@ -278,7 +285,7 @@ Contains definitions of metrics with name, types and descriptions. References ca
 | Field Name     | Type                                                | Description  |
 | :------------- | :-------------------------------------------------- | :----------- |
 | {name}         | [`MetricObject`](#markdown-header-527-metricobject) | **Optional** Definitions of metrics with name, types and descriptions. |
-| $ref           | `uri`                                               | **Optional** References to pre-existing metrics. |
+| {name}         | `object {"$ref": uri}`                              | **Optional** Reference to pre-existing metrics in external file. |
 
 **Example:**
 
@@ -286,10 +293,14 @@ Contains definitions of metrics with name, types and descriptions. References ca
 {
   "metrics": {
     "animalTypes": {
-      "type": "int64",
-      "description": "Number of different animal types."
+      "type": "integer",
+      "format": "int64",
+      "description": "Number of different animal types.",
+      "resolution": "check"
     },
-    "$ref": "./metrics.yml"
+    "requests": {
+      "$ref": "./metrics.yml#request"
+    }
   }
 }
 ```
@@ -297,9 +308,12 @@ Contains definitions of metrics with name, types and descriptions. References ca
 ```
 metrics:
   animalTypes:
-    type: int64
+    type: integer
+    format: int64
     description: Number of different animal types.
-  $ref: ./metrics.yml
+    resolution: check
+  requests:
+    $ref: ./metrics.yml#request
 ```
 
 In the above example, we refered to a pre-existing metrics [metrics.yml](./samples/petstore/metrics.yml) which has some predefined metrics like `requests` and `avgResponseTimeMs`.
@@ -310,24 +324,30 @@ Contains definitions of metric with type, description and unit of the metric.
 | Field Name     | Type                                          | Description  |
 | :------------- | :-------------------------------------------- | :------------|
 | type           | `string`                                      | **Required** This is the metric type accordingly to [the OAI spec format column](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types). |
+| format         | `string`                                      | **Optional** The extending format for the previously mentioned type. See [Data Type Formats](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#dataTypeFormat) for further details. |
 | description    | `string`                                      | **Optional** A brief description of the metric. |
 | unit           | `string`                                      | **Optional** The unit of the metric. |
+| resolution     | `enum [check, consumption]`                   | **Optional** Determine when this matric will be resolved. If value is `check` the metric will be sent before the calculation of sla state, else (`consumption`) the metric will be sent after consumption. |
 
 **Example:**
 
 ```
 {
   "animalTypes": {
-    "type": "int64",
-    "description": "Number of different animal types."
+    "type": "integer",
+    "format": "int64",
+    "description": "Number of different animal types.",
+    "resolution": "check"
   }
 }
 ```
 
 ```
 animalTypes:
-  type: int64
+  type: integer
+  format: int64
   description: Number of different animal types.
+  resolution: check
 ```
 
 
