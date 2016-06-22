@@ -7,9 +7,14 @@ The **sla0** specification is licensed under [The Apache License, Version 2.0](h
 
 ## Revision History
 
-|Version  | Date         | Notes            |
-|:--------|:-------------|:-----------------|
-| 0.1     | 2016-02-25   | Initial version. |
+| Version | Date         | Notes                  |
+|:------- |:------------ |:---------------------- |
+| 0.1     | 2016-02-25   | Initial version.       |
+| 0.2     | 2016-05-23   | Incorporate Review 01. |
+| 0.3     | 2016-06-07   | Incorporate Review 02. |
+| 0.4     | 2016-06-08   | Incorporate Review 03. |
+| 0.5     | 2016-06-14   | Incorporate Review 04. |
+| 0.6     | 2016-06-22   | Incorporate Review 05. |
 
 
 ## 1. Introduction
