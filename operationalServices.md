@@ -128,7 +128,7 @@ The api parameters should contains one of the following fields:
 | :-------------- | :------- | :----------- |
 | sla             | `string` | **Optional** The url identifier of the agreement.  |
 | scope           | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
-| requestedPayload | `object` | **Optional** Key-value pair of the requested properties that should be provided in the [SLA Check](#markdown-header-42-sla-check). |
+| requestedMetrics | `array` | **Optional** List of the requested metrics that should be provided in the [SLA Check](#markdown-header-42-sla-check), where resolution = check. |
 
 Sample response:
 
@@ -142,9 +142,9 @@ Content-Type: application/json
       "tenant":"tenant1",
       "account":"john@tenant.com"
    },
-   "requestedPayload":{
-      "reportType": “/type”
-   }
+   "requestedMetrics":[
+      "nameLegth"
+   ]
 }
 ```
 
@@ -179,8 +179,8 @@ Authorization Basic Ym9zZ236Ym9zY28=
       "tenant":"tenant1",
       "account":"john@tenant.com"
    },
-   "requestedPayload":{
-      reportType: “csv”
+   "metrics":{
+      "nameLegth": 12
    },
    "environment":"qa"
 }
@@ -196,8 +196,8 @@ The payload in the body can contains the following fields:
 | resource   | `string`      | **Required** The resource identifier requested. |
 | method     | `string`      | **Required** The HTTP method of the operation. |
 | scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
-| requestedPayload | `object` | **Optional** An object contains the values of the requested properties came from [SLA Scope](#markdown-header-41-sla-scope). |
-| environment      | `string` | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
+| metrics    | `object`      | **Optional** An object contains the values of the requested metrics came from [SLA Scope](#markdown-header-41-sla-scope). |
+| environment | `string`     | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
 
 
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is
@@ -229,7 +229,7 @@ The response message follows the structure:
 | quotas               | [`[limit]`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota limit info can be used to inform the client. |
 | rates                | [`[limit]`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Rate limit info can be used to inform the client. |
 | configuration        | `object`            | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
-| requestedMetrics     | `array`             | **Optional** The supervisor will send all metrics in the agreement as requested metrics. The list should included pre-defined (domain indepenedent) matrics and custom (domain specific) metrics. |
+| requestedMetrics     | `array`             | **Optional** The supervisor will send all metrics in the agreement as requested metrics. The list should included pre-defined (domain indepenedent) matrics and custom (domain specific) metrics, where resolution = consumption. |
 | error                | `integer`           | **Optional** An error type code number if error. |
 | reason               | `string`            | **Optional** A description for the error in case of error.  |
 
