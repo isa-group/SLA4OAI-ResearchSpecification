@@ -17,6 +17,7 @@ The **SLA4OAI** specification is licensed under [The Apache License, Version 2.0
 | 0.6     | 2016-05-24   | Incorporate Review 05. |
 | 0.7     | 2016-06-07   | Incorporate Review 06. |
 | 0.8     | 2016-06-22   | Incorporate Review 07. |
+| 0.9     | 2016-07-10   | Incorporate Review 08. |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
