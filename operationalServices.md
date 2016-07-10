@@ -1,9 +1,9 @@
-# sla0: Operational Services Proposal for SLA Checking and Metrics report
+# Basic SLA Managment Service: Operational Services Proposal for SLA Checking and Metrics report
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" 
 in this document are to be interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
-The **sla0** specification is licensed under [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+The **Basic SLA Managment Service** specification is licensed under [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 ## Revision History
 
@@ -18,27 +18,27 @@ The **sla0** specification is licensed under [The Apache License, Version 2.0](h
 
 
 ## 1. Introduction
-This proposal presents an open and standard proposal for simple SLA checking and metrics reporting.
+This proposal presents an open and not-normative proposal for simple SLA checking and metrics reporting.
 
-The proposal introduces a simple standard API to provide the following services:
+The proposal introduces a basic not-normative API to provide the following services:
 
 1. An endpoint for checking the current state of a given SLA (Service level Agreement).
 2. An endpoint for reporting metrics to calculate the current state of given SLA.
 
-In this way, using this proposed operational standard called **sla0**:
+In this way, using this proposed operational standard called **Basic SLA Managment Service**:
 
 1. different implementations of this service can be provided to define, control, manage, report and track 
 SLAs in different technologies.
 2. different clients of the API, microservices (or any service instrumented by an SLA) can be tracked from a 
-third-party service in an standard way if compliant with **sla0**.
+third-party service in an standard way if compliant with **Basic SLA Managment Service**.
  
-This **sla0** API is introduced to provide an operational model for SLA checking and metrics reporting for 
+This **Basic SLA Managment Service** API is introduced to provide an operational model for SLA checking and metrics reporting for 
 [SLA4API](SLA4OAI-spec.md) specification.
   
 ## 2. Context
 ![Figure 1](images/sla0.svg "Figure 1. Architecture")
 
-Figure 1. illustrates the proposed architecture to instrument a service using **sla0** approach.
+Figure 1. illustrates the proposed architecture to instrument a service using **Basic SLA Managment Service** approach.
 
 The figure shows an online service accepting request from a front-load balancer. After it, a cluster of service 
 instances with variable nodes are setup #(1..N) to deliver the service with flexibility depending on the 
@@ -53,7 +53,7 @@ In the rest of this document, the endpoints for both use cases are described usi
 The descriptions will explain the semantics and signatures expected in the service, leaving all the 
 implementation details open for implementers of this standard.
 
-Finally, some samples and a reference implementation is provided to help implementers to comply with **sla0**.
+Finally, some samples and a reference implementation is provided to help implementers to comply with **Basic SLA Managment Service**.
 
 ## 3. Conventions used
 
@@ -93,7 +93,7 @@ Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standari
 
 
 ## 4. Service Endpoints
-**sla0** exposes three endpoints to be described here:
+**Basic SLA Managment Service** exposes three endpoints to be described here:
 
 - GET `/tenants` to get the scope definition.
 - POST `/check` to check for current SLA state.
