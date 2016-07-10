@@ -15,7 +15,7 @@ The **Basic SLA Managment Service** specification is licensed under [The Apache 
 | 0.4     | 2016-06-08   | Incorporate Review 03. |
 | 0.5     | 2016-06-14   | Incorporate Review 04. |
 | 0.6     | 2016-06-22   | Incorporate Review 05. |
-
+| 0.7     | 2016-07-10   | Incorporate Review 06. |
 
 ## 1. Introduction
 This proposal presents an open and not-normative proposal for simple SLA checking and metrics reporting.
