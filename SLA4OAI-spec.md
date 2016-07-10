@@ -31,7 +31,7 @@ API Management tools can import and measure such key metrics and composed SLAs f
 
 A. This specification describes the format for defining SLAs ove APIs in a neutral technology way.
 
-B. The **sla0** [spec](./operationalServices.md) provides a runtime standard API for measure and SLA enforcement defined in (A). 
+B. The **Basic SLA Managment Service** [spec](./operationalServices.md) provides a basic not-normative runtime proposal API for measure and SLA enforcement defined in (A). 
 
 C. Reference implementations are provided to show (A) and (B) in a real examples:
 
@@ -230,8 +230,8 @@ The infrastructure object describes the operational tooling to use in the servic
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
-| supervisor     | `uri`         | **Required** Location of the SLA Check service accordingly to the [sla0](./operationalServices.md) spec. |
-| monitor        | `uri`         | **Required** Location of the SLA Metrics endpoint accordingly to the [sla0](./operationalServices.md) spec. |
+| supervisor     | `uri`         | **Required** Location of the SLA Check service accordingly to the [Basic SLA Managment Service](./operationalServices.md) spec. |
+| monitor        | `uri`         | **Required** Location of the SLA Metrics endpoint accordingly to the [Basic SLA Managment Service](./operationalServices.md) spec. |
 | {name}         | `uri`         | **Optional** Optional endpoints of SLA governance infrastructure. |
 
 **Example:**
