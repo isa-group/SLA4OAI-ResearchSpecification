@@ -34,16 +34,16 @@ pricing:
 availability: R/00:00:00Z/23:59:59Z
 configuration:
   filteringType: multipleTags
-  xmlFormat: true
+  xmlFormat: 'true'
 quotas:
   /pets:
     get:
       requests:
         - max: 20
-          period: secondly
+          period: minutely
           scope: account
         - max: 100
-          period: secondly
+          period: hourly
           scope: tenant
     post:
       requests:
@@ -57,7 +57,7 @@ rates:
   /pets/{id}:
     get:
       requests:
-        - max: 20
+        - max: 3
           period: secondly
 guarantees:
   global:

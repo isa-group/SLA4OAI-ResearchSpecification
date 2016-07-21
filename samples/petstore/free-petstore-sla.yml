@@ -34,20 +34,20 @@ pricing:
 availability: R/00:00:00Z/15:00:00Z
 configuration:
   filteringType: none
-  xmlFormat: false
+  xmlFormat: 'false'
 quotas:
   /pets:
     get:
       requests:
-        - max: 1
-          period: secondly
+        - max: 10
+          period: minutely
           scope: account
-        - max: 5
-          period: secondly
+        - max: 40
+          period: minutely
           scope: tenant
     post:
       requests:
-        - max: 10
+        - max: 3
           period: minutely
       resourceInstances:
         - max: 5
