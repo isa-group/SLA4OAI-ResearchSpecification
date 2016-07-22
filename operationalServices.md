@@ -1,6 +1,6 @@
 # Basic SLA Managment Service: Operational Services Proposal for SLA Checking and Metrics report
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" 
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
 in this document are to be interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
 The **Basic SLA Managment Service** specification is licensed under [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
@@ -27,30 +27,30 @@ The proposal introduces a basic not-normative API to provide the following servi
 
 In this way, using this proposed operational standard called **Basic SLA Managment Service**:
 
-1. different implementations of this service can be provided to define, control, manage, report and track 
+1. different implementations of this service can be provided to define, control, manage, report and track
 SLAs in different technologies.
-2. different clients of the API, microservices (or any service instrumented by an SLA) can be tracked from a 
+2. different clients of the API, microservices (or any service instrumented by an SLA) can be tracked from a
 third-party service in an standard way if compliant with **Basic SLA Managment Service**.
- 
-This **Basic SLA Managment Service** API is introduced to provide an operational model for SLA checking and metrics reporting for 
-[SLA4API](SLA4OAI-spec.md) specification.
-  
+
+This **Basic SLA Managment Service** API is introduced to provide an operational model for SLA checking and metrics reporting for
+[SLA4API](README.md) specification.
+
 ## 2. Context
 ![Figure 1](images/sla0.svg "Figure 1. Architecture")
 
 Figure 1. illustrates the proposed architecture to instrument a service using **Basic SLA Managment Service** approach.
 
-The figure shows an online service accepting request from a front-load balancer. After it, a cluster of service 
-instances with variable nodes are setup #(1..N) to deliver the service with flexibility depending on the 
+The figure shows an online service accepting request from a front-load balancer. After it, a cluster of service
+instances with variable nodes are setup #(1..N) to deliver the service with flexibility depending on the
 workload and SLA required.
 
-A second service playing the role of **SLA Manager** will be used to outsource the process of 
-   
+A second service playing the role of **SLA Manager** will be used to outsource the process of
+
 1. checking the current state of the SLA and
-2. to report metrics in order to compute and aggregate the current SLA status 
+2. to report metrics in order to compute and aggregate the current SLA status
 
 In the rest of this document, the endpoints for both use cases are described using OpenAPI style format.
-The descriptions will explain the semantics and signatures expected in the service, leaving all the 
+The descriptions will explain the semantics and signatures expected in the service, leaving all the
 implementation details open for implementers of this standard.
 
 Finally, some samples and a reference implementation is provided to help implementers to comply with **Basic SLA Managment Service**.
@@ -60,7 +60,7 @@ Finally, some samples and a reference implementation is provided to help impleme
 ### 3.1 Authentication
 The service could be authenticated using one of the following choices:
 
-1. HTTP Basic Authentication using a pair of `keyId:secretId` credentials shared by the service and the client 
+1. HTTP Basic Authentication using a pair of `keyId:secretId` credentials shared by the service and the client
 passed via the HTTP `Authorization` header. (MUST)
 
     Sample:
@@ -88,7 +88,7 @@ Accept: application/json
 ### 3.3 Dates and Datetime representation
 Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standarize its encoding.
 
-- Sample date: `2016-05-01` represents the first of May of 2016. 
+- Sample date: `2016-05-01` represents the first of May of 2016.
 - Sample datetime: `2016-04-30T23:59:59.999Z` representing one millisecond due for the 1st of May of 2016 on Zulu/UTC (Z) zone time.
 
 
@@ -100,7 +100,7 @@ Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standari
 - POST `/metrics` to report runtime metrics to the datastore.
 
 ## 4.1 SLA Scope
-The SLA Scope endpoint allows to get the scope definition of the current account either by the account user name or the api key. 
+The SLA Scope endpoint allows to get the scope definition of the current account either by the account user name or the api key.
 
 ### Sample Invocation:
 ```
@@ -135,7 +135,7 @@ Sample response:
 ```
 200 OK
 Content-Type: application/json
-            	
+
 {
    "sla":"sla01",
    "scope":{
@@ -201,15 +201,15 @@ The payload in the body can contains the following fields:
 
 
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is
-to use the prefix `x-` to avoid collisions with future versions of this standard. 
+to use the prefix `x-` to avoid collisions with future versions of this standard.
 
 The server can use any properties sent in the payload. It will require the ones marked as compulsory (MUST) and
 it will ignore any other not known (MUST).
 
- 
+
 ### Calculation
-Based on agreement information, service will be identified. 
-Based on scope provided, current plan will be recovered. 
+Based on agreement information, service will be identified.
+Based on scope provided, current plan will be recovered.
 Current SLA for this scope is calculated and responded.
 
 The calculation method is out of the scope for this spec and is let open for implementors.
@@ -251,7 +251,7 @@ Sample response:
 ```
 200 OK
 Content-Type: application/json
-            	
+
 {
    "accept":true,
    "quotas":[{
@@ -277,13 +277,13 @@ Content-Type: application/json
 
 
 ### Negative Response
-If the access to the service is not granted, a negative response is sent with an optional information describing 
+If the access to the service is not granted, a negative response is sent with an optional information describing
 the reason for the SLA violation.
 
-``` 
+```
 200 OK
 Content-Type: application/json
- 
+
 {
    "accept":false,
    "reason":"Quota limit exceed.",
@@ -297,18 +297,18 @@ Content-Type: application/json
    }]
 }
 ```
- 
-Based on the response ``accept`` field value the service will then allow the service execution or 
+
+Based on the response ``accept`` field value the service will then allow the service execution or
 will deny it using a standard `403 Forbidden` HTTP Error.
 
-If denegation reason is rate limit enforcement, then the recommendation is to use `429 Too Many Requests` HTTP Error plus 
+If denegation reason is rate limit enforcement, then the recommendation is to use `429 Too Many Requests` HTTP Error plus
 adding rate limit information and reason as metadata into the client response to notify clients the denegation
 of service.
 
 ### Invalid Message
 Invalid message sent will return an explicit error code for rejection.
 
-``` 
+```
 400 Bad request
 Content-Type: application/json
 
@@ -322,7 +322,7 @@ Content-Type: application/json
 ### Invalid credentials
 If invalid credentials are provided, a 401 error will be raised.
 
-``` 
+```
 401 Unauthorized
 Content-Type: application/json
 
@@ -344,7 +344,7 @@ The API supports buffering. Therefore, metrics can be grouped in batches or sent
 The service exposes a **POST** operation over the route `/metrics`.
 
 ### Sample Invocation:
-The following sample shows a metrics store request using the service. An array of batch measures identifying each 
+The following sample shows a metrics store request using the service. An array of batch measures identifying each
 of the events, measures per event and source instance information provided.
 
 ```
@@ -401,7 +401,7 @@ The payload in the body accepts the following fields:
 | measures   | [`[MeasureObject]`](#markdown-header-measureobject-definition) | **Required** Array of measures. At least, it must contain one item. |
 
 #### SenderObject definition:
-Sender describes the information related to the source of events and metrics. It is described only once in the payload to avoid 
+Sender describes the information related to the source of events and metrics. It is described only once in the payload to avoid
 unnecessary repetition.
 
 | Field Name | Type          | Description  |
@@ -423,12 +423,12 @@ Each measure structure collects a set of metrics for a service in a given point 
 | metrics    | `object`      | **Required** Set of metrics for a service in a given point of time.  |
 
 **Extension metrics:**
-Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is 
+Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is
 to use the prefix `x-` to avoid collisions with future versions of this standard.
 
 
 ### Response Message Format
-Response proposed is very concise to indicate acceptation of the payoad. It only provide information in case of error. 
+Response proposed is very concise to indicate acceptation of the payoad. It only provide information in case of error.
 
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
