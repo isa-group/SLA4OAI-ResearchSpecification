@@ -63,6 +63,7 @@ The service to be instrumented could be deployed as a single instance, cluster, 
 Figures 2, 3 and 4 shows different possible configurations deployments.
 
 !["Figure 2. Stand-alone deployment."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/standalone-deployment.svg)
+<img src="https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/standalone-deployment.svg">
 
 *Figure 2. Stand-alone deployment.*
 
