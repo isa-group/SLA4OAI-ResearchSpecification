@@ -42,7 +42,7 @@ C. Reference implementations are provided to show (A) and (B) in a real examples
 ## 2. Execution Model
 The execution model for SLA assumes as little as possible about the system to track the SLA to make it applicable in many scenarios.
 
-!["Figure 1" "Figure 1. Basic deployment for an API."](images/microservice.svg)
+!["Figure 1. Basic deployment for an API."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/microservice.svg)
 
 *Figure 1. Basic deployment for an API.*
 
@@ -62,14 +62,14 @@ The service to be instrumented could be deployed as a single instance, cluster, 
 
 Figures 2, 3 and 4 shows different possible configurations deployments.
 
-![Figure 2](images/standalone-deployment.svg "Figure 2. Stand-alone deployment.")
+!["Figure 2. Stand-alone deployment."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/standalone-deployment.svg)
 
 *Figure 2. Stand-alone deployment.*
 
 Stand-alone deployments are typical in development scenarios where debugging is prioritized over high availiability.
 In this scenario load-balancers are not involved and service is provided from a single node.
 
-![Figure 3](images/whitebox-deployment.svg "Figure 3. Cluster with whitebox load-balancer deployment.")
+!["Figure 3. Cluster with whitebox load-balancer deployment."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/whitebox-deployment.svg)
 
 *Figure 3. Cluster with whitebox load-balancer deployment.*
 
@@ -77,7 +77,7 @@ A cluster with a whitebox load-balancer contain more than one nodes for the API 
 to verify the current state of the SLA on requests. Based on the state, the balancer can deny or allow the service.
 The balancer is only responsible for checking SLA status, all metrices information gathered in the service node.
 
-![Figure 4](images/blackbox-deployment.svg "Figure 4. Cluster with blackbox load-balancer deployment.")
+!["Figure 4. Cluster with blackbox load-balancer deployment."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/blackbox-deployment.svg)
 
 *Figure 4. Cluster with blackbox load-balancer deployment.*
 
@@ -94,7 +94,7 @@ The lifecycle of any SLA agreement has two phases:
 1. The service provider design the levels (plans) of the service, then define the **Plans** document. See an example at [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
 2. The consumer choose the levels (plans) he need, then both provider and consumer agree the **SLA** document. See an example at [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
 
-![Figure 5](images/lifecycle-agreement.svg "Figure 5. Lifecycle of Agreement.")
+!["Figure 5. Lifecycle of Agreement."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/lifecycle-agreement.svg)
 
 *Figure 5. Lifecycle of Agreement.*
 
