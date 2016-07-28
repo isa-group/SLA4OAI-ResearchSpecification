@@ -1,9 +1,9 @@
-# Basic SLA Managment Service: Operational Services Proposal for SLA Checking and Metrics report
+# Basic SLA Management Service: Operational Services Proposal for SLA Checking and Metrics report
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
 in this document are to be interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
-The **Basic SLA Managment Service** specification is licensed under [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+The **Basic SLA Management Service** specification is licensed under [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 ## Revision History
 
@@ -16,6 +16,7 @@ The **Basic SLA Managment Service** specification is licensed under [The Apache 
 | 0.5     | 2016-06-14   | Incorporate Review 04. |
 | 0.6     | 2016-06-22   | Incorporate Review 05. |
 | 0.7     | 2016-07-10   | Incorporate Review 06. |
+| 0.7.1     | 2016-07-28   | Update markdown syntax. |
 
 ## 1. Introduction
 This proposal presents an open and not-normative proposal for simple SLA checking and metrics reporting.
@@ -25,20 +26,20 @@ The proposal introduces a basic not-normative API to provide the following servi
 1. An endpoint for checking the current state of a given SLA (Service level Agreement).
 2. An endpoint for reporting metrics to calculate the current state of given SLA.
 
-In this way, using this proposed operational standard called **Basic SLA Managment Service**:
+In this way, using this proposed operational standard called **Basic SLA Management Service**:
 
-1. different implementations of this service can be provided to define, control, manage, report and track
+1. Different implementations of this service can be provided to define, control, manage, report and track
 SLAs in different technologies.
-2. different clients of the API, microservices (or any service instrumented by an SLA) can be tracked from a
-third-party service in an standard way if compliant with **Basic SLA Managment Service**.
+2. Different clients of the API, microservices (or any service instrumented by an SLA) can be tracked from a
+third-party service in an standard way if compliant with **Basic SLA Management Service**.
 
-This **Basic SLA Managment Service** API is introduced to provide an operational model for SLA checking and metrics reporting for
+This **Basic SLA Management Service** API is introduced to provide an operational model for SLA checking and metrics reporting for
 [SLA4API](README.md) specification.
 
 ## 2. Context
-![Figure 1](images/sla0.svg "Figure 1. Architecture")
+!["Figure 1. Architecture"](images/sla0.svg?raw=true)
 
-Figure 1. illustrates the proposed architecture to instrument a service using **Basic SLA Managment Service** approach.
+Figure 1. Illustrates the proposed architecture to instrument a service using **Basic SLA Management Service** approach.
 
 The figure shows an online service accepting request from a front-load balancer. After it, a cluster of service
 instances with variable nodes are setup #(1..N) to deliver the service with flexibility depending on the
@@ -49,11 +50,11 @@ A second service playing the role of **SLA Manager** will be used to outsource t
 1. checking the current state of the SLA and
 2. to report metrics in order to compute and aggregate the current SLA status
 
-In the rest of this document, the endpoints for both use cases are described using OpenAPI style format.
+In the rest of this document, the endpoints for both use cases are described using Open API style format.
 The descriptions will explain the semantics and signatures expected in the service, leaving all the
 implementation details open for implementers of this standard.
 
-Finally, some samples and a reference implementation is provided to help implementers to comply with **Basic SLA Managment Service**.
+Finally, some samples and a reference implementation is provided to help implementers to comply with **Basic SLA Management Service**.
 
 ## 3. Conventions used
 
@@ -86,21 +87,21 @@ Content-Type: application/json
 Accept: application/json
 ```
 ### 3.3 Dates and Datetime representation
-Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standarize its encoding.
+Dates and Datetimes formats as defined in ISO-8601:2004 will be used to standardize its encoding.
 
 - Sample date: `2016-05-01` represents the first of May of 2016.
 - Sample datetime: `2016-04-30T23:59:59.999Z` representing one millisecond due for the 1st of May of 2016 on Zulu/UTC (Z) zone time.
 
 
 ## 4. Service Endpoints
-**Basic SLA Managment Service** exposes three endpoints to be described here:
+**Basic SLA Management Service** exposes three endpoints to be described here:
 
 - GET `/tenants` to get the scope definition.
 - POST `/check` to check for current SLA state.
-- POST `/metrics` to report runtime metrics to the datastore.
+- POST `/metrics` to report runtime metrics to the registry.
 
 ## 4.1 SLA Scope
-The SLA Scope endpoint allows to get the scope definition of the current account either by the account user name or the api key.
+The SLA Scope endpoint allows to get the scope definition of the current account either by the account user name or the API key.
 
 ### Sample Invocation:
 ```
@@ -113,22 +114,22 @@ GET /tenants?account=john@tenant.com
 ```
 
 ### Request Message
-The api parameters should contains one of the following fields:
+The API parameters should contains one of the following fields:
 
 #### Compulsory fields:
 
 | Field Name | Type       | Description  |
 | :--------- | :--------- | :----------- |
-| apikey     | `string`   | The api key that used to authenticate the coming request. |
+| apikey     | `string`   | The API key that used to authenticate the coming request. |
 | account    | `string`   | The user identifier coming from OAuth Provider. |
 
 ### Response Message Format
 
 | Field Name      | Type     | Description  |
 | :-------------- | :------- | :----------- |
-| sla             | `string` | **Optional** The url identifier of the agreement.  |
-| scope           | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
-| requestedMetrics | `array` | **Optional** List of the requested metrics that should be provided in the [SLA Check](#markdown-header-42-sla-check), where resolution = check. |
+| sla             | `string` | **Optional** The URL identifier of the agreement.  |
+| scope           | [`ScopeObject`](#scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
+| requestedMetrics | `array` | **Optional** List of the requested metrics that should be provided in the [SLA Check](#42-sla-check), where resolution = check. |
 
 Sample response:
 
@@ -159,8 +160,8 @@ The SLA Check endpoint allows to verify the current state of the SLA for a given
 
 In the essence, the service will respond true or false to notify the provider if it is:
 
-- acceptable to fulfill the request (positive case), or on the contrary,
-- not acceptable and then, the request should be denied (negative case).
+- Acceptable to fulfil the request (positive case), or on the contrary,
+- Not acceptable and then, the request should be denied (negative case).
 
 
 ### Sample Invocation:
@@ -195,9 +196,9 @@ The payload in the body can contains the following fields:
 | ts         | `datetime`    | **Required** The timestamp where the call was initiated. Date encoded as string using ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.sssZ`.  |
 | resource   | `string`      | **Required** The resource identifier requested. |
 | method     | `string`      | **Required** The HTTP method of the operation. |
-| scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
-| metrics    | `object`      | **Optional** An object contains the values of the requested metrics came from [SLA Scope](#markdown-header-41-sla-scope). |
-| environment | `string`     | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
+| scope      | [`ScopeObject`](#scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
+| metrics    | `object`      | **Optional** An object contains the values of the requested metrics came from [SLA Scope](#41-sla-scope). |
+| environment | `string`     | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment environments.  |
 
 
 Any other field not listed here can be added for custom extensions. The recommended way of extending with custom properties is
@@ -212,13 +213,13 @@ Based on agreement information, service will be identified.
 Based on scope provided, current plan will be recovered.
 Current SLA for this scope is calculated and responded.
 
-The calculation method is out of the scope for this spec and is let open for implementors.
+The calculation method is out of the scope for this spec and is let open for implementers.
 
 #### Pre-defined Metrics
-The result of the calulation may provide a list of requested metrics to be measured during the service execution.
+The result of the calculation may provide a list of requested metrics to be measured during the service execution.
 This extensibility point allow to add *pre-defined* or *custom* metrics to be gathered after, or during, the service execution.
 
-For example, [sla4oai-lib](https://bitbucket.org/sla4oai/sla4oai-lib) provides a list of pre-defined matrics at [metrics.yml](https://bitbucket.org/sla4oai/sla4oai-lib/src/master/predefined/metrics.yml).
+For example, [sla4oai-lib](https://bitbucket.org/sla4oai/sla4oai-lib) provides a list of pre-defined metrics at [metrics.yml](https://bitbucket.org/sla4oai/sla4oai-lib/src/master/predefined/metrics.yml).
 
 ### Response Message Format
 The response message follows the structure:
@@ -226,10 +227,10 @@ The response message follows the structure:
 | Field Name           | Type                | Description  |
 | :------------------- | :------------------ | :----------- |
 | accept               | `boolean`           | **Required** Indicates if the service is authorize for execution or denied.  |
-| quotas               | [`[limit]`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota limit info can be used to inform the client. |
-| rates                | [`[limit]`](#markdown-header-limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Rate limit info can be used to inform the client. |
+| quotas               | [`[limit]`](#limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Quota limit info can be used to inform the client. |
+| rates                | [`[limit]`](#limit-object) | **Optional** When present, provides some SLA constrains to apply to the current service invocation. Rate limit info can be used to inform the client. |
 | configuration        | `object`            | **Optional** Provides extra parameters that can affect the service delivery. Quality properties can be setup here to select a given the Quality of Service (QoS). |
-| requestedMetrics     | `array`             | **Optional** The supervisor will send all metrics in the agreement as requested metrics. The list should included pre-defined (domain indepenedent) matrics and custom (domain specific) metrics, where resolution = consumption. |
+| requestedMetrics     | `array`             | **Optional** The supervisor will send all metrics in the agreement as requested metrics. The list should included pre-defined (domain independent) metrics and custom (domain specific) metrics, where resolution = consumption. |
 | error                | `integer`           | **Optional** An error type code number if error. |
 | reason               | `string`            | **Optional** A description for the error in case of error.  |
 
@@ -396,9 +397,9 @@ The payload in the body accepts the following fields:
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
 | sla        | `string`      | **Required** The identifier of the agreement.  |
-| scope      | [`ScopeObject`](#markdown-header-scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
-| sender     | [`SenderObject`](#markdown-header-senderobject-definition) | **Required** An object describing the source of the metrics.  |
-| measures   | [`[MeasureObject]`](#markdown-header-measureobject-definition) | **Required** Array of measures. At least, it must contain one item. |
+| scope      | [`ScopeObject`](#scopeobject-definition) | **Required** The scope identifier for the user requesting the service. Quota or rate-limit are checked for this identity. |
+| sender     | [`SenderObject`](#senderobject-definition) | **Required** An object describing the source of the metrics.  |
+| measures   | [`[MeasureObject]`](#measureobject-definition) | **Required** Array of measures. At least, it must contain one item. |
 
 #### SenderObject definition:
 Sender describes the information related to the source of events and metrics. It is described only once in the payload to avoid
@@ -407,7 +408,7 @@ unnecessary repetition.
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|
 | host       | `string`      | **Required** The name of the physical node reporting the data. |
-| environment | `string`     | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment enviroments.  |
+| environment | `string`     | **Optional** Environment data. Sample (`devel`, `qa`, `production`). Allows to discriminate data and SLA for different deployment environments.  |
 | cluster    | `string`      | **Optional** Cluster name to aggregate services.  |
 
 
@@ -428,7 +429,7 @@ to use the prefix `x-` to avoid collisions with future versions of this standard
 
 
 ### Response Message Format
-Response proposed is very concise to indicate acceptation of the payoad. It only provide information in case of error.
+Response proposed is very concise to indicate acceptation of the payload. It only provide information in case of error.
 
 | Field Name | Type          | Description  |
 | :--------- | :------------:| :------------|

@@ -18,6 +18,7 @@ The **SLA4OAI** specification is licensed under [The Apache License, Version 2.0
 | 0.7     | 2016-06-07   | Incorporate Review 06. |
 | 0.8     | 2016-06-22   | Incorporate Review 07. |
 | 0.9     | 2016-07-10   | Incorporate Review 08. |
+| 0.9.1     | 2016-07-28   | Incorporate Review 09. |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
@@ -25,14 +26,14 @@ The **SLA4OAI** specification is licensed under [The Apache License, Version 2.0
 Based on the standards proposed by the [OAI](https://openapis.org/specification), SLA4OAI builds on top of it to add
 an optional profile for defining SLA (Service Level Agreements) over the APIs.
 
-This SLA definition in a neutral vendor flavour will allow to foster innovation in the area where APIs expose and documents its SLA,
+This SLA definition in a neutral vendor flavor will allow to foster innovation in the area where APIs expose and documents its SLA,
 API Management tools can import and measure such key metrics and composed SLAs for composed services aggregated way in a standard way.
 
 ### 1.1 Contents
 
-A. This specification describes the format for defining SLAs ove APIs in a neutral technology way.
+A. This specification describes the format for defining SLAs over APIs in a neutral technology way.
 
-B. The **Basic SLA Managment Service** [spec](./operationalServices.md) provides a basic not-normative runtime proposal API for measure and SLA enforcement defined in (A).
+B. The **Basic SLA Management Service** [spec](./operationalServices.md) provides a basic not-normative runtime proposal API for measure and SLA enforcement defined in (A).
 
 C. Reference implementations are provided to show (A) and (B) in a real examples:
 
@@ -42,7 +43,7 @@ C. Reference implementations are provided to show (A) and (B) in a real examples
 ## 2. Execution Model
 The execution model for SLA assumes as little as possible about the system to track the SLA to make it applicable in many scenarios.
 
-!["Figure 1. Basic deployment for an API."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/microservice.svg)
+!["Figure 1. Basic deployment for an API."](./images/microservice.svg?raw=true)
 
 *Figure 1. Basic deployment for an API.*
 
@@ -62,55 +63,54 @@ The service to be instrumented could be deployed as a single instance, cluster, 
 
 Figures 2, 3 and 4 shows different possible configurations deployments.
 
-!["Figure 2. Stand-alone deployment."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/standalone-deployment.svg)
-<img src="https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/standalone-deployment.svg">
+!["Figure 2. Stand-alone deployment."](./images/standalone-deployment.svg?raw=true)
 
 *Figure 2. Stand-alone deployment.*
 
-Stand-alone deployments are typical in development scenarios where debugging is prioritized over high availiability.
+Stand-alone deployments are typical in development scenarios where debugging is prioritized over high availability.
 In this scenario load-balancers are not involved and service is provided from a single node.
 
-!["Figure 3. Cluster with whitebox load-balancer deployment."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/whitebox-deployment.svg)
+!["Figure 3. Cluster with whitebox load-balancer deployment."](./images/whitebox-deployment.svg?raw=true)
 
 *Figure 3. Cluster with whitebox load-balancer deployment.*
 
 A cluster with a whitebox load-balancer contain more than one nodes for the API and a load-balancer we can parametrize
 to verify the current state of the SLA on requests. Based on the state, the balancer can deny or allow the service.
-The balancer is only responsible for checking SLA status, all metrices information gathered in the service node.
+The balancer is only responsible for checking SLA status, all metrics information gathered in the service node.
 
-!["Figure 4. Cluster with blackbox load-balancer deployment."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/blackbox-deployment.svg)
+!["Figure 4. Cluster with blackbox load-balancer deployment."](./images/blackbox-deployment.svg?raw=true)
 
 *Figure 4. Cluster with blackbox load-balancer deployment.*
 
 On the other hand, A cluster with a blackbox load-balancer cannot be parametrized for SLA checking. Therefore, SLA check and SLA
 enforce policies must be executed as middleware in the entrypoint for each service node.
 
-Depending on the environment used: local development environment, private or pubic cloud, IaaS or PaaS you will find these different
+Depending on the environment used: local development environment, private or public cloud, IaaS or PaaS you will find these different
 scenarios where an API is served.
 
 ## 3. Lifecycle of Agreement
 
 The lifecycle of any SLA agreement has two phases:
 
-1. The service provider design the levels (plans) of the service, then define the **Plans** document. See an example at [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
-2. The consumer choose the levels (plans) he need, then both provider and consumer agree the **SLA** document. See an example at [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
+1. The service provider designs the levels (plans) of the service, then define the **Plans** document. See an example at [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
+2. The consumer chooses the levels (plans) he needs, then both provider and consumer agree the **SLA** document. See an example at [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
 
-!["Figure 5. Lifecycle of Agreement."](https://github.com/isa-group/SLA4OAI-Specification/blob/master/images/lifecycle-agreement.svg)
+!["Figure 5. Lifecycle of Agreement."](./images/lifecycle-agreement.svg?raw=true)
 
 *Figure 5. Lifecycle of Agreement.*
 
 ## 4. Samples
 
 ### 4.1 Petstore
-This sample illustrates a simple Resource based API for Pets database.
+This sample illustrates a simple resource-based API for Pets database.
 
 - The full OpenAPI description is provided in [petstore-service.yml](./samples/petstore/petstore-service.yml).
-- The service provides a template SLA described in [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
-- The provider and consumer agree the SLA described in [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
+- The service provides a template SLA is described in [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
+- The SLA between the provider and consumer is described in [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
 
 
 ## 5. Specification
-A **SLA4API** document is build as an extension to a given OpenAPI document. This extension will add a SLA definition to all or
+A **SLA4API** document is built as an extension to a given OpenAPI document. This extension will add a SLA definition to all or
 part of the services exposed in the API.
 A full SLA definition is a JSON or a YAML document composed of the following structure.
 
@@ -147,15 +147,15 @@ The SLA Object must conform to the following constraints.
 
 | Field Name     | Type                                                                 | Description  |
 | :------------- | :------------------------------------------------------------------- | :----------- |
-| context        | [`ContextObject`](#markdown-header-522-contextobject)                | **Required** Holds the main information of the SLA context. |
-| infrastructure | [`InfrastructureObject`](#markdown-header-524-infrastructureobject)  | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
-| pricing        | [`PricingObject`](#markdown-header-525-pricingobject)                | **Optional** Global pricing data. |
-| metrics        | [`MetricsObject`](#markdown-header-526-metricsobject)                | **Required** A list of metrics to use in the context of the SLA. |
-| plans          | [`PlansObject`](#markdown-header-528-plansobject)                    | **Optional** A set of plans to define different service levels per plan. |
-| quotas         | [`QuotasObject`](#markdown-header-5210-quotasobject)                  | **Optional** Global quotas, these are the default quotas, later each plan can be override it. |
-| rates          | [`RatesObject`](#markdown-header-5211-ratesobject)                    | **Optional** Global rates, these are the default rates, later each plan can be override it. |
-| guarantees     | [`GuaranteesObject`](#markdown-header-5212-guaranteesobject)         | **Optional** Global guarantees, these are the default guarantees, later each plan can be override it. |
-| configuration  | [`ConfigurationsObject`](#markdown-header-5218-configurationsobject) | **Optional** Define the default configurations, later each plan can be override it. |
+| context        | [`ContextObject`](#522-contextobject)                | **Required** Holds the main information of the SLA context. |
+| infrastructure | [`InfrastructureObject`](#524-infrastructureobject)  | **Required** Provides information about tooling used for SLA storage, calculation, governance, etc. |
+| pricing        | [`PricingObject`](#525-pricingobject)                | **Optional** Global pricing data. |
+| metrics        | [`MetricsObject`](#526-metricsobject)                | **Required** A list of metrics to use in the context of the SLA. |
+| plans          | [`PlansObject`](#528-plansobject)                    | **Optional** A set of plans to define different service levels per plan. |
+| quotas         | [`QuotasObject`](#5210-quotasobject)                  | **Optional** Global quotas, these are the default quotas, but they could be overridden by each plan later. |
+| rates          | [`RatesObject`](#5211-ratesobject)                    | **Optional** Global rates, these are the default rates, but they could be overridden by each plan later. |
+| guarantees     | [`GuaranteesObject`](#5212-guaranteesobject)         | **Optional** Global guarantees, these are the default guarantees, but they could be overridden by each plan later. |
+| configuration  | [`ConfigurationsObject`](#5218-configurationsobject) | **Optional** Define the default configurations, later each plan can be override it. |
 
 #### 5.2.2 ContextObject
 Holds the main information of the SLA context.
@@ -163,12 +163,12 @@ Holds the main information of the SLA context.
 | Field Name     | Type                                                                 | Description  |
 | :------------- | :------------------------------------------------------------------- | :----------- |
 | id             | `string`                                                             | **Required** The identification of the SLA context. |
-| version        | `string`                                                             | **Required** Indicates the version of the sla format `='1.0'`. |
+| version        | `string`                                                             | **Required** Indicates the version of the SLA format `='1.0'`. |
 | api            | `uri`                                                                | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
-| type           | `string`                                                             | **Required** The type of SLA based on the [Lifecycle of Agreement](#markdown-header-3-lifecycle-of-agreement) (`plans` or `instance`). |
+| type           | `string`                                                             | **Required** The type of SLA based on the [Lifecycle of Agreement](#3-lifecycle-of-agreement) (`plans` or `instance`). |
 | provider       | `string`                                                             | **Optional** Provider information: data about the owner/host of the API. This field is **required** in case of the context type is `instance`. |
 | consumer       | `string`                                                             | **Optional** Consumer information, data about the entity that consumes the service. This field is **required** in case of the context type is `instance`. |
-| validity       | [`ValidityObject`](#markdown-header-523-validityobject)              | **Optional** Availability of the service expressed via time slots. This field is **required** in case of the context type is `instance`. |
+| validity       | [`ValidityObject`](#523-validityobject)              | **Optional** Availability of the service expressed via time slots. This field is **required** in case of the context type is `instance`. |
 
 **Example:**
 
@@ -286,7 +286,7 @@ Contains definitions of metrics with name, types and descriptions. References ca
 
 | Field Name     | Type                                                | Description  |
 | :------------- | :-------------------------------------------------- | :----------- |
-| {name}         | [`MetricObject`](#markdown-header-527-metricobject) | **Optional** Definitions of metrics with name, types and descriptions. |
+| {name}         | [`MetricObject`](#527-metricobject) | **Optional** Definitions of metrics with name, types and descriptions. |
 | {name}         | `object {"$ref": uri}`                              | **Optional** Reference to pre-existing metrics in external file. |
 
 **Example:**
@@ -318,7 +318,7 @@ metrics:
     $ref: ./metrics.yml#request
 ```
 
-In the above example, we refered to a pre-existing metrics [metrics.yml](./samples/petstore/metrics.yml) which has some predefined metrics like `requests` and `avgResponseTimeMs`.
+In the above example, we referred to a pre-existing metrics [metrics.yml](./samples/petstore/metrics.yml) which has some predefined metrics like `requests` and `responseTime`.
 
 #### 5.2.7 MetricObject
 Contains definitions of metric with type, description and unit of the metric.
@@ -329,7 +329,7 @@ Contains definitions of metric with type, description and unit of the metric.
 | format         | `string`                                      | **Optional** The extending format for the previously mentioned type. See [Data Type Formats](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#dataTypeFormat) for further details. |
 | description    | `string`                                      | **Optional** A brief description of the metric. |
 | unit           | `string`                                      | **Optional** The unit of the metric. |
-| resolution     | `enum [check, consumption]`                   | **Optional** Determine when this matric will be resolved. If value is `check` the metric will be sent before the calculation of sla state, else (`consumption`) the metric will be sent after consumption. |
+| resolution     | `enum [check, consumption]`                   | **Optional** Determine when this matric will be resolved. If value is `check` the metric will be sent before the calculation of SLA state, else if value is `consumption` the metric will be sent after consumption. |
 
 **Example:**
 
@@ -354,11 +354,11 @@ animalTypes:
 
 
 #### 5.2.8 PlansObject
-Contains a list of plans describing different level of service and prices.
+Contains a list of plans describing different levels of service and prices.
 
 | Field Pattern  | Type                                            | Description  |
 | :------------- | :---------------------------------------------- | :----------- |
-| {planName}     | [`PlanObject`](#markdown-header-529-planobject) | Describes a usage plan for the API with its associate costs, availability and guarantees. |
+| {planName}     | [`PlanObject`](#529-planobject) | Describes a usage plan for the API with its associate costs, availability and guarantees. |
 
 **Example:**
 
@@ -425,12 +425,12 @@ Describes a plan in full.
 
 | Field Name     | Type                                                                 | Description  |
 | :------------- | :------------------------------------------------------------------- | :----------- |
-| configuration  | [`ConfigurationsObject`](#markdown-header-5218-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
+| configuration  | [`ConfigurationsObject`](#5218-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
 | availability   | `string`                                                             | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
-| pricing        | [`PricingObject`](#markdown-header-525-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides default pricing data defined before. |
-| quotas         | [`QuotasObject`](#markdown-header-5210-quotasobject)                  | **Optional** Specific quotas data for this plan. Overrides default quotas data defined before. |
-| rates          | [`RatesObject `](#markdown-header-5211-ratesobject)                   | **Optional** Specific rates data for this plan. Overrides default rates data defined before. |
-| guarantees     | [`GuaranteesObject`](#markdown-header-5212-guaranteesobject)         | **Optional** Specific guarantees data for this plan. Overrides default guarantees data defined before. |
+| pricing        | [`PricingObject`](#525-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides default pricing data defined before. |
+| quotas         | [`QuotasObject`](#5210-quotasobject)                  | **Optional** Specific quotas data for this plan. Overrides default quotas data defined before. |
+| rates          | [`RatesObject `](#5211-ratesobject)                   | **Optional** Specific rates data for this plan. Overrides default rates data defined before. |
+| guarantees     | [`GuaranteesObject`](#5212-guaranteesobject)         | **Optional** Specific guarantees data for this plan. Overrides default guarantees data defined before. |
 
 
 **Example:**
@@ -496,7 +496,7 @@ Contains a map from name to PathObject describing the quota limits for the servi
 
 | Field Pattern  | Type                                             | Description  |
 | :------------- | :----------------------------------------------- | :----------- |
-| {pathName}     | [`PathObject`](#markdown-header-5215-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
+| {pathName}     | [`PathObject`](#5215-pathobject) | **Optional** Describes the API endpoint path quota configurations. |
 
 
 **Example:**
@@ -532,7 +532,7 @@ Contains a map from name to PathObject describing the rate limits for the servic
 
 | Field Pattern  | Type                                             | Description  |
 | :------------- | :----------------------------------------------- | :----------- |
-| {pathName}     | [`PathObject`](#markdown-header-5215-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
+| {pathName}     | [`PathObject`](#5215-pathobject) | **Optional** Describes the API endpoint path rate configurations. |
 
 
 **Example:**
@@ -568,7 +568,7 @@ Contains a map from name to GuaranteeObject describing the guarantees for the se
 
 | Field Pattern  | Type                                                       | Description  |
 | :------------- | :--------------------------------------------------------- | :----------- |
-| {pathName}     | [`GuaranteeObject`](#markdown-header-5213-guaranteeobject) | **Optional** Describes a guarantee level supported by the plan. |
+| {pathName}     | [`GuaranteeObject`](#5213-guaranteeobject) | **Optional** Describes a guarantee level supported by the plan. |
 
 **Example:**
 
@@ -602,7 +602,7 @@ Describes a guarantee level supported by the plan.
 
 | Field Name     | Type                                                                         | Description  |
 | :------------- | :--------------------------------------------------------------------------- | :----------- |
-| {MethodName}   | [`GuaranteeObjectiveObject`](#markdown-header-5214-guaranteeobjectiveobject) |  **Optional** An object describes the guarantee level. |
+| {MethodName}   | [`GuaranteeObjectiveObject`](#5214-guaranteeobjectiveobject) |  **Optional** An object describes the guarantee level. |
 
 **Example:**
 
@@ -633,7 +633,7 @@ An object describes the guarantee level.
 
 | Field Name     | Type                                           | Description  |
 | :------------- | :--------------------------------------------- | :----------- |
-| objective      | [`Expression`](#markdown-header-6-expressions) |  **Required** The objective of the guarantee. |
+| objective      | [`Expression`](#6-expressions) |  **Required** The objective of the guarantee. |
 | period         | `string`                                       |  **Optional** The period of the objective (secondly, minutely, hourly, daily, monthly or yearly). |
 | window         | `string`                                       |  **Optional** The state of the Objective (dynamic or static) |
 | scope          | `string`                                       |  **Optional** The scope of who request the service. |
@@ -666,7 +666,7 @@ The API endpoint path.
 
 | Field Pattern  | Type                                                       | Description  |
 | :------------- | :--------------------------------------------------------- | :----------- |
-| {methodName}   | [`OperationObject`](#markdown-header-5216-operationobject) | **Optional** the operations attached to this path. |
+| {methodName}   | [`OperationObject`](#5216-operationobject) | **Optional** the operations attached to this path. |
 
 
 **Example:**
@@ -699,7 +699,7 @@ The operations attached to the path.
 
 | Field Pattern  | Type                                               | Description  |
 | :------------- | :------------------------------------------------- | :----------- |
-| {metricName}   | [`LimitObject`](#markdown-header-5217-limitobject) | **Optional** The allowed limits of the request. |
+| {metricName}   | [`LimitObject`](#5217-limitobject) | **Optional** The allowed limits of the request. |
 
 
 **Example:**
@@ -779,7 +779,7 @@ configuration:
 Guarantee's objective is expressed as a boolean expression which produces a Boolean value when evaluated.
 
 ### 6.1  Supported expressions
-Currently only simple comparassion operators are supported.
+Currently only simple comparison  operators are supported.
 
 **Supported operators:**
 
