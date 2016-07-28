@@ -37,7 +37,8 @@ This **Basic SLA Management Service** API is introduced to provide an operationa
 [SLA4API](README.md) specification.
 
 ## 2. Context
-!["Figure 1. Architecture"](images/sla0.svg?raw=true)
+
+<img src="./images/sla0.svg" />
 
 Figure 1. Illustrates the proposed architecture to instrument a service using **Basic SLA Management Service** approach.
 
