@@ -15,4 +15,4 @@ The current version of the Basic SLA Management Services is 0.7.1 and you can fi
 
 ## Tools and Libraries
 
-Looking to see how you can implement APIs regulated by SLA? Check out our [SLA4OAI-node](https://github.com/isa-group/SLA4OAI-node)
+Looking to see how you can implement APIs regulated by SLA? Check out the [SLA4OAI-node](https://github.com/isa-group/SLA4OAI-node) for library for NodeJS.
