@@ -1,6 +1,6 @@
 # SLA for Open API Initiative Specification
 
-The goal of the [SLA4OAI Specification](./Specification.md) is to define a standard which allows to write
+The goal of the [SLA4OAI Specification](./Specification.md) is to promote an open specification for
 services level agreement over REST APIs which are defined via [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification).  This specification describes the format for defining SLAs over APIs in a neutral technology way.
 
 In order to validate the specification a [Basic SLA Management Services](./operationalServices.md) is proposed which offers a way to implement the services that control, manage, report and track SLAs.
