@@ -94,9 +94,6 @@ The lifecycle of any SLA agreement has two phases:
 1. The service provider designs the levels (plans) of the service, then define the **Plans** document. See an example at [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
 2. The consumer chooses the levels (plans) he needs, then both provider and consumer agree the **SLA** document. See an example at [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
 
-!["Figure 5. Lifecycle of Agreement."](https://bytebucket.org/sla4oai/sla4aoi-spec/raw/c8a42a3cfee1846782431f12fc67131760354800/images/lifecycle-agreement.svg?token=04f52774a92163df8e886949787ad96603fa6f0b)
-
-*Figure 5. Lifecycle of Agreement.*
 
 ## 4. Samples
 
