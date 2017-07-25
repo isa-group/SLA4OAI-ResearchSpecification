@@ -35,7 +35,8 @@ This **Basic SLA Management Service** API is introduced to provide an operationa
 [SLA4API](README.md) specification.
 
 ## 2. Context
-!["Figure 1. Architecture"](https://bytebucket.org/sla4oai/sla4aoi-spec/raw/c8a42a3cfee1846782431f12fc67131760354800/images/sla0.svg?token=112cfb3fa3bcbe40b8888b7e40c23faa3513cd9d)
+
+![Figure 1. Architecture.](/images/sla0.png?raw=true)
 
 Figure 1. Illustrates the proposed architecture to instrument a service using **Basic SLA Management Service** approach.
 
