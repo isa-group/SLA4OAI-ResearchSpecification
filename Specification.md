@@ -18,6 +18,7 @@ in this document are to be interpreted as described in [RFC 2119](http://www.iet
 | 0.8     | 2016-06-22   | Incorporate Review 07. |
 | 0.9     | 2016-07-10   | Incorporate Review 08. |
 | 0.9.1     | 2016-07-28   | Incorporate Review 09. |
+| 0.9.2     | 2018-11-26   | Fixing typos. |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
@@ -25,18 +26,18 @@ in this document are to be interpreted as described in [RFC 2119](http://www.iet
 Based on the standards proposed by the [OAI](https://openapis.org/specification), SLA4OAI builds on top of it to add
 an optional profile for defining SLA (Service Level Agreements) over the APIs.
 
-This SLA definition in a neutral vendor flavor will allow to foster innovation in the area where APIs expose and documents its SLA,
+This SLA definition in a neutral vendor flavor will allow fostering innovation in the area where APIs expose and documents its SLA,
 API Management tools can import and measure such key metrics and composed SLAs for composed services aggregated way in a standard way.
 
 ### 1.1 Contents
 
 A. This specification describes the format for defining SLAs over APIs in a neutral technology way.
 
-B. The **Basic SLA Management Service** [spec](./operationalServices.md) provides a basic not-normative runtime proposal API for measure and SLA enforcement defined in (A).
+B. The **Basic SLA Management Service** [spec](./operationalServices.md) provides a basic not-normative runtime proposal API for SLA measuring and enforcing, as defined in (A).
 
 C. Reference implementations are provided to show (A) and (B) in a real examples:
 
-   1. Server side implementations: [sla-service-mock](https://sla-service-mock.herokuapp.com/), governify/v6   
+   1. Server side implementations:
    2. Client side implementations: plugins for generated [Hivepod](https://www.hivepod.io) backends.
 
 ## 2. Execution Model
@@ -67,13 +68,13 @@ Figures 2, 3 and 4 shows different possible configurations deployments.
 *Figure 2. Stand-alone deployment.*
 
 Stand-alone deployments are typical in development scenarios where debugging is prioritized over high availability.
-In this scenario load-balancers are not involved and service is provided from a single node.
+In this scenario, load-balancers are not involved and service is provided from a single node.
 
 ![Figure 3. Cluster with whitebox load-balancer deployment.](/images/whitebox-deployment.png?raw=true)
 
 *Figure 3. Cluster with whitebox load-balancer deployment.*
 
-A cluster with a whitebox load-balancer contain more than one nodes for the API and a load-balancer we can parametrize
+A cluster with a whitebox load-balancer contains more than one nodes for the API and a load-balancer we can parametrize
 to verify the current state of the SLA on requests. Based on the state, the balancer can deny or allow the service.
 The balancer is only responsible for checking SLA status, all metrics information gathered in the service node.
 
@@ -92,7 +93,7 @@ scenarios where an API is served.
 The lifecycle of any SLA agreement has two phases:
 
 1. The service provider designs the levels (plans) of the service, then define the **Plans** document. See an example at [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
-2. The consumer chooses the levels (plans) he needs, then both provider and consumer agree the **SLA** document. See an example at [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
+2. The consumer chooses the levels (plans) he needs, then both provider and consumer agree on the **SLA** document. See an example at [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
 
 
 ## 4. Samples
@@ -100,19 +101,19 @@ The lifecycle of any SLA agreement has two phases:
 ### 4.1 Petstore
 This sample illustrates a simple resource-based API for Pets database.
 
-- The full OpenAPI description is provided in [petstore-service.yml](./samples/petstore/petstore-service.yml).
+- The full OpenAPI description is provided in [petstore-service.yml](../samples/petstore/petstore-service.yml).
 - The service provides a template SLA is described in [petstore-plans.yml](./samples/petstore/petstore-plans.yml).
 - The SLA between the provider and consumer is described in [pro-petstore-sla.yml](./samples/petstore/pro-petstore-sla.yml).
 
 
 ## 5. Specification
-A **SLA4API** document is built as an extension to a given OpenAPI document. This extension will add a SLA definition to all or
+A **SLA4API** document is built as an extension to a given OpenAPI document. This extension will add an SLA definition to all or
 part of the services exposed in the API.
 A full SLA definition is a JSON or a YAML document composed of the following structure.
 
 ### 5.1 Reference from an OpenAPI document
 To declare a given API exposes an SLA, the OpenAPI description is extended with an optional attribute
-`x-sla` inside the `info` object. The value contains an URI pointing to the document describing the SLA.
+`x-sla` inside the `info` object. The value contains a URI pointing to the document describing the SLA.
 
 **Example:**
 
@@ -154,13 +155,13 @@ The SLA Object must conform to the following constraints.
 | configuration  | [`ConfigurationsObject`](#5218-configurationsobject) | **Optional** Define the default configurations, later each plan can be override it. |
 
 #### 5.2.2 ContextObject
-Holds the main information of the SLA context.
+Holds the main information about the SLA context.
 
 | Field Name     | Type                                                                 | Description  |
 | :------------- | :------------------------------------------------------------------- | :----------- |
 | id             | `string`                                                             | **Required** The identification of the SLA context. |
 | version        | `string`                                                             | **Required** Indicates the version of the SLA format `='1.0'`. |
-| api            | `uri`                                                                | **Required** Indicates an URI (absolute or relative) describing the API to instrument described in the OpenAPI format. |
+| api            | `uri`                                                                | **Required** Indicates a URI (absolute or relative) describing the API, described in the OpenAPI format, to be instrumented. |
 | type           | `string`                                                             | **Required** The type of SLA based on the [Lifecycle of Agreement](#3-lifecycle-of-agreement) (`plans` or `instance`). |
 | provider       | `string`                                                             | **Optional** Provider information: data about the owner/host of the API. This field is **required** in case of the context type is `instance`. |
 | consumer       | `string`                                                             | **Optional** Consumer information, data about the entity that consumes the service. This field is **required** in case of the context type is `instance`. |
@@ -228,8 +229,8 @@ The infrastructure object describes the operational tooling to use in the servic
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
-| supervisor     | `uri`         | **Required** Location of the SLA Check service accordingly to the [Basic SLA Managment Service](./operationalServices.md) spec. |
-| monitor        | `uri`         | **Required** Location of the SLA Metrics endpoint accordingly to the [Basic SLA Managment Service](./operationalServices.md) spec. |
+| supervisor     | `uri`         | **Required** Location of the SLA Check service accordingly to the [Basic SLA Management Service](./operationalServices.md) spec. |
+| monitor        | `uri`         | **Required** Location of the SLA Metrics endpoint accordingly to the [Basic SLA Management Service](./operationalServices.md) spec. |
 | {name}         | `uri`         | **Optional** Optional endpoints of SLA governance infrastructure. |
 
 **Example:**
@@ -254,9 +255,9 @@ Describes the general information of the pricing of the API.
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
-| cost           | `number`      | **Optional** Cost associated to this service. Defaults to `0` if unspecified. |
+| cost           | `number`      | **Optional** Cost associated with this service. Defaults to `0` if unspecified. |
 | currency       | `string`      | **Optional** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. Defaults to `USD` if unspecified. |
-| billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quartely` Billing at end  of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
+| billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quarterly` Billing at end of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
 
 **Example:**
 
@@ -325,7 +326,7 @@ Contains definitions of metric with type, description and unit of the metric.
 | format         | `string`                                      | **Optional** The extending format for the previously mentioned type. See [Data Type Formats](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#dataTypeFormat) for further details. |
 | description    | `string`                                      | **Optional** A brief description of the metric. |
 | unit           | `string`                                      | **Optional** The unit of the metric. |
-| resolution     | `enum [check, consumption]`                   | **Optional** Determine when this matric will be resolved. If value is `check` the metric will be sent before the calculation of SLA state, else if value is `consumption` the metric will be sent after consumption. |
+| resolution     | `enum [check, consumption]`                   | **Optional** Determine when this metric will be resolved. If `value` is `check` the metric will be sent before the calculation of SLA state, else if `value` is `consumption` the metric will be sent after consumption. |
 
 **Example:**
 
@@ -775,7 +776,7 @@ configuration:
 Guarantee's objective is expressed as a boolean expression which produces a Boolean value when evaluated.
 
 ### 6.1  Supported expressions
-Currently only simple comparison  operators are supported.
+Currently, only simple comparison operators are supported.
 
 **Supported operators:**
 
