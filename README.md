@@ -7,7 +7,7 @@ In order to validate the specification a [Basic SLA Management Services](./opera
 
 This GitHub project is the starting point for SLA4OAI. Here you will find the information you need about the SLA4OAI Specification, a simple static sample of what it looks like, and some general information regarding the project.
 
-## Current Version - 0.9.1
+## Current Version - 0.9.2
 
 The current version of the SLA4OAI Specification is 0.9.2 and you can find it [here](./Specification.md)
 
