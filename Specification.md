@@ -119,10 +119,10 @@ To declare a given API exposes an SLA, the OpenAPI description is extended with 
 
 ```
 {
-   "swagger": "2.0",
+   "openapi": "3.0.2",
    "info":{
       "title": "Swagger Petstore (Simple)",
-      "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+      "description": "A sample API that uses a petstore as an example to demonstrate features in the OpenAPI specification",
       "version": "1.0.0",
       "x-sla": "./petstore-plans.yml"
    }
@@ -130,10 +130,10 @@ To declare a given API exposes an SLA, the OpenAPI description is extended with 
 ```
 
 ```
-swagger: '2.0'
+openapi: '3.0.2'
 info:
     title: "Swagger Petstore (Simple)"
-    description: "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification"
+    description: "A sample API that uses a petstore as an example to demonstrate features in the OpenAPI specification"
     version: "1.0.0"
     x-sla: ./petstore-plans.yml
 ```
@@ -322,8 +322,8 @@ Contains definitions of metric with type, description and unit of the metric.
 
 | Field Name     | Type                                          | Description  |
 | :------------- | :-------------------------------------------- | :------------|
-| type           | `string`                                      | **Required** This is the metric type accordingly to [the OAI spec format column](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types). |
-| format         | `string`                                      | **Optional** The extending format for the previously mentioned type. See [Data Type Formats](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#dataTypeFormat) for further details. |
+| type           | `string`                                      | **Required** This is the metric type accordingly to [the OAI spec format column](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#dataTypes). |
+| format         | `string`                                      | **Optional** The extending format for the previously mentioned type. See [Data Type Formats](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#dataTypeFormat) for further details. |
 | description    | `string`                                      | **Optional** A brief description of the metric. |
 | unit           | `string`                                      | **Optional** The unit of the metric. |
 | resolution     | `enum [check, consumption]`                   | **Optional** Determine when this metric will be resolved. If `value` is `check` the metric will be sent before the calculation of SLA state, else if `value` is `consumption` the metric will be sent after consumption. |
@@ -804,5 +804,5 @@ Supported expression syntax has a single form: Property + Operator + Value
 2. [JSON](http://www.json.org)
 3. [YAML](http://yaml.org/spec)
 4. Datetime encoding. [ISO 8601](http://www.iso.org/iso/catalogue_detail?csnumber=40874)
-5. [OpenAPI Specification](https://openapis.org/specification)
+5. [OpenAPI Specification v3.0.2](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)
 6. Currency codes. [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217)
