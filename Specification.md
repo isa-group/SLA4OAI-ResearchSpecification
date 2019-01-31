@@ -19,6 +19,7 @@ in this document are to be interpreted as described in [RFC 2119](http://www.iet
 | 0.9     | 2016-07-10   | Incorporate Review 08. |
 | 0.9.1     | 2016-07-28   | Incorporate Review 09. |
 | 0.9.2     | 2018-11-26   | Fixing typos. |
+| 0.9.3     | 2019-01-31   | Update references to latest OpenAPI Sepcification (v3.0.2). |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
@@ -117,25 +118,23 @@ To declare a given API exposes an SLA, the OpenAPI description is extended with 
 
 **Example:**
 
-```
+```json
 {
    "openapi": "3.0.2",
    "info":{
-      "title": "Swagger Petstore (Simple)",
-      "description": "A sample API that uses a petstore as an example to demonstrate features in the OpenAPI specification",
+      "title": "Sample Pet Store API (by Swagger)",
       "version": "1.0.0",
       "x-sla": "./petstore-plans.yml"
    }
 }
 ```
 
-```
-openapi: '3.0.2'
+```yaml
+openapi: "3.0.2"
 info:
-    title: "Swagger Petstore (Simple)"
-    description: "A sample API that uses a petstore as an example to demonstrate features in the OpenAPI specification"
-    version: "1.0.0"
-    x-sla: ./petstore-plans.yml
+  version: 1.0.0
+  title: Sample Pet Store API (by Swagger)
+  x-sla: ./petstore-plans.yml
 ```
 
 ### 5.2 SLA Document Schema
