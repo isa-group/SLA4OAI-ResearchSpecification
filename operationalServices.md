@@ -218,7 +218,7 @@ The calculation method is out of the scope for this spec and is let open for imp
 The result of the calculation may provide a list of requested metrics to be measured during the service execution.
 This extensibility point allow to add *pre-defined* or *custom* metrics to be gathered after, or during, the service execution.
 
-For example, [sla4oai-lib](https://bitbucket.org/sla4oai/sla4oai-lib) provides a list of pre-defined metrics at [metrics.yml](https://bitbucket.org/sla4oai/sla4oai-lib/src/master/predefined/metrics.yml).
+For example, the NodeJS module [SLA4OAI-node](https://github.com/isa-group/SLA4OAI-node) provides a list of pre-defined metrics at [metrics.yml](https://bitbucket.org/sla4oai/sla4oai-lib/src/master/predefined/metrics.yml).
 
 ### Response Message Format
 The response message follows the structure:
