@@ -19,7 +19,7 @@ in this document are to be interpreted as described in [RFC 2119](http://www.iet
 | 0.9     | 2016-07-10   | Incorporate Review 08. |
 | 0.9.1     | 2016-07-28   | Incorporate Review 09. |
 | 0.9.2     | 2018-11-26   | Fixing typos. |
-| 0.9.3     | 2019-01-31   | Update references to latest OpenAPI Sepcification (v3.0.2). |
+| 0.9.3     | 2019-01-31   | Update references to latest OpenAPI Specification (v3.0.2). |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
