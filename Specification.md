@@ -34,7 +34,7 @@ API Management tools can import and measure such key metrics and composed SLAs f
 
 A. This specification describes the format for defining SLAs over APIs in a neutral technology way.
 
-B. The **Basic SLA Management Service** [spec](./operationalServices.md) provides a basic not-normative runtime proposal API for SLA measuring and enforcing, as defined in (A).
+B. The **Basic SLA Management Service** [spec](./operationalServices.md) provides a basic non-normative runtime proposal API for SLA measuring and enforcing, as defined in (A).
 
 C. Reference implementations are provided to show (A) and (B) in a real examples:
 
