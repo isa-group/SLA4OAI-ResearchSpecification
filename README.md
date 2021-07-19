@@ -17,9 +17,9 @@ In parallel to the main SLA4OAI spec, a different Research Spec with additional 
 
 ### Current Version - 0.9.3
 
-The current Research Version of the SLA4OAI Specification is 0.9.3 and you can find it [here](./Specification-0.9.3.md)
+The current Research Version of the SLA4OAI Specification is 0.9.3 and you can find it [here](./Specification.md)
 
-The current Research Version of the Basic SLA Management Services is 0.7.1 and you can find it [here](./operationalServices-0.7.1.md)
+The current Research Version of the Basic SLA Management Services is 0.7.1 and you can find it [here](./operationalService.md)
 
 ### Tools and Libraries
 
