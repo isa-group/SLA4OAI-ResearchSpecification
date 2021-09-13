@@ -20,6 +20,7 @@ in this document are to be interpreted as described in [RFC 2119](http://www.iet
 | 0.9.1     | 2016-07-28   | Incorporate Review 09. |
 | 0.9.2     | 2018-11-26   | Fixing typos. |
 | 0.9.3     | 2019-01-31   | Update references to latest OpenAPI Specification (v3.0.2). |
+| 0.9.4     | 2021-09-13   | Add `custom` field to PricingObject. |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
@@ -254,9 +255,10 @@ Describes the general information of the pricing of the API.
 
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
-| cost           | `number`      | **Optional** Cost associated with this service. Defaults to `0` if unspecified. |
+| cost           | `number`      | **Optional** Cost associated with this service. Ignored if `custom` is set to `true`. Defaults to `0` if unspecified. |
+| custom         | `boolean`     | **Optional** Whether this service has a custom cost to be negotiated with its provider. If set to `true`, the `cost` should not be specified and will be ignored in that case. Defaults to `false`.
 | currency       | `string`      | **Optional** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. Defaults to `USD` if unspecified. |
-| billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quarterly` Billing at end of the quarter. -  `yearly` Billing at end of the year. Default to `monthly` if unspecified. |
+| billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quarterly` Billing at end of the quarter. -  `yearly` Billing at end of the year. Defaults to `monthly` if unspecified. |
 
 **Example:**
 
@@ -264,6 +266,7 @@ Describes the general information of the pricing of the API.
 {
    "pricing":{
       "cost": 0,
+      "custom": false,
       "currency": "euro",
       "billing": "monthly"
    }
@@ -273,6 +276,7 @@ Describes the general information of the pricing of the API.
 ```
 pricing:
   cost: 0
+  custom: false
   currency: "euro"
   billing: "monthly"
 ```
