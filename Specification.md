@@ -21,6 +21,7 @@ in this document are to be interpreted as described in [RFC 2119](http://www.iet
 | 0.9.2     | 2018-11-26   | Fixing typos. |
 | 0.9.3     | 2019-01-31   | Update references to latest OpenAPI Specification (v3.0.2). |
 | 0.9.4     | 2021-09-13   | Add `custom` field to PricingObject. |
+| 0.9.5     | 2021-09-16   | Add `custom` field to LimitObject.   |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
@@ -731,7 +732,8 @@ The allowed limits of the request.
 
 | Field Pattern  | Type                           | Description  |
 | :------------- | :----------------------------- | :------------|
-| max            | `number`                       |  **Required** Max value that can be accepted. |
+| max            | `number`                       |  **Optional** Max value that can be accepted. Required if `custom` is set to `false`, but ignored if set to `true`.|
+| custom         | `boolean`                      |  **Optional** Whether there is a custom limit to be negotiated with its provider. If set to `true`, the `max` field should not be specified and will be ignored in that case. Defaults to `false`.
 | period         | `string`                       |  **Optional** The period of the objective (secondly, minutely, hourly, daily, monthly or yearly). |
 | scope          | `string`                       |  **Optional** The scope of who request the service. |
 
@@ -740,6 +742,7 @@ The allowed limits of the request.
 ```
 {
   "max": 20,
+  "custom": false,
   "period": "secondly",
   "scope": "account"
 }
@@ -747,6 +750,7 @@ The allowed limits of the request.
 
 ```
 max: 20
+custom: false
 period: secondly
 scope: account
 ```
