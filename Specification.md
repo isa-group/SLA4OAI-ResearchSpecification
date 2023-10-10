@@ -22,6 +22,7 @@ in this document are to be interpreted as described in [RFC 2119](http://www.iet
 | 0.9.3     | 2019-01-31   | Update references to latest OpenAPI Specification (v3.0.2). |
 | 0.9.4     | 2021-09-13   | Add `custom` field to PricingObject. |
 | 0.9.5     | 2021-09-16   | Add `custom` field to LimitObject.   |
+| 0.10.0     | 2023-10-XX   | Add `PeriodObject`, `CostObject`, `OverageCost` and globbing.   |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
@@ -153,7 +154,7 @@ The SLA Object must conform to the following constraints.
 | quotas         | [`QuotasObject`](#5210-quotasobject)                  | **Optional** Global quotas, these are the default quotas, but they could be overridden by each plan later. |
 | rates          | [`RatesObject`](#5211-ratesobject)                    | **Optional** Global rates, these are the default rates, but they could be overridden by each plan later. |
 | guarantees     | [`GuaranteesObject`](#5212-guaranteesobject)         | **Optional** Global guarantees, these are the default guarantees, but they could be overridden by each plan later. |
-| configuration  | [`ConfigurationsObject`](#5218-configurationsobject) | **Optional** Define the default configurations, later each plan can be override it. |
+| configuration  | [`ConfigurationsObject`](#5221-configurationsobject) | **Optional** Define the default configurations, later each plan can be override it. |
 
 #### 5.2.2 ContextObject
 Holds the main information about the SLA context.
@@ -257,7 +258,7 @@ Describes the general information of the pricing of the API.
 | Field Name     | Type          | Description  |
 | :------------- | :------------:| :------------|
 | cost           | `number`      | **Optional** Cost associated with this service. Ignored if `custom` is set to `true`. Defaults to `0` if unspecified. |
-| custom         | `boolean`     | **Optional** Whether this service has a custom cost to be negotiated with its provider. If set to `true`, the `cost` should not be specified and will be ignored in that case. Defaults to `false`.
+| custom         | `boolean`     | **Optional** Whether this service has a custom cost to be negotiated with its provider. If set to `true`, the `cost` should not be specified and will be ignored in that case. Defaults to `false`. |
 | currency       | `string`      | **Optional** Currency used to express the cost. Supported currency values are expressed in ISO 4217 format. Samples: `USD`, `EUR`, or `BTC` for US dollar, euro, or bitcoin, respectively. Defaults to `USD` if unspecified. |
 | billing        | `string`      | **Optional** Period used for billing. Supported values are: - `onepay` Unique payment before start using the service. - `daily` Billing at end of the day. - `weekly` Billing at end of the week. - `monthly` Billing at end of the month. - `quarterly` Billing at end of the quarter. -  `yearly` Billing at end of the year. Defaults to `monthly` if unspecified. |
 
@@ -373,7 +374,10 @@ Contains a list of plans describing different levels of service and prices.
             "requests": [
               {
                 "max": 1,
-                "period": "secondly"
+                "period": {
+                  "amount": 1,
+                  "unit": "second"
+                }
               }
             ]
           }
@@ -390,7 +394,16 @@ Contains a list of plans describing different levels of service and prices.
             "requests": [
               {
                 "max": 20,
-                "period": "secondly"
+                "period": {
+                  "amount": 1,
+                  "unit": "second"
+                },
+                "cost": {
+                  "overage: {
+                    "overage": 1,
+                    "cost": 0.0001
+                  }
+                }
               }
             ]
           }
@@ -409,7 +422,9 @@ plans:
         get:
           requests:
             - max: 1
-              period: secondly
+              period:
+                amount: 1
+                unit: second
   pro:
     pricing:
       cost: 50
@@ -418,7 +433,13 @@ plans:
         get:
           requests:
             - max: 20
-              period: secondly
+              period:
+                amount: 1
+                unit: second
+              cost:
+                overage:
+                  overage: 1
+                  cost: 0.0001
 ```
 
 #### 5.2.9 PlanObject
@@ -426,7 +447,7 @@ Describes a plan in full.
 
 | Field Name     | Type                                                                 | Description  |
 | :------------- | :------------------------------------------------------------------- | :----------- |
-| configuration  | [`ConfigurationsObject`](#5218-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
+| configuration  | [`ConfigurationsObject`](#5221-configurationsobject) | **Optional** Configuration parameters for the service tailored for the plan. |
 | availability   | `string`                                                             | **Optional** Availability of the service for this plan expressed via time slots using the ISO 8601 time intervals format. |
 | pricing        | [`PricingObject`](#525-pricingobject)                | **Optional** Specific pricing data for this plan. Overrides default pricing data defined before. |
 | quotas         | [`QuotasObject`](#5210-quotasobject)                  | **Optional** Specific quotas data for this plan. Overrides default quotas data defined before. |
@@ -451,7 +472,16 @@ Describes a plan in full.
           "requests": [
             {
               "max": 20,
-              "period": "secondly"
+              "period": {
+                "amount": 1,
+                "unit": "second"
+              },
+              "cost": {
+                "overage: {
+                  "overage": 1,
+                  "cost": 0.0001
+                }
+              }
             }
           ]
         }
@@ -483,7 +513,13 @@ pro:
       get:
         requests:
           - max: 20
-            period: secondly
+            period:
+              amount: 1
+              unit: second
+            cost:
+              overage:
+                overage: 1
+                cost: 0.0001
   guarantees:
     global:
       global:
@@ -510,7 +546,16 @@ Contains a map from name to PathObject describing the quota limits for the servi
         "requests": [
           {
             "max": 20,
-            "period": "secondly"
+            "period": {
+              "amount": 1,
+              "unit": "second"
+            },
+            "cost": {
+              "overage: {
+                "overage": 1,
+                "cost": 0.0001
+              }
+            }
           }
         ]
       }
@@ -525,7 +570,13 @@ quotas:
     get:
       requests:
         - max: 20
-          period: secondly
+          period:
+            amount: 1
+            unit: second
+          cost:
+            overage:
+              overage: 1
+              cost: 0.0001
 ```
 
 #### 5.2.11 RatesObject
@@ -546,7 +597,10 @@ Contains a map from name to PathObject describing the rate limits for the servic
         "requests": [
           {
             "max": 1,
-            "period": "secondly"
+            "period": {
+              "amount": 1,
+              "unit": "second"
+            }
           }
         ]
       }
@@ -561,7 +615,9 @@ rates:
     get:
       requests:
         - max: 1
-          period: secondly
+          period:
+            amount: 1
+            unit: second
 ```
 
 #### 5.2.12 GuaranteesObject
@@ -667,7 +723,7 @@ The API endpoint path.
 
 | Field Pattern  | Type                                                       | Description  |
 | :------------- | :--------------------------------------------------------- | :----------- |
-| {methodName}   | [`OperationObject`](#5216-operationobject) | **Optional** the operations attached to this path. |
+| {methodName}   | [`OperationObject`](#5216-operationobject) | **Optional** The operations attached to this path. |
 
 
 **Example:**
@@ -679,7 +735,16 @@ The API endpoint path.
       "requests": [
         {
           "max": 1,
-          "period": "secondly"
+          "period": {
+            "unit": 1,
+            "amount": "second"
+          },
+          "cost": {
+            "overage: {
+              "overage": 1,
+              "cost": 0.0001
+            }
+          }
         }
       ]
     }
@@ -692,7 +757,13 @@ The API endpoint path.
   get:
     requests:
       - max: 1
-        period: secondly
+        period:
+          unit: 1
+          amount: second
+        cost:
+          overage:
+            overage: 1
+            cost: 0.0001
 ```
 
 #### 5.2.16 OperationObject
@@ -700,7 +771,7 @@ The operations attached to the path.
 
 | Field Pattern  | Type                                               | Description  |
 | :------------- | :------------------------------------------------- | :----------- |
-| {metricName}   | [`LimitObject`](#5217-limitobject) | **Optional** The allowed limits of the request. |
+| {metricName}   | [`LimitObject`](#5217-limitobject) | **Optional** The allowed limits of the metric. |
 
 
 **Example:**
@@ -711,8 +782,16 @@ The operations attached to the path.
     "requests": [
       {
         "max": 20,
-        "period": "secondly",
-        "scope": "account"
+        "period": {
+          "amount": 1,
+          "unit": "second"
+        },
+        "cost": {
+          "overage: {
+            "overage": 1,
+            "cost": 0.0001
+          }
+        }
       }
     ]
   }
@@ -723,19 +802,24 @@ The operations attached to the path.
 get:
   requests:
     - max: 20
-      period: secondly
-      scope: account
+      period:
+        amount: 1
+        unit: second
+      cost:
+        overage:
+          overage: 1
+          cost: 0.0001
 ```
 
 #### 5.2.17 LimitObject
-The allowed limits of the request.
+The allowed limits of the metric.
 
 | Field Pattern  | Type                           | Description  |
 | :------------- | :----------------------------- | :------------|
 | max            | `number`                       |  **Optional** Max value that can be accepted. Required if `custom` is set to `false`, but ignored if set to `true`.|
-| custom         | `boolean`                      |  **Optional** Whether there is a custom limit to be negotiated with its provider. If set to `true`, the `max` field should not be specified and will be ignored in that case. Defaults to `false`.
-| period         | `string`                       |  **Optional** The period of the objective (secondly, minutely, hourly, daily, monthly or yearly). |
-| scope          | `string`                       |  **Optional** The scope of who request the service. |
+| custom         | `boolean`                      |  **Optional** Whether there is a custom limit to be negotiated with its provider. If set to `true`, the `max` field should not be specified and will be ignored in that case. Defaults to `false`. |
+| period         | [`PeriodObject`](#5218-periodobject)                       |  **Optional** The period of the limit. |
+| cost           | [`CostObject`](#5219-costobject)                           |  **Optional** Additional costs of the limit. |
 
 **Example:**
 
@@ -743,19 +827,100 @@ The allowed limits of the request.
 {
   "max": 20,
   "custom": false,
-  "period": "secondly",
-  "scope": "account"
+  "period": {
+    "amount": 1,
+    "unit": "second"
+  },
+  "cost": {
+    "overage: {
+      "overage": 1,
+      "cost": 0.0001
+    }
+  }
 }
 ```
 
 ```
 max: 20
 custom: false
-period: secondly
-scope: account
+period:
+  amount: 1
+  unit: second
+cost:
+  overage:
+    overage: 1
+    cost: 0.0001
 ```
 
-#### 5.2.18 ConfigurationsObject
+#### 5.2.18 PeriodObject
+The period of the limit.
+
+| Field Pattern  | Type                           | Description  |
+| :------------- | :----------------------------- | :------------|
+| amount         | `number`                       |  **Required** The amount of units of the period.|
+| unit           | `string`                       |  **Required** The unit of the period (second, minute, day, etc.). |
+
+**Example:**
+
+```
+{
+  "amount": 1,
+  "unit": "second"
+}
+```
+
+```
+amount: 1
+unit: second
+```
+
+#### 5.2.19 CostObject
+Additional costs of the limit.
+
+| Field Pattern  | Type                           | Description  |
+| :------------- | :----------------------------- | :------------|
+| overage        | [`OverageObject`](#5220-overageobject) |  **Required** Details about overage costs of the limit.|
+
+**Example:**
+
+```
+{
+  "overage: {
+    "overage": 1,
+    "cost": 0.0001
+  }
+}
+```
+
+```
+overage:
+  overage: 1
+  cost: 0.0001
+```
+
+#### 5.2.20 OverageObject
+Details about overage costs of the limit.
+
+| Field Pattern  | Type                           | Description  |
+| :------------- | :----------------------------- | :------------|
+| overage        | `number`                       |  **Required** The number of units of the metric to apply overage costs.|
+| cost           | `number`                       |  **Required** The overage costs that apply when exceeding the limit.|
+
+**Example:**
+
+```
+{
+  "overage": 1,
+  "cost": 0.0001
+}
+```
+
+```
+overage: 1
+cost: 0.0001
+```
+
+#### 5.2.21 ConfigurationsObject
 Configurations description.
 
 | Field Pattern  | Type                           | Description  |
@@ -805,7 +970,12 @@ Supported expression syntax has a single form: Property + Operator + Value
 <value>      ::= <integer> | <string> | <double>
 ```
 
-## 7. References
+## 7. Globbing
+SLA4OAI supports globbing to simplify pricings where the same limitation applies to multiple paths and/or methods. The character `*` can be used as a wildcard to apply a limitation to multiple endpoints. For example, limitations attached to `/v1/*` apply to all endpoints whose paths start with `/v1`, such as `/v1/pets` or `/v1/owner/4/pets`, but it would not apply to `/api/v1/pets` because there is no wildcard before `/v1`. For methods, the word `all` can be used to indicate that a limitation in a certain endpoint (globbed or not) will apply to all methods.
+
+More restrictive globbed paths have higher priority than less restrictive paths. This means that if and endpoint matches two or more globbed paths with different limitations, the limitations in the more restrictive path will override the limitations in the others, if defined for the same metrics and methods. For example, if there are limitations defined for `all` methods in `/v1/*` and other limitations for the same metric for `get` in `/v1/pets/*`, the endpoint `/v1/pets/8` would have the second limitations for the GET method and the first limitations for any other methods, if available.
+
+## 8. References
 
 1. Keywords for use in RFCs to Indicate Requirement Levels. [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 2. [JSON](http://www.json.org)

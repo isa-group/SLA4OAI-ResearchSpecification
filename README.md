@@ -15,9 +15,9 @@ The current version of the SLA4OAI Specification **Draft** is 1.0.0 and you can 
 In parallel to the main SLA4OAI spec, a different Research Spec with additional features is being developed. This research track provides a mean to validate experimental features and  specifications, such as a [Basic SLA Management Services](./operationalServices.md) to stadardized services that control, manage, report and track SLAs.
 
 
-### Current Version - 0.9.5
+### Current Version - 0.10.0
 
-The current Research Version of the SLA4OAI Specification is 0.9.5 and you can find it [here](./Specification.md)
+The current Research Version of the SLA4OAI Specification is 0.10.0 and you can find it [here](./Specification.md)
 
 The current Research Version of the Basic SLA Management Services is 0.7.1 and you can find it [here](./operationalService.md)
 
