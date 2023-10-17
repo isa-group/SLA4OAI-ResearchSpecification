@@ -22,7 +22,7 @@ in this document are to be interpreted as described in [RFC 2119](http://www.iet
 | 0.9.3     | 2019-01-31   | Update references to latest OpenAPI Specification (v3.0.2). |
 | 0.9.4     | 2021-09-13   | Add `custom` field to PricingObject. |
 | 0.9.5     | 2021-09-16   | Add `custom` field to LimitObject.   |
-| 0.10.0     | 2023-10-XX   | Add `PeriodObject`, `CostObject`, `OverageCost` and globbing.   |
+| 0.10.0     | 2023-04-12   | Add `PeriodObject`, `CostObject`, `OverageCost` and globbing.   |
 
 ## 1. Introduction
 **SLA4OAI** is an open source standard for describing SLA in APIs.
