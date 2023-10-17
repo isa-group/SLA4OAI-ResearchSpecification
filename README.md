@@ -1,4 +1,4 @@
-# SLA for Open API Initiative Specification
+# SLA for Open API Initiative RESEARCH Specification
 
 The goal of the SLA4OAI Specification is to promote an open specification for
 services level agreement over REST APIs which are defined via [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification).  This specification describes the format for defining SLAs over APIs in a *Technology-Neutral* / *Vendor-neutral* way. 
@@ -10,12 +10,12 @@ This GitHub project is the starting point for SLA4OAI. Here you will find the in
 The current version of the SLA4OAI Specification **Draft** is 1.0.0 and you can find it [here](https://github.com/isa-group/SLA4OAI-Specification)
 
 
-## Research Versions
+## RESEARCH Versions
 
 In parallel to the main SLA4OAI spec, a different Research Spec with additional features is being developed. This research track provides a mean to validate experimental features and  specifications, such as a [Basic SLA Management Services](./operationalServices.md) to stadardized services that control, manage, report and track SLAs.
 
 
-### Current Version - 0.10.0
+### Current RESEARCH Version - 0.10.0
 
 The current Research Version of the SLA4OAI Specification is 0.10.0 and you can find it [here](./Specification.md)
 
