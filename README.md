@@ -17,8 +17,8 @@ The current Research Version of the Basic SLA Management Services is 0.7.1 and y
 
 ### Tools and Libraries
 
-[SLA4OAI-node](https://github.com/isa-group/SLA4OAI-node) module for NodeJS to implement APIs regulated by SLA and configured with SLA4OAI Research Version 0.9.3
-[SLA4OAI-analyzer](https://github.com/isa-group/sla4oai-analyzer) API to validate SLA4OAI Specs
+- [SLA4OAI-node](https://github.com/isa-group/SLA4OAI-node) module for NodeJS to implement APIs regulated by SLA and configured with SLA4OAI Research Version 0.9.3
+- [SLA4OAI-analyzer](https://github.com/isa-group/sla4oai-analyzer) API to validate SLA4OAI Specs
 
 
 
