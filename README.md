@@ -9,7 +9,7 @@ The current version of the official SLA4OAI Specification is 1.0.0 (**Draft**) a
 In parallel to the main official SLA4OAI spec, a different Research Spec with additional features is being developed. This research track provides a mean to validate experimental features and  specifications, such as a [Basic SLA Management Services](./operationalServices.md) to stadardized services that control, manage, report and track SLAs.
 
 
-### Current research version: 0.10.0
+### Current Research Version - 0.10.0
 
 The current Research Version of the SLA4OAI Specification is 0.10.0 and you can find it [here](./Specification.md)
 
@@ -18,3 +18,7 @@ The current Research Version of the Basic SLA Management Services is 0.7.1 and y
 ### Tools and Libraries
 
 [SLA4OAI-node](https://github.com/isa-group/SLA4OAI-node) module for NodeJS to implement APIs regulated by SLA and configured with SLA4OAI Research Version 0.9.3
+[SLA4OAI-analyzer](https://github.com/isa-group/sla4oai-analyzer) API to validate SLA4OAI Specs
+
+
+
